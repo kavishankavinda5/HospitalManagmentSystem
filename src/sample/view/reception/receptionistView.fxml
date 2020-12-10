@@ -7,7 +7,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1020.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="620.0" prefWidth="250.0" style="-fx-background-color: #ff8f00;" />
+      <AnchorPane prefHeight="620.0" prefWidth="250.0" style="-fx-background-color: #ff8f00;">
+         <children>
+            <Button layoutX="17.0" layoutY="174.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+            <Button layoutX="17.0" layoutY="250.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+            <Button layoutX="17.0" layoutY="107.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+            <Button layoutX="17.0" layoutY="323.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+            <Button layoutX="17.0" layoutY="399.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+         </children></AnchorPane>
       <Label layoutX="601.0" layoutY="162.0" text="Reception View">
          <font>
             <Font size="37.0" />
