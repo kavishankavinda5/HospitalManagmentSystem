@@ -24,5 +24,7 @@
          </font>
       </Label>
       <Button layoutX="327.0" layoutY="283.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+      <Button layoutX="327.0" layoutY="359.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
+      <Button layoutX="327.0" layoutY="216.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="191.0" text="Button" />
    </children>
 </AnchorPane>
