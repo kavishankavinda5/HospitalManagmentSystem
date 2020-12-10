@@ -17,5 +17,10 @@
             <Font size="37.0" />
          </font>
       </Label>
+      <Label layoutX="601.0" layoutY="386.0" text="Reception View">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
