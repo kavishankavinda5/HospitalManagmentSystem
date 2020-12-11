@@ -52,9 +52,7 @@ public class MainLoginController {
         mainLogin_adminView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
                 loadUserLogin("customLoginWindow", "Admin");
-
             }
         });
 
