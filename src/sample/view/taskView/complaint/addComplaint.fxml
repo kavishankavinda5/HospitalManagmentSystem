@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="vedPatientView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #8e24aa;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddComplaintController">
    <children>
-      <Label alignment="CENTER" layoutX="117.0" layoutY="29.0" prefHeight="170.0" prefWidth="502.0" text="Add Complaint" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="119.0" layoutY="41.0" prefHeight="170.0" prefWidth="502.0" text="Add Complaint" textFill="WHITE">
          <font>
             <Font size="67.0" />
          </font>
@@ -27,5 +27,15 @@
             </RadialGradient>
          </ripplerFill>
       </JFXButton>
+      <Label alignment="CENTER" layoutX="125.0" layoutY="188.0" prefHeight="170.0" prefWidth="502.0" text="Add Complaint" textFill="WHITE">
+         <font>
+            <Font size="67.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="125.0" layoutY="322.0" prefHeight="170.0" prefWidth="502.0" text="Add Complaint" textFill="WHITE">
+         <font>
+            <Font size="67.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
