@@ -4,7 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
+<AnchorPane fx:id="vedPatientView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #1dcdfe;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
+=======
 <AnchorPane fx:id="vedPatientView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #1dcdfe;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
+>>>>>>> 7de668a9a24dd79025c94b097c866dec2e19ee86
    <children>
       <Label alignment="TOP_CENTER" layoutX="-1.0" layoutY="-5.0" prefHeight="609.0" prefWidth="323.0" text="ADD &#10;VISITORS" textFill="WHITE">
          <font>
