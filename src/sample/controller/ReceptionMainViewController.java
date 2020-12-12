@@ -43,6 +43,18 @@ public class ReceptionMainViewController {
     private ImageView receptionView_home;
 
     @FXML
+    private JFXButton receptionView_addVisitor;
+
+    @FXML
+    private JFXButton receptionView_addComplaint;
+
+    @FXML
+    private JFXButton receptionView_addPostal;
+
+    @FXML
+    private JFXButton receptionView_addAppointment;
+
+    @FXML
     private AnchorPane receptionView_homePane;
 
     @FXML
@@ -76,7 +88,14 @@ public class ReceptionMainViewController {
         receptionView_viewPostal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("clicked");
+                System.out.println("you clicked receptionView_viewPostal view");
+                try {
+                    Pane view = getView("taskView/postal/viewEditDeletePostal");
+                    setReceptionViewCenter(view);
+                } catch (Exception e){
+                e.printStackTrace();
+            }
+
             }
         });
 
@@ -96,8 +115,17 @@ public class ReceptionMainViewController {
         receptionView_home.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
+                setReceptionViewCenter(receptionView_homePane);
+            }
+        });
+
+        receptionView_viewComplaint.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
                 try {
-                    Pane view = getView("dashBoards/adminMainHome");
+                    System.out.println("taskView/complaint/viewEditDeleteComplaint");
+                    Pane view = getView("taskView/complaint/viewEditDeleteComplaint");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -105,6 +133,58 @@ public class ReceptionMainViewController {
             }
         });
 
+        receptionView_addVisitor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    System.out.println("taskView/visitor/addVisitor");
+                    Pane view = getView("taskView/visitor/addVisitor");
+                    setReceptionViewCenter(view);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        receptionView_addAppointment.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                try {
+                    System.out.println("taskView/appointment/addAppointment");
+                    Pane view = getView("taskView/appointment/addAppointment");
+                    setReceptionViewCenter(view);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        receptionView_addComplaint.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    System.out.println("taskView/complaint/addComplaint");
+                    Pane view = getView("taskView/complaint/addComplaint");
+                    setReceptionViewCenter(view);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        receptionView_addPostal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    System.out.println("taskView/postal/addPostal");
+                    Pane view = getView("taskView/postal/addPostal");
+                    setReceptionViewCenter(view);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     public Pane getView(String fileName){
         //receptionView_task.setVisible(false);
@@ -118,6 +198,7 @@ public class ReceptionMainViewController {
 
     public void setReceptionViewCenter(Pane view){
         mainReceptionView.setCenter(view);
+
     }
 
     public void setReceptionViewLeft(Pane view){

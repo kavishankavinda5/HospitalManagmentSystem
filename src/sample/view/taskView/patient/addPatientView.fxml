@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="vedPatientView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #ff6090;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddUserController">
    <children>
-      <Label layoutX="194.0" layoutY="58.0" text="Add Patient">
+      <Label alignment="CENTER" layoutX="155.0" layoutY="215.0" prefHeight="170.0" prefWidth="443.0" text="Add Patient">
          <font>
-            <Font size="41.0" />
+            <Font size="67.0" />
          </font>
       </Label>
    </children>
-</Pane>
+</AnchorPane>
