@@ -23,7 +23,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <DropdownButton layoutX="186.0" layoutY="107.0">
+      <DropdownButton layoutX="186.0" layoutY="107.0" prefHeight="19.0" prefWidth="69.0" style="-fx-border-color: #BDBDBD;">
          <items>
             <MenuItem text="Choice 1" />
             <MenuItem text="Choice 2" />
@@ -35,20 +35,20 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="557.0" layoutY="104.0" style="-fx-cursor: #BDBDBD;" text="MM/DD/YYYY" />
+      <JFXTextField layoutX="557.0" layoutY="104.0" style="-fx-border-color: #BDBDBD;" styleClass="font color" text="MM/DD/YYYY" unFocusColor="#f2ebeb" />
       <Label layoutX="68.0" layoutY="155.0" text="Complaint By">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="186.0" layoutY="153.0" text="First Name" />
-      <JFXTextField layoutX="341.0" layoutY="153.0" text="Last Name" />
+      <JFXTextField layoutX="186.0" layoutY="153.0" style="-fx-border-color: #BDBDBD;" text="First Name" unFocusColor="#f8f6f6" />
+      <JFXTextField layoutX="341.0" layoutY="153.0" style="-fx-border-color: #BDBDBD;" text="Last Name" unFocusColor="#fcf9f9" />
       <Label layoutX="68.0" layoutY="202.0" text="Phone Number">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="186.0" layoutY="200.0" text="+94" />
+      <JFXTextField layoutX="186.0" layoutY="200.0" style="-fx-border-color: #BDBDBD;" text="+94" unFocusColor="#fcfafa" />
       <Label layoutX="500.0" layoutY="202.0" text="Attachment">
          <font>
             <Font size="14.0" />
@@ -60,19 +60,19 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="182.0" layoutY="254.0" prefHeight="25.0" prefWidth="520.0" text="Description" />
+      <JFXTextField layoutX="182.0" layoutY="254.0" prefHeight="25.0" prefWidth="520.0" style="-fx-border-color: #BDBDBD;" text="Description" unFocusColor="#f5f3f3" />
       <Label layoutX="67.0" layoutY="314.0" text="Note">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="182.0" layoutY="311.0" prefHeight="25.0" prefWidth="520.0" text="Note">
+      <JFXTextField layoutX="182.0" layoutY="311.0" prefHeight="25.0" prefWidth="520.0" style="-fx-border-color: #BDBDBD;" text="Note" unFocusColor="#f8f5f5">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
       </JFXTextField>
-      <JFXTextField layoutX="182.0" layoutY="345.0" prefHeight="25.0" prefWidth="520.0" />
-      <JFXTextField layoutX="182.0" layoutY="377.0" prefHeight="25.0" prefWidth="520.0" />
+      <JFXTextField layoutX="182.0" layoutY="345.0" prefHeight="25.0" prefWidth="520.0" style="-fx-border-color: #BDBDBD;" unFocusColor="#fffefe" />
+      <JFXTextField layoutX="182.0" layoutY="377.0" prefHeight="25.0" prefWidth="520.0" style="-fx-border-color: #BDBDBD;" unFocusColor="#ebe8e8" />
       <Label layoutX="66.0" layoutY="476.0" prefHeight="25.0" prefWidth="666.0" text="Please note that by clicking &quot;I agree&quot; you are ensuring that this is an actual issue in which you want to be reported. ">
          <font>
             <Font size="13.0" />
