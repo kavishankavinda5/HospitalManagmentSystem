@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="vedReportView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.ReportGenController">
+   <children>
+      <Label alignment="CENTER" layoutX="91.0" layoutY="215.0" prefHeight="170.0" prefWidth="570.0" text="Report Generate" textFill="WHITE">
+         <font>
+            <Font size="67.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
