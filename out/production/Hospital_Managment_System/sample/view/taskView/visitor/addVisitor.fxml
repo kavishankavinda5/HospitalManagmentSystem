@@ -104,6 +104,12 @@
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
+                  <Label layoutX="417.0" layoutY="65.0" prefHeight="44.0" prefWidth="147.0" text="LAST NAME" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#474849" layoutX="416.0" layoutY="96.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#575757" />
                </children>
             </AnchorPane>
          </children>
