@@ -9,20 +9,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="vedPatientView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #DDDDDD;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
+<AnchorPane fx:id="vedPatientView" prefHeight="600.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
    <children>
       <VBox layoutX="-1.0" prefHeight="100.0" prefWidth="754.0" AnchorPane.bottomAnchor="500.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="754.0" text="HOSPITAL MANAGEMENT SYSTEM" textFill="#333333">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="754.0" text="VISITOR" textFill="#333333">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
+            <AnchorPane prefHeight="100.0" prefWidth="754.0" style="-fx-background-color: #DDDDDD;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="754.0" text="HOSPITAL MANAGEMENT SYSTEM" textFill="#333333">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="42.0" prefHeight="50.0" prefWidth="754.0" text="VISITOR" textFill="#333333">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
       <AnchorPane layoutX="-1.0" layoutY="100.0" prefHeight="500.0" prefWidth="754.0" style="-fx-background-color: #FFFFFF;">
@@ -105,6 +109,7 @@
                </font>
             </Label>
             <JFXTextField focusColor="#474849" layoutX="416.0" layoutY="96.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#575757" />
+
          </children>
       </AnchorPane>
    </children>
