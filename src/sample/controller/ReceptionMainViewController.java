@@ -9,11 +9,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReceptionMainViewController {
+
+
+
     @FXML
     private ResourceBundle resources;
 
@@ -56,6 +60,9 @@ public class ReceptionMainViewController {
 
     @FXML
     private AnchorPane receptionView_homePane;
+
+    @FXML
+    private Label receptionView_userName;
 
     @FXML
     void initialize() {
@@ -205,4 +212,7 @@ public class ReceptionMainViewController {
         mainReceptionView.setLeft(view);
     }
 
+    public void setUserName(String name){
+        receptionView_userName.setText(name);
+    }
 }
