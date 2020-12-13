@@ -1,25 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="vedPatientView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #1dcdfe;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
+<AnchorPane fx:id="vedPatientView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #DDDDDD;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AddVisitorController">
    <children>
-      <VBox prefHeight="605.0" prefWidth="252.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="-1.0" prefHeight="100.0" prefWidth="754.0" AnchorPane.bottomAnchor="500.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton prefHeight="26.0" prefWidth="263.0" />
-            <Label alignment="TOP_CENTER" prefHeight="150.0" prefWidth="252.0" text="ADD &#10;VISITORS" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="754.0" text="HOSPITAL MANAGEMENT SYSTEM" textFill="#333333">
                <font>
-                  <Font size="38.0" />
+                  <Font size="26.0" />
                </font>
             </Label>
-            <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="263.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="754.0" text="VISITOR" textFill="#333333">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
-      <AnchorPane layoutX="252.0" layoutY="7.0" prefHeight="338.0" prefWidth="512.0" style="-fx-background-color: purple;" />
-      <AnchorPane layoutX="252.0" layoutY="300.0" prefHeight="54.0" prefWidth="512.0" style="-fx-background-color: green;" />
+      <VBox layoutX="-1.0" layoutY="100.0" prefHeight="500.0" prefWidth="754.0">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="754.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <Label layoutX="36.0" prefHeight="44.0" prefWidth="147.0" text="ID NO" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#474849" layoutX="36.0" layoutY="31.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#575757" />
+                  <Label layoutX="36.0" layoutY="65.0" prefHeight="44.0" prefWidth="147.0" text="FIRST NAME" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#474849" layoutX="36.0" layoutY="96.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#575757" />
+                  <Label layoutX="417.0" layoutY="65.0" prefHeight="44.0" prefWidth="147.0" text="LAST NAME" textFill="#fdfdfd">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField layoutX="417.0" layoutY="96.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#fdfdfd" />
+                  <Label layoutX="36.0" layoutY="136.0" prefHeight="44.0" prefWidth="147.0" text="PURPOSE" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#474849" layoutX="36.0" layoutY="167.0" prefHeight="26.0" prefWidth="600.0" unFocusColor="#575757" />
+                  <Label layoutX="36.0" layoutY="206.0" prefHeight="44.0" prefWidth="147.0" text="PHONE NUMBER" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#474849" layoutX="36.0" layoutY="237.0" prefHeight="26.0" prefWidth="220.0" unFocusColor="#575757" />
+                  <Label layoutX="417.0" layoutY="206.0" prefHeight="44.0" prefWidth="147.0" text="DATE" textFill="#fdfdfd">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXDatePicker defaultColor="#474849" layoutX="417.0" layoutY="237.0" prefHeight="28.0" prefWidth="220.0" />
+                  <Label layoutX="36.0" layoutY="273.0" prefHeight="44.0" prefWidth="147.0" text="IN TIME" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTimePicker defaultColor="#474849" layoutX="36.0" layoutY="303.0" prefHeight="28.0" prefWidth="220.0" />
+                  <Label layoutX="417.0" layoutY="273.0" prefHeight="44.0" prefWidth="147.0" text="OUT TIME" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTimePicker defaultColor="#474849" layoutX="417.0" layoutY="303.0" prefHeight="28.0" prefWidth="220.0" />
+                  <Label layoutX="36.0" layoutY="340.0" prefHeight="44.0" prefWidth="147.0" text="NOTES" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextArea focusColor="#474849" layoutX="36.0" layoutY="374.0" prefHeight="50.0" prefWidth="600.0" />
+                  <Label layoutX="36.0" layoutY="424.0" prefHeight="44.0" prefWidth="147.0" text="ATTACHED FILES" textFill="#575757">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="36.0" layoutY="460.0" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #DDDDDD;" text="Chose Files">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="321.0" layoutY="460.0" prefHeight="30.0" prefWidth="147.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #333333;" text="RESET" textFill="#333333">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="564.0" layoutY="460.0" prefHeight="30.0" prefWidth="147.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #333333;" text="ADD" textFill="#333333">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
