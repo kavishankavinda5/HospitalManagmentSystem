@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.DropdownButton?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -23,13 +22,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <DropdownButton layoutX="186.0" layoutY="107.0" prefHeight="19.0" prefWidth="69.0" style="-fx-border-color: #BDBDBD;">
-         <items>
-            <MenuItem text="Choice 1" />
-            <MenuItem text="Choice 2" />
-            <MenuItem text="Choice 3" />
-         </items>
-      </DropdownButton>
       <Label layoutX="498.0" layoutY="106.0" text="Date">
          <font>
             <Font size="14.0" />
@@ -92,5 +84,6 @@
       </Label>
       <JFXRadioButton layoutX="187.0" layoutY="430.0" text="Yes" />
       <JFXRadioButton layoutX="299.0" layoutY="430.0" text="No" />
+      <ChoiceBox layoutX="182.0" layoutY="105.0" prefHeight="28.0" prefWidth="302.0" />
    </children>
 </AnchorPane>

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="vedAppointmentView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #5f5fc4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="vedAppointmentView" prefHeight="600.0" prefWidth="754.0" style="-fx-background-color: #5f5fc4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.VEDAppointmentController">
    <children>
       <HBox alignment="TOP_RIGHT" layoutX="277.0" prefHeight="166.0" prefWidth="754.0" AnchorPane.bottomAnchor="433.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

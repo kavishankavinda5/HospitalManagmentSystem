@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.controller.MultipleFXMLLoader;
 
 import java.time.LocalTime;
 
@@ -40,6 +42,18 @@ public class Main extends Application {
         clock.play();
 
     }
+
+    public static Pane getView(String fileName){
+        //receptionView_task.setVisible(false);
+        System.out.println("you clicked "+ fileName);
+        MultipleFXMLLoader newFXML = new MultipleFXMLLoader();
+        Pane viewCurrent = newFXML.getPage(fileName);
+
+        return viewCurrent;
+    }
+
 }
+
+
 
 
