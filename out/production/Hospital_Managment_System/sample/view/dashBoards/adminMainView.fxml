@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="adminMain_boarderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AdminMainController">
+<BorderPane fx:id="adminMain_boarderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AdminMainController">
    <left>
       <VBox prefHeight="577.0" prefWidth="250.0" style="-fx-background-color: #1b0000;" BorderPane.alignment="CENTER">
          <children>
@@ -32,31 +32,31 @@
             </Pane>
             <Pane prefHeight="186.0" prefWidth="250.0">
                <children>
-                  <JFXButton fx:id="adminMain_viewReference" alignment="TOP_LEFT" layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="View Reference" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_reference" alignment="TOP_LEFT" layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Reference" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/adminDashBoard/icons8-document-64.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="adminMain_viewUser" alignment="TOP_LEFT" layoutX="71.0" layoutY="48.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="View Users" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_user" alignment="TOP_LEFT" layoutX="71.0" layoutY="48.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Users" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/adminDashBoard/icons8-myspace-app-52.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="adminMain_viewPostal" alignment="TOP_LEFT" layoutX="70.0" layoutY="82.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="View Postal" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_postal" alignment="TOP_LEFT" layoutX="70.0" layoutY="82.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Postal" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="28.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/receptionDashboard/icons8-postal-64.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="adminMain_viewAppointment" alignment="TOP_LEFT" layoutX="71.0" layoutY="116.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="View Appointment" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_appointment" alignment="TOP_LEFT" layoutX="71.0" layoutY="115.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Appointment" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/receptionDashboard/icons8-recurring-appointment-exception-52.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="adminMain_viewComplaint" alignment="TOP_LEFT" layoutX="71.0" layoutY="149.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="View Complaint" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_complaint" alignment="TOP_LEFT" layoutX="71.0" layoutY="149.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Complaint" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/receptionDashboard/icons8-complaints-64.png" />
@@ -64,25 +64,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane prefHeight="102.0" prefWidth="250.0">
+            <Pane prefHeight="280.0" prefWidth="250.0">
                <children>
-                  <JFXButton fx:id="adminMain_addReference" alignment="TOP_LEFT" layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Add Reference" textFill="WHITE" />
-                  <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/icons/adminDashBoard/icons8-document-64.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton fx:id="adminMain_addUser" alignment="TOP_LEFT" layoutX="71.0" layoutY="48.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Add Users" textFill="WHITE" />
-                  <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="29.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/icons/adminDashBoard/icons8-add-user-male-128.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="137.0" prefWidth="250.0">
-               <children>
-                  <JFXButton fx:id="adminMain_generateReport" alignment="TOP_LEFT" layoutX="69.0" layoutY="4.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Generate Report" textFill="WHITE" />
+                  <JFXButton fx:id="adminMain_generateReport" alignment="TOP_LEFT" layoutX="71.0" layoutY="4.0" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #718792;" text="Generate Report" textFill="WHITE" />
                   <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="32.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/receptionDashboard/icons8-postal-64.png" />

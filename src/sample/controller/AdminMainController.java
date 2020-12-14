@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
 public class AdminMainController {
 
 
-
     @FXML
     private ResourceBundle resources;
 
@@ -32,37 +31,28 @@ public class AdminMainController {
     private URL location;
 
     @FXML
-    private ImageView adminMain_mainHome;
-
-    @FXML
     private BorderPane adminMain_boarderPane;
 
     @FXML
-    private JFXButton adminMain_viewReference;
+    private ImageView adminMain_mainHome;
 
     @FXML
-    private JFXButton adminMain_viewUser;
+    private JFXButton adminMain_reference;
 
     @FXML
-    private JFXButton adminMain_viewPostal;
+    private JFXButton adminMain_user;
 
     @FXML
-    private JFXButton adminMain_viewAppointment;
+    private JFXButton adminMain_postal;
 
     @FXML
-    private JFXButton adminMain_viewComplaint;
+    private JFXButton adminMain_appointment;
 
     @FXML
-    private JFXButton adminMain_addReference;
-
-    @FXML
-    private JFXButton adminMain_addUser;
+    private JFXButton adminMain_complaint;
 
     @FXML
     private JFXButton adminMain_generateReport;
-
-    @FXML
-    private AnchorPane adminMain_loaderPane;
 
     @FXML
     private Pane adminMain_logout;
@@ -71,14 +61,20 @@ public class AdminMainController {
     private JFXButton adminMain_logoutButton;
 
     @FXML
+    private ImageView adminMain_backIcon;
+
+    @FXML
+    private AnchorPane adminMain_loaderPane;
+
+    @FXML
     void initialize() {
 
-        adminMain_viewUser.setOnAction(new EventHandler<ActionEvent>() {
+        adminMain_reference.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/user/viewEditDeleteUser");
-                    Pane view = Main.getView("taskView/user/viewEditDeleteUser");
+                    System.out.println("taskView/referenceView");
+                    Pane view = Main.getView("taskView/referenceView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -86,12 +82,12 @@ public class AdminMainController {
             }
         });
 
-        adminMain_addUser.setOnAction(new EventHandler<ActionEvent>() {
+        adminMain_user.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println();
-                    Pane view = Main.getView("taskView/user/addUser");
+                    System.out.println("taskView/userView");
+                    Pane view = Main.getView("taskView/userView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -99,12 +95,12 @@ public class AdminMainController {
             }
         });
 
-        adminMain_addReference.setOnAction(new EventHandler<ActionEvent>() {
+        adminMain_postal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/reference/addReference");
-                    Pane view = Main.getView("taskView/reference/addReference");
+                    System.out.println("taskView/postalView");
+                    Pane view = Main.getView("taskView/postalView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -112,12 +108,12 @@ public class AdminMainController {
             }
         });
 
-        adminMain_viewReference.setOnAction(new EventHandler<ActionEvent>() {
+        adminMain_appointment.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/reference/viewEditDeleteReference");
-                    Pane view = Main.getView("taskView/reference/viewEditDeleteReference");
+                    System.out.println("taskView/appointmentView");
+                    Pane view = Main.getView("taskView/appointmentView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -125,38 +121,12 @@ public class AdminMainController {
             }
         });
 
-        adminMain_viewComplaint.setOnAction(new EventHandler<ActionEvent>() {
+        adminMain_complaint.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/complaint/viewEditDeleteComplaint");
-                    Pane view = Main.getView("taskView/complaint/viewEditDeleteComplaint");
-                    setReceptionViewCenter(view);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        adminMain_viewAppointment.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    System.out.println("taskView/appointment/viewEditDeleteAppointment");
-                    Pane view = Main.getView("taskView/appointment/viewEditDeleteAppointment");
-                    setReceptionViewCenter(view);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        adminMain_viewPostal.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    System.out.println("taskView/postal/viewEditDeletePostal");
-                    Pane view = Main.getView("taskView/postal/viewEditDeletePostal");
+                    System.out.println("taskView/complaint");
+                    Pane view = Main.getView("taskView/complaintView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -168,8 +138,8 @@ public class AdminMainController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/report/generateReport");
-                    Pane view = Main.getView("taskView/report/generateReport");
+                    System.out.println("taskView/reportGenerateView");
+                    Pane view = Main.getView("taskView/reportGenerateView");
                     setReceptionViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -183,7 +153,6 @@ public class AdminMainController {
                 adminMain_boarderPane.setCenter(adminMain_loaderPane);
             }
         });
-
 
         adminMain_logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
