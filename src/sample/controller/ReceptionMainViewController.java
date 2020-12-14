@@ -128,9 +128,22 @@ public class ReceptionMainViewController {
             }
         });
 
-        receptionView_complaint.setOnAction(new EventHandler<ActionEvent>() {
+//        receptionView_complaint.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                try {
+//                    System.out.println("taskView/complaintView");
+//                    Pane view = getView("taskView/complaintView");
+//                    setReceptionViewCenter(view);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+        receptionView_complaint.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
+            public void handle(MouseEvent mouseEvent) {
                 try {
                     System.out.println("taskView/complaintView");
                     Pane view = getView("taskView/complaintView");
