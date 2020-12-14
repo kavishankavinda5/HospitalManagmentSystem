@@ -14,7 +14,7 @@ public class MultipleFXMLLoader {
 
         try {
 
-            URL fileURL = Main.class.getResource("/sample/view/" + fileName + ".fxml");
+            URL fileURL = Main.class.getResource("/sample/view/" + fileName.trim() + ".fxml");
             if (fileURL == null) {
                 throw new java.io.FileNotFoundException("FXML file not found");
             }

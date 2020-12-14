@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 import static sample.Main.liveClock;
 
 public class CustomLoginController {
+
     @FXML
     private ResourceBundle resources;
 
@@ -58,7 +59,18 @@ public class CustomLoginController {
         userLogin_SigninButoon.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                openDashBoard("receptionistMainView");
+
+                switch (userLogin_userName.getText()){
+                    case "admin":
+                        openDashBoard("adminMainView");
+                        break;
+                    case "reception":
+                        openDashBoard("receptionistMainView");
+                        break;
+                }
+
+
+
             }
         });
 
@@ -76,12 +88,17 @@ public class CustomLoginController {
         try {
             loader.load();
 
+
         }catch (IOException e){
             e.printStackTrace();
         }
 
         Parent root = loader.getRoot();
         receptionStage.setScene(new Scene(root));
+
+
         receptionStage.show();
     }
+
+
 }
