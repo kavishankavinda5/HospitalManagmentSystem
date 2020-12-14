@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="850.0" style="-fx-background-color: purple;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.appointmentViewController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="226.0" layoutY="211.0" text="Complaint View" textFill="WHITE">
-         <font>
-            <Font size="50.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="vedPatientView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="850.0" style="-fx-background-color: #F5F5F5;">
+         <children>
+            <Label layoutX="61.0" layoutY="64.0" prefHeight="25.0" prefWidth="121.0" text="Complaint Type" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="553.0" layoutY="66.0" text="Date">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="61.0" layoutY="106.0" text="Complaint By">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField layoutX="182.0" layoutY="102.0" promptText="First Name" style="-fx-border-color: #BDBDBD;" unFocusColor="#f8f6f6" />
+            <JFXTextField layoutX="343.0" layoutY="102.0" promptText="Last Name" style="-fx-border-color: #BDBDBD;" unFocusColor="#fcf9f9" />
+            <Label layoutX="61.0" layoutY="144.0" text="Phone Number">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField layoutX="182.0" layoutY="141.0" promptText="+94" style="-fx-border-color: #BDBDBD;" unFocusColor="#fcfafa" />
+            <Label layoutX="516.0" layoutY="144.0" text="Attachment">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="612.0" layoutY="142.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Choose File" />
+            <Label layoutX="59.0" layoutY="192.0" text="Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField layoutX="182.0" layoutY="188.0" prefHeight="25.0" prefWidth="520.0" promptText="Description" style="-fx-border-color: #BDBDBD;" unFocusColor="#f5f3f3" />
+            <Label layoutX="63.0" layoutY="238.0" text="Note">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField layoutX="182.0" layoutY="234.0" prefHeight="25.0" prefWidth="520.0" promptText="Note" style="-fx-border-color: #BDBDBD;" unFocusColor="#f8f5f5">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField layoutX="182.0" layoutY="267.0" prefHeight="25.0" prefWidth="520.0" style="-fx-border-color: #BDBDBD;" unFocusColor="#fffefe" />
+            <Label layoutX="63.0" layoutY="311.0" text="Action Taken">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXRadioButton layoutX="189.0" layoutY="313.0" text="Yes" />
+            <JFXRadioButton layoutX="297.0" layoutY="313.0" text="No" />
+            <ChoiceBox layoutX="182.0" layoutY="62.0" prefHeight="28.0" prefWidth="302.0" />
+            <JFXTextField layoutX="35.0" layoutY="14.0" promptText="Type Here" style="-fx-border-color: black;" unFocusColor="#f8f4f4" />
+            <JFXButton layoutX="182.0" layoutY="15.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #6E6E6E;" text="Search" />
+            <Label layoutX="52.0" layoutY="338.0" prefHeight="30.0" prefWidth="781.0" text="Please note that by clicking &quot;I agree&quot; you are ensuring that this is an actual issue in which you want to be reported. " />
+            <Label layoutX="52.0" layoutY="360.0" text="If you want to talk about your incident, please contact a medical supervisor. Thank you." />
+            <JFXCheckBox layoutX="52.0" layoutY="383.0" text="I agree*" />
+            <JFXButton layoutX="711.0" layoutY="14.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Reset" />
+            <JFXButton layoutX="711.0" layoutY="419.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Cancel" />
+            <JFXButton layoutX="579.0" layoutY="420.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Submit" />
+            <DatePicker layoutX="600.0" layoutY="64.0" promptText="MM/DD/YYYY" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="460.0" prefHeight="40.0" prefWidth="850.0" style="-fx-background-color: #0B615E;">
+         <children>
+            <JFXButton layoutX="20.0" layoutY="8.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Add" />
+            <JFXButton layoutX="194.0" layoutY="8.0" prefHeight="20.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="View" />
+            <JFXButton layoutX="372.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Edit" />
+            <JFXButton layoutX="541.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Delete" />
+            <JFXButton layoutX="710.0" layoutY="8.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6E6E6E; -fx-border-color: black;" text="Update" />
+         </children>
+      </AnchorPane>
+      <TableView layoutY="500.0" prefHeight="200.0" prefWidth="850.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Date" />
+            <TableColumn prefWidth="114.0" text="Complaint Type" />
+            <TableColumn prefWidth="91.0" text="Complaint By" />
+            <TableColumn prefWidth="101.0" text="Phone Number" />
+            <TableColumn prefWidth="85.0" text="Description" />
+            <TableColumn prefWidth="77.0" text="Note" />
+            <TableColumn prefWidth="87.0" text="Attachment" />
+            <TableColumn prefWidth="102.0" text="Action Taken" />
+            <TableColumn prefWidth="115.0" text="Record" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
