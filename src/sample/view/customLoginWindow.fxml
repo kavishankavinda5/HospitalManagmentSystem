@@ -35,6 +35,11 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+            <Label fx:id="customLogin_invalidMessage" alignment="CENTER" layoutX="109.0" layoutY="402.0" prefHeight="26.0" prefWidth="422.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="-6.0" layoutY="-5.0" prefHeight="506.0" prefWidth="218.0" style="-fx-background-color: #5472d3;">

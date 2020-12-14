@@ -28,6 +28,9 @@ public class CustomLoginController {
     private URL location;
 
     @FXML
+    private Label customLogin_invalidMessage;
+
+    @FXML
     private Label userLogin_userLable;
 
     @FXML
@@ -67,6 +70,16 @@ public class CustomLoginController {
                     case "reception":
                         openDashBoard("receptionistMainView");
                         break;
+                    case "patient":
+                        openDashBoard("patientMainView");
+                        break;
+                    case "doctor":
+                        openDashBoard("medicalOfficerView");
+                        break;
+
+                    default:
+                        customLogin_invalidMessage.setText("Invalid User Input !!!");
+
                 }
 
 
