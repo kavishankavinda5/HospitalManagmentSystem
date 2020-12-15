@@ -4,16 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import sample.model.User;
 import sample.model.UserRoll;
 
 import java.net.URL;
@@ -110,12 +104,6 @@ public class userViewController {
         userView_userTypeDrop.getItems().addAll(referenceViewController.getUserRolls());
         userView_speciality.getItems().addAll(referenceViewController.getDoctorSpeciality());
         userView_gender.getItems().addAll(referenceViewController.getGender());
-        
-        userView_addUser.setOnAction(new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent actionEvent) {
-       //User user =
-    }
-       });
+
     }
 }
