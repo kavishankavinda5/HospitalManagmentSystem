@@ -114,11 +114,6 @@
                         <JFXTextField focusColor="DODGERBLUE" layoutX="8.0" layoutY="192.0" prefHeight="26.0" prefWidth="223.0" promptText="Staff Email" />
                      </children>
                   </Pane>
-                  <ImageView fitHeight="150.0" fitWidth="178.0" layoutX="653.0" layoutY="132.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../JavaProject/HospitaManagementSystem/src/sample/assets/profilePics/default-profile-picture.jpg" />
-                     </image>
-                  </ImageView>
                   <Label layoutX="35.0" layoutY="22.0" text="Dashboard">
                      <font>
                         <Font size="45.0" />
@@ -159,12 +154,22 @@
                      </children>
                   </AnchorPane>
                   <Line endX="457.0" endY="54.0" layoutX="171.0" layoutY="53.0" startX="-154.0" startY="54.0" stroke="#e8e5e5" />
-                  <ImageView fitHeight="305.0" fitWidth="561.0" layoutX="9.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="305.0" fitWidth="561.0" layoutX="18.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../Downloads/SL_Covid19_(1_April_2020).jpg" />
                      </image>
                   </ImageView>
                   <JFXButton layoutX="653.0" layoutY="586.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #009933;" text="Edit Profile" textFill="WHITE" />
+                  <Label layoutX="183.0" layoutY="353.0" prefHeight="43.0" prefWidth="290.0" text="Graph">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="178.0" layoutX="653.0" layoutY="158.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/profilePics/default-profile-picture.jpg" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>
