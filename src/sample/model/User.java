@@ -3,6 +3,7 @@ package sample.model;
 import java.util.Date;
 
 public abstract class User {
+    private UserRoll userRoll;
     private String userName;
     private String name;
     private String gender;
@@ -12,6 +13,13 @@ public abstract class User {
     private String address;
     private String maritalStatus;
 
+    public UserRoll getUserRoll() {
+        return userRoll;
+    }
+
+    public void setUserRoll(UserRoll userRoll) {
+        this.userRoll = userRoll;
+    }
 
     public String getUserName() {
         return userName;

@@ -11,26 +11,58 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 import sample.controller.MultipleFXMLLoader;
+import sample.controller.taskControllers.referenceViewController;
+import sample.model.LoginUser;
+import sample.model.UserRoll;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.KeySpec;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
 
 public class Main extends Application {
+    private static String secretKey = "boooooooooom!!!!";
+    private static String salt = "ssshhhhhhhhhhh!!!!";
+
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("view/mainLoginWindow.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
-        launch(args);
+        referenceViewController.setUserRolls(UserRoll.ADMIN);
+        referenceViewController.setUserRolls(UserRoll.RECEPTIONIST);
+        referenceViewController.setUserRolls(UserRoll.PATIENT);
+        referenceViewController.setUserRolls(UserRoll.MEDICALOFFICER);
+
+        referenceViewController.setDoctorSpeciality("boneSpeciality");
+        referenceViewController.setDoctorSpeciality("brainSpeciality");
+        referenceViewController.setGender("Male");
+        referenceViewController.setGender("Female");
+
+      launch(args);
     }
 
-    public static void liveClock (Label dispalyLable){
+    public static void liveClock(Label dispalyLable) {
         //live clock
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             LocalTime currentTime = LocalTime.now();
@@ -43,9 +75,9 @@ public class Main extends Application {
 
     }
 
-    public static Pane getView(String fileName){
+    public static Pane getView(String fileName) {
         //receptionView_task.setVisible(false);
-        System.out.println("you clicked "+ fileName);
+        System.out.println("you clicked " + fileName);
         MultipleFXMLLoader newFXML = new MultipleFXMLLoader();
         Pane viewCurrent = newFXML.getPage(fileName);
 
@@ -53,7 +85,3 @@ public class Main extends Application {
     }
 
 }
-
-
-
-
