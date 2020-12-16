@@ -1,6 +1,7 @@
 package sample.controller.actionTask;
 
 import org.jetbrains.annotations.NotNull;
+import sample.model.BloodGroup;
 import sample.model.LoginUser;
 import sample.model.Patient;
 import sample.model.UserRoll;
@@ -17,17 +18,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.spec.KeySpec;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class UserAction {
 
     // scerate key and salt for the user login data encryption
     private static String secretKey = "boooooooooom!!!!";
     private static String salt = "ssshhhhhhhhhhh!!!!";
-
+    private  static Scanner scanner;
     // verify user login credentials
     // parameters UserName , User Password , UserType (reception,admin.doctor,patient)
     public static int verifyLogin(String userName, String password, String userType) {
@@ -145,18 +145,18 @@ public class UserAction {
             bufferedWriter.write(user.getUserRoll().toString() + ",");
             bufferedWriter.write(user.getName() + ",");
             bufferedWriter.write(user.getGender() + ",");
+            bufferedWriter.write(user.getMaritalStatus()+",");
+            bufferedWriter.write(user.getDob() + ",");
             bufferedWriter.write(user.getPhoneNumber()+ ",");
             bufferedWriter.write(user.getIdCardNumber() + ",");
-            bufferedWriter.write(user.getDob() + ",");
-            bufferedWriter.write(user.getMaritalStatus() + ",");
-            bufferedWriter.write(user.getIdCardNumber() + ",");
-            bufferedWriter.write(user.getBloodGroup().toString()+ ",");
+            bufferedWriter.write(user.getUserName()+",");
+            bufferedWriter.write(user.getUserPassword() + ",");
+            bufferedWriter.write(user.getBloodGroup() + ",");
             bufferedWriter.write(user.getAllergies());
-
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
-            System.out.println("file path : " + file.getPath());
+            System.out.println("file path : " + file.getPath()+" patient saved");
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -169,6 +169,133 @@ public class UserAction {
         List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
         lines.set(lineNumber - 1, data);
         Files.write(path, lines, StandardCharsets.UTF_8);
+    }
+
+    public static Patient searchPatient(String seachTerm, String filepath){
+        boolean found = false;
+        Patient patient1 = new Patient();
+        String id =seachTerm;
+
+
+
+        try{
+            String userRoll = null;
+            String name=null;
+            String gender=null,marital=null,dob=null,phonenumber=null,idcardNumber=null,userName=null,password=null,blood=null,allergy =null;
+            scanner = new Scanner(new File(filepath));
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext() && !found){
+
+                userRoll= scanner.next();
+                name =scanner.next();
+                gender =scanner.next();
+                marital =scanner.next();
+                dob =scanner.next();
+                phonenumber = scanner.next();
+                idcardNumber = scanner.next();
+                userName =scanner.next();
+                password=scanner.next();
+                blood =scanner.next();
+                allergy =scanner.next();
+
+                if (idcardNumber.equals(seachTerm)){
+                    found = true;
+                }
+            }
+            if (found){
+                patient1.setUserRoll(getUserRoll(userRoll));
+                patient1.setName(name);
+                patient1.setGender(gender);
+                patient1.setMaritalStatus(marital);
+                patient1.setDob(getLocalDatefromString(dob));
+                patient1.setPhoneNumber(phonenumber);
+                patient1.setIdCardNumber(idcardNumber);
+                patient1.setUserName(userName);
+                patient1.setUserPassword(password);
+                patient1.setBloodGroup(getBloodGroup(blood));
+                patient1.setAllergies(allergy);
+
+                System.out.println(patient1.toString());
+
+
+            }else {
+                System.out.println("record not found");
+            }
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+return patient1;
+
+    }
+
+    //get UserRoll enum object with the String type input of the name
+    public static UserRoll getUserRoll(String name){
+        UserRoll userRoll = null;
+        switch (name){
+            case "PATIENT":
+                userRoll = UserRoll.PATIENT;
+                break;
+
+            case  "ADMIN":
+                userRoll = UserRoll.ADMIN;
+                break;
+
+            case "RECEPTIONIST":
+                userRoll = UserRoll.RECEPTIONIST;
+                break;
+
+            case "MEDICALOFFICER":
+                userRoll = UserRoll.MEDICALOFFICER;
+                break;
+
+        }
+
+        return  userRoll;
+    }
+
+    public static LocalDate getLocalDatefromString(String string) {
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (string != null && !string.isEmpty()) {
+            return LocalDate.parse(string, dateFormatter);
+        } else {
+            return null;
+        }
+    }
+
+    public static BloodGroup getBloodGroup(String name){
+        BloodGroup blooGroup = null;
+        switch (name){
+            case "A_POSITIVE":
+                blooGroup = BloodGroup.A_POSITIVE;
+                break;
+
+            case  "A_NEGATIVE":
+                blooGroup = BloodGroup.A_NEGATIVE;
+                break;
+
+            case "AB_POSITIVE":
+                blooGroup = BloodGroup.AB_POSITIVE;
+                break;
+
+            case "AB_NEGATIVE":
+                blooGroup = BloodGroup.AB_NEGATIVE;
+                break;
+            case "B_POSITIVE":
+                blooGroup =BloodGroup.B_POSITIVE;
+                break;
+            case "B_NEGATIVE":
+                blooGroup =BloodGroup.B_NEGATIVE;
+                break;
+
+        }
+
+        return  blooGroup;
     }
 }
 

@@ -1,6 +1,7 @@
 package sample.model;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class User {
@@ -10,7 +11,7 @@ public abstract class User {
     private String gender;
     private String phoneNumber =null;
     private String idCardNumber;
-    private Date dob;
+    private LocalDate dob;
     private String address;
     private String maritalStatus;
     private String userPassword;
@@ -43,7 +44,7 @@ public abstract class User {
         return idCardNumber;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
@@ -75,7 +76,7 @@ public abstract class User {
         this.idCardNumber = idCardNumber;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -93,5 +94,21 @@ public abstract class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userRoll=" + userRoll +
+                ", userName='" + userName + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", idCardNumber='" + idCardNumber + '\'' +
+                ", dob=" + dob +
+                ", address='" + address + '\'' +
+                ", maritalStatus='" + maritalStatus + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
 }

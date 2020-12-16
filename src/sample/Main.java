@@ -11,28 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.jetbrains.annotations.NotNull;
 import sample.controller.MultipleFXMLLoader;
 import sample.controller.actionTask.UserAction;
-import sample.controller.taskControllers.referenceViewController;
+import sample.controller.taskControllers.ReferenceViewController;
 import sample.model.*;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.KeySpec;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -45,25 +29,27 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        referenceViewController.setUserRolls(UserRoll.ADMIN);
-        referenceViewController.setUserRolls(UserRoll.RECEPTIONIST);
-        referenceViewController.setUserRolls(UserRoll.PATIENT);
-        referenceViewController.setUserRolls(UserRoll.MEDICALOFFICER);
+        ReferenceViewController.setUserRolls(UserRoll.ADMIN);
+        ReferenceViewController.setUserRolls(UserRoll.RECEPTIONIST);
+        ReferenceViewController.setUserRolls(UserRoll.PATIENT);
+        ReferenceViewController.setUserRolls(UserRoll.MEDICALOFFICER);
 
-        referenceViewController.setDoctorSpeciality("BoneSpeciality");
-        referenceViewController.setDoctorSpeciality("BrainSpeciality");
-        referenceViewController.setDoctorSpeciality("Kidney Speciality");
+        ReferenceViewController.setDoctorSpeciality("BoneSpeciality");
+        ReferenceViewController.setDoctorSpeciality("BrainSpeciality");
+        ReferenceViewController.setDoctorSpeciality("Kidney Speciality");
 
-        referenceViewController.setGender("Male");
-        referenceViewController.setGender("Female");
+        ReferenceViewController.setGender("Male");
+        ReferenceViewController.setGender("Female");
 
-        referenceViewController.setMaritalStatus("Married");
-        referenceViewController.setMaritalStatus("Unmarried");
+        ReferenceViewController.setMaritalStatus("Married");
+        ReferenceViewController.setMaritalStatus("Unmarried");
 
-        referenceViewController.setBloogGroup(BloodGroup.A_POSITIVE);
-        referenceViewController.setBloogGroup(BloodGroup.A_NEGATIVE);
-        referenceViewController.setBloogGroup(BloodGroup.AB_NEGATIVE);
-        referenceViewController.setBloogGroup(BloodGroup.AB_POSITIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.A_POSITIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.A_NEGATIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.AB_NEGATIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.AB_POSITIVE);
+
+        UserAction.searchPatient("5566","src/sample/fileStorage/userData/patientData.txt");
 
 
       launch(args);

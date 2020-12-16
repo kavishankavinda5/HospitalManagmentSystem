@@ -25,4 +25,12 @@ public class Patient extends User {
     public void setAllergies(String allergies) {
         this.allergies = allergies;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "bloodGroup=" + bloodGroup +
+                ", allergies='" + allergies + '\'' +
+                '}' + super.toString();
+    }
 }

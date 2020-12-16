@@ -10,19 +10,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
+import javafx.util.StringConverter;
 import sample.controller.actionTask.UserAction;
 import sample.model.BloodGroup;
 import sample.model.Patient;
 import sample.model.UserRoll;
 
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class userViewController {
+public class UserViewController {
     ObservableList<String> userType;
 
 
@@ -136,18 +135,40 @@ public class userViewController {
 
 
         //set the derop down wit the data taken by the reference module
-        userView_userTypeDrop.getItems().addAll(referenceViewController.getUserRolls());
-        userView_speciality.getItems().addAll(referenceViewController.getDoctorSpeciality());
-        userView_gender.getItems().addAll(referenceViewController.getGender());
-        userView_bloodGroup.getItems().addAll(referenceViewController.getBloogGroup());
-        userView_marital.getItems().addAll(referenceViewController.getMaritalStatus());
+        userView_userTypeDrop.getItems().addAll(ReferenceViewController.getUserRolls());
+        userView_speciality.getItems().addAll(ReferenceViewController.getDoctorSpeciality());
+        userView_gender.getItems().addAll(ReferenceViewController.getGender());
+        userView_bloodGroup.getItems().addAll(ReferenceViewController.getBloogGroup());
+        userView_marital.getItems().addAll(ReferenceViewController.getMaritalStatus());
 
         userView_addUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                LocalDate localDate = userView_dob.getValue();
-                Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 
+                userView_dob.setConverter(new StringConverter<LocalDate>() {
+                    String pattern = "yyyy-MM-dd";
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+                    {
+                        userView_dob.setPromptText(pattern.toLowerCase());
+                    }
+
+                    @Override public String toString(LocalDate date) {
+                        if (date != null) {
+                            return dateFormatter.format(date);
+                        } else {
+                            return "";
+                        }
+                    }
+
+                    @Override public LocalDate fromString(String string) {
+                        if (string != null && !string.isEmpty()) {
+                            return LocalDate.parse(string, dateFormatter);
+                        } else {
+                            return null;
+                        }
+                    }
+                });
 
 
                 switch (userView_userTypeDrop.getValue()){
@@ -157,7 +178,7 @@ public class userViewController {
                         patient.setName(userView_name.getText());
                         patient.setGender(userView_gender.getValue());
                         patient.setMaritalStatus(userView_marital.getValue());
-                        patient.setDob(Date.from(instant));
+                        patient.setDob(userView_dob.getValue());
                         patient.setPhoneNumber(userView_phoneNum.getText());
                         patient.setIdCardNumber(userView_NIC.getText());
                         patient.setUserName(userView_NIC.getText());
@@ -169,5 +190,28 @@ public class userViewController {
                 }
             }
         });
+
+        userView_searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String serachID = userView_nicSearch.getText();
+                Patient patient =UserAction.searchPatient(serachID,"src/sample/fileStorage/userData/patientData.txt");
+                displayUserdata(patient);
+            }
+        });
+    }
+
+    public void displayUserdata(Patient patient){
+        userView_userTypeDrop.setValue(patient.getUserRoll());
+        userView_name.setText(patient.getUserName());
+        userView_gender.setValue(patient.getGender());
+        userView_marital.setValue(patient.getMaritalStatus());
+        userView_dob.setValue(patient.getDob());
+        userView_phoneNum.setText(patient.getPhoneNumber());
+        userView_NIC.setText(patient.getIdCardNumber());
+        userView_userName.setText(patient.getUserName());
+        userView_NIC.setText(patient.getIdCardNumber());
+        userView_bloodGroup.setValue(patient.getBloodGroup());
+        userView_allergies.setText(patient.getAllergies());
     }
 }

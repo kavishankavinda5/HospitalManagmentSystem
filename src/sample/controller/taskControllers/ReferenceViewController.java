@@ -3,7 +3,7 @@ import sample.model.BloodGroup;
 import sample.model.UserRoll;
 import java.util.ArrayList;
 
-public class referenceViewController {
+public class ReferenceViewController {
 
    public static ArrayList<UserRoll> userRolls = new ArrayList<>();
 
@@ -16,7 +16,7 @@ public class referenceViewController {
     public static ArrayList<String> maritalStatus = new ArrayList<>();
 
     public static void setUserRolls(UserRoll userRolls) {
-        referenceViewController.userRolls.add(userRolls);
+        ReferenceViewController.userRolls.add(userRolls);
     }
 
     public static ArrayList<UserRoll> getUserRolls() {
@@ -36,18 +36,18 @@ public class referenceViewController {
     }
 
     public static void setGender(String gender) {
-        referenceViewController.gender.add(gender);
+        ReferenceViewController.gender.add(gender);
     }
 
     public static void setBloogGroup(BloodGroup bloogGroup) {
-        referenceViewController.bloogGroup.add(bloogGroup);
+        ReferenceViewController.bloogGroup.add(bloogGroup);
     }
 
     public static ArrayList<BloodGroup> getBloogGroup() {
         return bloogGroup;
     }
     public static void setMaritalStatus(String status) {
-        referenceViewController.maritalStatus.add(status);
+        ReferenceViewController.maritalStatus.add(status);
     }
 
     public static ArrayList<String> getMaritalStatus() {
