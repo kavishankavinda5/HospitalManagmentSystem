@@ -57,7 +57,7 @@
                         <ToggleGroup fx:id="postal" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton layoutX="306.0" layoutY="108.0" style="-fx-background-radius: #1e90ff;" text="Dispatch" toggleGroup="$postal">
+                  <JFXRadioButton layoutX="306.0" layoutY="108.0" text="Dispatch" toggleGroup="$postal">
                      <font>
                         <Font size="15.0" />
                      </font>
