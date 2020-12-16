@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import sample.controller.MultipleFXMLLoader;
+import sample.controller.actionTask.UserAction;
 import sample.controller.taskControllers.referenceViewController;
-import sample.model.LoginUser;
-import sample.model.UserRoll;
+import sample.model.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -35,10 +35,6 @@ import java.util.Base64;
 import java.util.List;
 
 public class Main extends Application {
-    private static String secretKey = "boooooooooom!!!!";
-    private static String salt = "ssshhhhhhhhhhh!!!!";
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -54,10 +50,21 @@ public class Main extends Application {
         referenceViewController.setUserRolls(UserRoll.PATIENT);
         referenceViewController.setUserRolls(UserRoll.MEDICALOFFICER);
 
-        referenceViewController.setDoctorSpeciality("boneSpeciality");
-        referenceViewController.setDoctorSpeciality("brainSpeciality");
+        referenceViewController.setDoctorSpeciality("BoneSpeciality");
+        referenceViewController.setDoctorSpeciality("BrainSpeciality");
+        referenceViewController.setDoctorSpeciality("Kidney Speciality");
+
         referenceViewController.setGender("Male");
         referenceViewController.setGender("Female");
+
+        referenceViewController.setMaritalStatus("Married");
+        referenceViewController.setMaritalStatus("Unmarried");
+
+        referenceViewController.setBloogGroup(BloodGroup.A_POSITIVE);
+        referenceViewController.setBloogGroup(BloodGroup.A_NEGATIVE);
+        referenceViewController.setBloogGroup(BloodGroup.AB_NEGATIVE);
+        referenceViewController.setBloogGroup(BloodGroup.AB_POSITIVE);
+
 
       launch(args);
     }

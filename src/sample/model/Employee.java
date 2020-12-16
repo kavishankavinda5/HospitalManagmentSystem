@@ -3,7 +3,7 @@ package sample.model;
 import javafx.scene.image.Image;
 import java.util.Date;
 
-public abstract class Employee {
+public abstract class Employee extends User{
     private int staffID;
     private String staffEmailAddress;
     private Date dateOfJoining;

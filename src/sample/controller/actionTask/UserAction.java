@@ -2,7 +2,7 @@ package sample.controller.actionTask;
 
 import org.jetbrains.annotations.NotNull;
 import sample.model.LoginUser;
-import sample.model.User;
+import sample.model.Patient;
 import sample.model.UserRoll;
 
 import javax.crypto.Cipher;
@@ -12,6 +12,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +41,8 @@ public class UserAction {
             String saveduserName = loginData.get(i).getUserName().trim();
             String savedUserPassword = loginData.get(i).getUserPassword().trim();
 
-            boolean a = (saveduserName.equals(encrypt(userName,secretKey)));
-            boolean b = (savedUserPassword.equals(encrypt(password,secretKey)));
+            boolean a = (saveduserName.equals(encrypt(userName, secretKey)));
+            boolean b = (savedUserPassword.equals(encrypt(password, secretKey)));
 
             if (a && b) {
                 feedback = 1;
@@ -59,10 +63,13 @@ public class UserAction {
             try (FileReader fileReader = new FileReader(file)) {
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+                LineNumberReader lineNumberReader = new LineNumberReader(bufferedReader);
                 String line = null;
+
 
                 while ((line = bufferedReader.readLine()) != null) {
 
+                    System.out.println(lineNumberReader.getLineNumber());
                     List<String> tempList = Arrays.asList(line.split(","));
                     LoginUser loginUser = new LoginUser();
                     loginUser.setUserName(tempList.get(0).trim());
@@ -122,44 +129,48 @@ public class UserAction {
 
     }
 
-    public static void addUser(User user, UserRoll roll){
+    public static void addPatient(Patient user, UserRoll roll) {
 
-        switch (user.getUserRoll()){
-            case ADMIN:
-                if (roll.equals(UserRoll.ADMIN)){
-                    //code to add user type admin
-                }else{
-                    System.out.println("Permission denied!!!");
-                }
-                break;
-
-            case PATIENT:
-                if (roll.equals(UserRoll.ADMIN) || roll.equals(UserRoll.RECEPTIONIST)){
-                    //code to add user type patient
-                }else{
-                    System.out.println("Permission denied!!!");
-                }
-                break;
-            case RECEPTIONIST:
-                if (roll.equals(UserRoll.ADMIN)){
-                    //code to add user type receptionist
-                }else{
-                    System.out.println("Permission denied!!!");
-
-                }
-                break;
-            case MEDICALOFFICER:
-                if (roll.equals(UserRoll.ADMIN)){
-                    //code to add user type medical officer
-                }else {
-                    System.out.println("permission denied !!");
-                }
-                break;
-
-            default:
-                break;
+        if (roll.equals(UserRoll.ADMIN) || roll.equals(UserRoll.RECEPTIONIST)) {
+            savePatient(user);
         }
 
     }
 
+    private static void savePatient(Patient user) {
+        File file = new File("src/sample/fileStorage/userData/patientData.txt");
+
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(user.getUserRoll().toString() + ",");
+            bufferedWriter.write(user.getName() + ",");
+            bufferedWriter.write(user.getGender() + ",");
+            bufferedWriter.write(user.getPhoneNumber()+ ",");
+            bufferedWriter.write(user.getIdCardNumber() + ",");
+            bufferedWriter.write(user.getDob() + ",");
+            bufferedWriter.write(user.getMaritalStatus() + ",");
+            bufferedWriter.write(user.getIdCardNumber() + ",");
+            bufferedWriter.write(user.getBloodGroup().toString()+ ",");
+            bufferedWriter.write(user.getAllergies());
+
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+            fileWriter.close();
+            System.out.println("file path : " + file.getPath());
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+    public static void setVariable(int lineNumber, String data) throws IOException {
+        Path path = Paths.get("data.txt");
+        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+        lines.set(lineNumber - 1, data);
+        Files.write(path, lines, StandardCharsets.UTF_8);
+    }
 }
+
+
+

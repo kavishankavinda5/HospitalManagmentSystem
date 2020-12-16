@@ -72,7 +72,7 @@ public class CustomLoginController {
                 String inputPassword = userLogin_userPassword.getText().trim();
 
                 int i = UserAction.verifyLogin(inputUserName,inputPassword, userRoll.toLowerCase().trim());
-                System.out.println(i);
+               // System.out.println(i);
 
                 if (i == 1){
                     switch (userRoll){

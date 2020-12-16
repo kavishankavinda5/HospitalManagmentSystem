@@ -1,5 +1,6 @@
 package sample.model;
 
+
 import java.util.Date;
 
 public abstract class User {
@@ -7,11 +8,12 @@ public abstract class User {
     private String userName;
     private String name;
     private String gender;
-    private Long phoneNumber;
+    private String phoneNumber =null;
     private String idCardNumber;
     private Date dob;
     private String address;
     private String maritalStatus;
+    private String userPassword;
 
     public UserRoll getUserRoll() {
         return userRoll;
@@ -33,7 +35,7 @@ public abstract class User {
         return gender;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -65,7 +67,7 @@ public abstract class User {
         this.gender = gender;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -83,5 +85,13 @@ public abstract class User {
 
     public void setMaritalStatus(String maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 }
