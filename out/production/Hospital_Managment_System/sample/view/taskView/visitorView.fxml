@@ -15,83 +15,83 @@
    <children>
       <AnchorPane prefHeight="450.0" prefWidth="850.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <JFXTextField focusColor="#474849" layoutX="30.0" layoutY="17.0" prefHeight="20.0" prefWidth="200.0" promptText="ID NUMBER" style="-fx-border-color: black;" unFocusColor="#575757" />
+            <JFXTextField focusColor="#474849" layoutX="30.0" layoutY="17.0" prefHeight="20.0" prefWidth="200.0" promptText="ID NUMBER" style="-fx-border-color: f4eeed;" unFocusColor="WHITE" />
             <JFXButton layoutX="253.0" layoutY="15.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #1e90ff;" text="Search" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <AnchorPane layoutX="30.0" layoutY="70.0" prefHeight="355.0" prefWidth="350.0" style="-fx-border-color: black;">
+            <AnchorPane layoutX="30.0" layoutY="70.0" prefHeight="355.0" prefWidth="350.0" style="-fx-border-color: #999b84;">
                <children>
-                  <Label layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="150.0" text="ID NO" textFill="#575757">
+                  <Label layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="150.0" text="ID No" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="25.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" unFocusColor="#575757" />
-                  <Label layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="150.0" text="FIRST NAME" textFill="#575757">
+                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="25.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="150.0" text="First Name" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="79.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" unFocusColor="#575757" />
-                  <Label layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="150.0" text="LAST NAME" textFill="#575757">
+                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="79.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="150.0" text="Last Name" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="134.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" unFocusColor="#575757" />
-                  <Label layoutX="14.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" text="PURPOSE" textFill="#575757">
+                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="134.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" text="Purpose" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="189.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" unFocusColor="#575757" />
-                  <Label layoutX="14.0" layoutY="245.0" prefHeight="25.0" prefWidth="150.0" text="PHONE NUMBER" textFill="#575757">
+                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="189.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="245.0" prefHeight="25.0" prefWidth="150.0" text="Phone Number" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="244.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" unFocusColor="#575757" />
-                  <Label layoutX="14.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" text="GENDER" textFill="#575757">
+                  <JFXTextField focusColor="#474849" layoutX="130.0" layoutY="244.0" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" text="Gender" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXComboBox layoutX="130.0" layoutY="299.0" prefHeight="26.0" prefWidth="200.0" style="-fx-border-color: black;" />
+                  <JFXComboBox layoutX="130.0" layoutY="299.0" prefHeight="26.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="470.0" layoutY="70.0" prefHeight="355.0" prefWidth="350.0" style="-fx-border-color: black;">
+            <AnchorPane layoutX="470.0" layoutY="70.0" prefHeight="355.0" prefWidth="350.0" style="-fx-border-color: #999b84;">
                <children>
-                  <Label layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="150.0" text="DATE" textFill="#575757">
+                  <Label layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="150.0" text="Date" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <DatePicker layoutX="130.0" layoutY="25.0" prefHeight="28.0" prefWidth="200.0" style="-fx-border-color: BLACK;" />
-                  <Label layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="150.0" text="IN TIME" textFill="#575757">
+                  <DatePicker layoutX="130.0" layoutY="25.0" prefHeight="28.0" prefWidth="200.0" style="-fx-border-color: #999b84;" />
+                  <Label layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="150.0" text="In Time" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXComboBox layoutX="130.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" promptText="HH" style="-fx-border-color: black;" />
-                  <JFXComboBox layoutX="196.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" promptText="MM" style="-fx-border-color: black;" />
-                  <JFXComboBox layoutX="263.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" style="-fx-border-color: black;" />
-                  <Label layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="150.0" text="OUT TIME" textFill="#575757">
+                  <JFXComboBox layoutX="130.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" promptText="HH" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <JFXComboBox layoutX="196.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" promptText="MM" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <JFXComboBox layoutX="263.0" layoutY="79.0" prefHeight="27.0" prefWidth="66.6" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="150.0" text="Out Time" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXComboBox layoutX="130.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" promptText="HH" style="-fx-border-color: black;" />
-                  <JFXComboBox layoutX="196.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" promptText="MM" style="-fx-border-color: black;" />
-                  <JFXComboBox layoutX="263.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" style="-fx-border-color: black;" />
-                  <Label layoutX="14.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" text="NOTES" textFill="#575757">
+                  <JFXComboBox layoutX="130.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" promptText="HH" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <JFXComboBox layoutX="196.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" promptText="MM" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <JFXComboBox layoutX="263.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.6" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="190.0" prefHeight="26.0" prefWidth="99.0" text="Notes" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextArea focusColor="#474849" layoutX="130.0" layoutY="190.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: BLACK;" />
-                  <Label layoutX="14.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" text="ATTACHMENTS" textFill="#575757">
+                  <JFXTextArea focusColor="#474849" layoutX="130.0" layoutY="190.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: #999b84;" unFocusColor="WHITE" />
+                  <Label layoutX="14.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" text="Attachement" textFill="#575757">
                      <font>
                         <Font size="15.0" />
                      </font>
