@@ -169,7 +169,7 @@
                         <Text layoutX="64.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="66" />
                      </children>
                   </AnchorPane>
-                  <Line endX="457.0" endY="54.0" layoutX="171.0" layoutY="53.0" startX="-154.0" startY="54.0" stroke="#e8e5e5" />
+                  <Line endX="662.0" endY="54.0" layoutX="171.0" layoutY="53.0" startX="-154.0" startY="54.0" stroke="#e8e5e5" />
                   <ImageView fitHeight="305.0" fitWidth="561.0" layoutX="18.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../Downloads/SL_Covid19_(1_April_2020).jpg" />
