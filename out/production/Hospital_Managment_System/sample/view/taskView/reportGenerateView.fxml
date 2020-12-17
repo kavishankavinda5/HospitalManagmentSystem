@@ -7,15 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="700.0" prefWidth="850.0" style="-fx-background-color: #11999e;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AppointmentViewController">
-   <children>
-      <Label layoutX="245.0" layoutY="300.0" text="Report View" textFill="WHITE">
-         <font>
-            <Font size="67.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+
 <BorderPane fx:id="reportGenarator_boarderPane" prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.ReportGenController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />

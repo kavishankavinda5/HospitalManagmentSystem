@@ -57,16 +57,6 @@ public class PatientViewController {
 
     @FXML
     void initialize() {
-        assert patientView != null : "fx:id=\"mainReceptionView\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_home != null : "fx:id=\"patientView_home\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_appointment != null : "fx:id=\"receptionView_appointment\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_complaint != null : "fx:id=\"patientView_complaint\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientMain_logout != null : "fx:id=\"receptionMain_logout\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_logoutButton != null : "fx:id=\"patientView_logoutButton\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientMain_backIcon != null : "fx:id=\"adminMain_backIcon\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_homePane != null : "fx:id=\"receptionView_homePane\" was not injected: check your FXML file 'patientMainView.fxml'.";
-        assert patientView_userName != null : "fx:id=\"patientView_userName\" was not injected: check your FXML file 'patientMainView.fxml'.";
-
 
         patientView_appointment.setOnAction(new EventHandler<ActionEvent>() {
             @Override
