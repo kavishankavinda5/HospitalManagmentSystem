@@ -63,8 +63,8 @@ public class MedicalOfficerController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    System.out.println("taskView/reportGenerateView");
-                    Pane view = Main.getView("taskView/reportGenerateView");
+                    System.out.println("taskView/appointmentView");
+                    Pane view = Main.getView("taskView/appointmentView");
                     setMedicalViewCenter(view);
                 }catch (Exception e){
                     e.printStackTrace();

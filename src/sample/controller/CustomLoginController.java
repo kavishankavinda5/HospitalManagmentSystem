@@ -108,7 +108,7 @@ public class CustomLoginController {
 
     public void openDashBoard(String fileName){
         userLogin_SigninButoon.getScene().getWindow().hide();
-        Stage receptionStage = new Stage();
+        Stage mainStage = new Stage();
         FXMLLoader loader = new FXMLLoader();
 
         loader.setLocation(getClass().getResource("/sample/view/dashBoards/"+fileName+".fxml"));
@@ -121,10 +121,8 @@ public class CustomLoginController {
         }
 
         Parent root = loader.getRoot();
-        receptionStage.setScene(new Scene(root));
-
-
-        receptionStage.show();
+        mainStage.setScene(new Scene(root));
+        mainStage.show();
     }
 
 

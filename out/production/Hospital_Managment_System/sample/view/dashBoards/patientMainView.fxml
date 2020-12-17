@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -132,7 +131,6 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXDatePicker layoutX="153.0" layoutY="462.0" />
                   <Label alignment="CENTER" layoutX="463.0" layoutY="463.0" prefHeight="26.0" prefWidth="54.0" text="Address">
                      <font>
                         <Font size="14.0" />
