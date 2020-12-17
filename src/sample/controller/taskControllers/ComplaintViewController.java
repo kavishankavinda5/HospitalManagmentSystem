@@ -1,4 +1,4 @@
 package sample.controller.taskControllers;
 
-public class complaintViewController {
+public class ComplaintViewController {
 }

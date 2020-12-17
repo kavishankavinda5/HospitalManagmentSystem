@@ -1,5 +1,5 @@
 package sample.model;
 
-public class Receptionist {
+public class Receptionist extends Employee{
     
 }

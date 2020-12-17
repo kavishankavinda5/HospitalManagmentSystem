@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.controller.actionTask.UserAction;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +22,8 @@ import java.util.ResourceBundle;
 import static sample.Main.liveClock;
 
 public class CustomLoginController {
+
+    private String userRoll;
 
     @FXML
     private ResourceBundle resources;
@@ -63,33 +67,43 @@ public class CustomLoginController {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                switch (userLogin_userName.getText()){
-                    case "admin":
-                        openDashBoard("adminMainView");
-                        break;
-                    case "reception":
-                        openDashBoard("receptionistMainView");
-                        break;
-                    case "patient":
-                        openDashBoard("patientMainView");
-                        break;
-                    case "doctor":
-                        openDashBoard("medicalOfficerView");
-                        break;
+                //get data from the view and store it int variables
+                String inputUserName = userLogin_userName.getText().trim();
+                String inputPassword = userLogin_userPassword.getText().trim();
 
-                    default:
-                        customLogin_invalidMessage.setText("Invalid User Input !!!");
+                int i = UserAction.verifyLogin(inputUserName,inputPassword, userRoll.toLowerCase().trim());
+               // System.out.println(i);
 
+                if (i == 1){
+                    switch (userRoll){
+                        case "Admin":
+                            openDashBoard("adminMainView");
+                            break;
+                        case "Reception":
+                            openDashBoard("receptionistMainView");
+                            break;
+                        case "Patient":
+                            openDashBoard("patientMainView");
+                            break;
+                        case "MedicalOfficer":
+                            openDashBoard("medicalOfficerView");
+                            break;
+
+                        default:
+                            customLogin_invalidMessage.setText("Invalid User Input !!!");
+
+                    }
                 }
-
-
-
+                else {
+                    customLogin_invalidMessage.setText("Invalid User Input !!!");
+                }
             }
         });
 
     }
     public void setUserLoginLable(String name){
         userLogin_userLable.setText(name+" Login");
+        this.userRoll = name;
     }
 
     public void openDashBoard(String fileName){
