@@ -1,12 +1,14 @@
 package sample.model;
 
 import javafx.scene.image.Image;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Employee extends User{
     private int staffID;
     private String staffEmailAddress;
-    private Date dateOfJoining;
+    private LocalDate dateOfJoining;
     private Image staffPhoto;
 
     public int getStaffID() {
@@ -17,7 +19,7 @@ public abstract class Employee extends User{
         return staffEmailAddress;
     }
 
-    public Date getDateOfJoining() {
+    public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
 
@@ -33,7 +35,7 @@ public abstract class Employee extends User{
         this.staffEmailAddress = staffEmailAddress;
     }
 
-    public void setDateOfJoining(Date dateOfJoining) {
+    public void setDateOfJoining(LocalDate dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
     }
 

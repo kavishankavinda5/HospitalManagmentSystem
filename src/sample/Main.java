@@ -48,8 +48,12 @@ public class Main extends Application {
         ReferenceViewController.setBloogGroup(BloodGroup.A_NEGATIVE);
         ReferenceViewController.setBloogGroup(BloodGroup.AB_NEGATIVE);
         ReferenceViewController.setBloogGroup(BloodGroup.AB_POSITIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.B_NEGATIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.B_POSITIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.O_NEGATIVE);
+        ReferenceViewController.setBloogGroup(BloodGroup.O_POSITIVE);
 
-        UserAction.searchPatient("5566","src/sample/fileStorage/userData/patientData.txt");
+
 
 
       launch(args);

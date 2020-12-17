@@ -71,7 +71,7 @@
             </Label>
             <JFXComboBox fx:id="userView_marital" layoutX="276.0" layoutY="156.0" prefHeight="25.0" prefWidth="126.0" promptText="Marital" />
             <Label layoutX="223.0" layoutY="160.0" text="Marital" />
-            <Label layoutX="14.0" layoutY="390.0" text="User Name" />
+            <Label fx:id="userView_userNameLable" layoutX="14.0" layoutY="390.0" text="User Name" />
             <JFXTextField fx:id="userView_userName" focusColor="DODGERBLUE" layoutX="98.0" layoutY="385.0" prefHeight="26.0" prefWidth="307.0" promptText="User Name" />
             <Line endX="-499.0" endY="-471.0" layoutX="1114.0" layoutY="843.0" startX="-529.0" startY="-471.0" stroke="#d9d9d9" />
             <Label layoutX="611.0" layoutY="89.0" text="Patient Details">

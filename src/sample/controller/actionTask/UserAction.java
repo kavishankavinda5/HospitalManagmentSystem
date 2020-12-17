@@ -1,10 +1,7 @@
 package sample.controller.actionTask;
 
 import org.jetbrains.annotations.NotNull;
-import sample.model.BloodGroup;
-import sample.model.LoginUser;
-import sample.model.Patient;
-import sample.model.UserRoll;
+import sample.model.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -28,6 +25,10 @@ public class UserAction {
     private static String secretKey = "boooooooooom!!!!";
     private static String salt = "ssshhhhhhhhhhh!!!!";
     private  static Scanner scanner;
+    public static  String patientDataFilePath = "src/sample/fileStorage/moduleData/userData/patientData.txt";
+    public static  String receptionistFilePath = "src/sample/fileStorage/moduleData/userData/receptionistData.txt";
+    public static String medicalOfficerFilePath = "src/sample/fileStorage/moduleData/userData/medicalOfficerData.txt";
+    public static String adminFilePath = "src/sample/fileStorage/moduleData/userData/adminData.txt";
     // verify user login credentials
     // parameters UserName , User Password , UserType (reception,admin.doctor,patient)
     public static int verifyLogin(String userName, String password, String userType) {
@@ -138,7 +139,7 @@ public class UserAction {
     }
 
     private static void savePatient(Patient user) {
-        File file = new File("src/sample/fileStorage/userData/patientData.txt");
+        File file = new File(patientDataFilePath);
 
         try (FileWriter fileWriter = new FileWriter(file, true)) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -268,6 +269,7 @@ return patient1;
         }
     }
 
+
     public static BloodGroup getBloodGroup(String name){
         BloodGroup blooGroup = null;
         switch (name){
@@ -297,6 +299,46 @@ return patient1;
 
         return  blooGroup;
     }
+
+    public static void addReceptionist(Receptionist receptionist,UserRoll roll){
+
+        if (roll.equals(UserRoll.ADMIN)){
+            saveReceptionist(receptionist);
+        }
+    }
+
+    private static  void  saveReceptionist(Receptionist receptionist){
+        File receptionFile = new File("src/sample/fileStorage/userData/receptionistData.txt");
+
+        try (FileWriter fileWriter = new FileWriter(receptionFile, true)) {
+
+            BufferedWriter receptionBufferedWriter = new BufferedWriter(fileWriter);
+
+            receptionBufferedWriter.write(receptionist.getUserRoll().toString() + ",");
+            receptionBufferedWriter.write(receptionist.getName() + ",");
+            receptionBufferedWriter.write(receptionist.getGender() + ",");
+            receptionBufferedWriter.write(receptionist.getMaritalStatus()+",");
+            receptionBufferedWriter.write(receptionist.getDob() + ",");
+            receptionBufferedWriter.write(receptionist.getPhoneNumber()+ ",");
+            receptionBufferedWriter.write(receptionist.getIdCardNumber() + ",");
+            receptionBufferedWriter.write(receptionist.getUserName()+",");
+            receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
+            receptionBufferedWriter.write(receptionist.getStaffID()+",");
+            receptionBufferedWriter.write(receptionist.getStaffEmailAddress());
+            receptionBufferedWriter.newLine();
+            receptionBufferedWriter.close();
+            fileWriter.close();
+            System.out.println("Receptionist saved: " + receptionFile.getPath()+" patient saved");
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
+
+    }
+
 }
 
 

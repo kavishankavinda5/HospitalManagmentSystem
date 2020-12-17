@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.util.StringConverter;
 import sample.controller.actionTask.UserAction;
 import sample.model.BloodGroup;
 import sample.model.Patient;
+import sample.model.Receptionist;
 import sample.model.UserRoll;
 
 import java.net.URL;
@@ -22,14 +24,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class UserViewController {
-    ObservableList<String> userType;
-
+    private  static  int staffID =0;
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private Label userView_userNameLable;
 
     @FXML
     private TableView<?> userView_userTable;
@@ -116,6 +120,10 @@ public class UserViewController {
                     userView_staffdoj.setDisable(true);
                     userView_staffEmail.setDisable(true);
                     userView_speciality.setDisable(true);
+                    userView_bloodGroup.setDisable(false);
+                    userView_userName.setDisable(true);
+                    userView_userPassword.setDisable(true);
+                    userView_userNameLable.setDisable(true);
 
 
                 }else if (userView_userTypeDrop.getValue()==UserRoll.ADMIN){
@@ -187,6 +195,24 @@ public class UserViewController {
                         patient.setAllergies(userView_allergies.getText());
 
                         UserAction.addPatient(patient,UserRoll.ADMIN);
+
+                    case RECEPTIONIST:
+                        Receptionist receptionist = new Receptionist();
+                        receptionist.setUserRoll(userView_userTypeDrop.getValue());
+                        receptionist.setName(userView_name.getText()); ;
+                        receptionist.setGender(userView_gender.getValue());
+                        receptionist.setMaritalStatus(userView_marital.getValue());
+                        receptionist.setDob(userView_dob.getValue()); ;
+                        receptionist.setPhoneNumber(userView_phoneNum.getText());
+                        receptionist.setIdCardNumber(userView_NIC.getText());
+                        receptionist.setUserName(userView_NIC.getText());
+                        receptionist.setUserPassword(userView_NIC.getText());
+                        receptionist.setStaffID(getStaffId());
+                        receptionist.setStaffEmailAddress(userView_staffEmail.getText());
+
+                        UserAction.addReceptionist(receptionist,UserRoll.ADMIN);
+
+
                 }
             }
         });
@@ -195,7 +221,7 @@ public class UserViewController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String serachID = userView_nicSearch.getText();
-                Patient patient =UserAction.searchPatient(serachID,"src/sample/fileStorage/userData/patientData.txt");
+                Patient patient =UserAction.searchPatient(serachID,UserAction.patientDataFilePath);
                 displayUserdata(patient);
             }
         });
@@ -213,5 +239,10 @@ public class UserViewController {
         userView_NIC.setText(patient.getIdCardNumber());
         userView_bloodGroup.setValue(patient.getBloodGroup());
         userView_allergies.setText(patient.getAllergies());
+    }
+
+    public static int  getStaffId(){
+        staffID ++;
+        return  staffID;
     }
 }
