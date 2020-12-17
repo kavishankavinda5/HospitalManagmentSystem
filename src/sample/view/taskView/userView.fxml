@@ -99,10 +99,10 @@
             <Label layoutX="447.0" layoutY="295.0" text="Date Of Joining" />
             <DatePicker fx:id="userView_staffdoj" layoutX="446.0" layoutY="324.0" prefHeight="25.0" prefWidth="164.0" promptText="MM/DD/YYYY" />
             <Label layoutX="451.0" layoutY="383.0" text="Specialty Area" />
-            <Label layoutX="659.0" layoutY="295.0" text="Photograph" />
-            <JFXButton layoutX="627.0" layoutY="324.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #1e90ff;" text="Upload  Photo" textFill="WHITE" />
-            <Label layoutX="663.0" layoutY="364.0" text="Document" />
-            <JFXButton layoutX="627.0" layoutY="394.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #1e90ff;" text="Upload  File" textFill="WHITE" />
+            <Label layoutX="706.0" layoutY="295.0" text="Photograph" />
+            <JFXButton layoutX="675.0" layoutY="319.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #1e90ff;" text="Upload  Photo" textFill="WHITE" />
+            <Label layoutX="701.0" layoutY="363.0" text="Document" />
+            <JFXButton layoutX="675.0" layoutY="394.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #1e90ff;" text="Upload  File" textFill="WHITE" />
             <Line endX="-282.0" endY="-458.0" layoutX="750.0" layoutY="830.0" startX="-304.0" startY="-458.0" stroke="#d9d9d9" />
             <Label layoutX="476.0" layoutY="361.0" text=" Medical Officer">
                <font>
