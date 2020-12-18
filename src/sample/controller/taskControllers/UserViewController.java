@@ -195,6 +195,7 @@ public class UserViewController {
                         patient.setDob(userView_dob.getValue());
                         patient.setPhoneNumber(userView_phoneNum.getText());
                         patient.setIdCardNumber(userView_NIC.getText());
+                        patient.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
                         patient.setUserName(userView_NIC.getText());
                         patient.setUserPassword(userView_NIC.getText());
                         patient.setBloodGroup(userView_bloodGroup.getValue());
@@ -211,6 +212,7 @@ public class UserViewController {
                         receptionist.setDob(userView_dob.getValue()); ;
                         receptionist.setPhoneNumber(userView_phoneNum.getText());
                         receptionist.setIdCardNumber(userView_NIC.getText());
+                        receptionist.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
                         receptionist.setUserName(userView_NIC.getText());
                         receptionist.setUserPassword(userView_NIC.getText());
                         receptionist.setStaffID(getStaffId());
