@@ -13,10 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.util.StringConverter;
 import sample.controller.actionTask.UserAction;
-import sample.model.BloodGroup;
-import sample.model.Patient;
-import sample.model.Receptionist;
-import sample.model.UserRoll;
+import sample.model.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -128,7 +125,16 @@ public class UserViewController {
 
                 }else if (userView_userTypeDrop.getValue()==UserRoll.ADMIN){
                     userView_bloodGroup.setDisable(true);
-
+                    userView_staffID.setDisable(true);
+                    userView_staffdoj.setDisable(true);
+                    userView_staffEmail.setDisable(true);
+                    userView_speciality.setDisable(true);
+                    userView_bloodGroup.setDisable(true);
+                    userView_userName.setDisable(true);
+                    userView_userPassword.setDisable(true);
+                    userView_allergies.setDisable(true);
+                    userView_userNameLable.setDisable(true);
+                    userView_speciality.setDisable(true);
                 }
                 else if (userView_userTypeDrop.getValue()==UserRoll.RECEPTIONIST){
                     userView_staffID.setDisable(false);
@@ -211,6 +217,24 @@ public class UserViewController {
                         receptionist.setStaffEmailAddress(userView_staffEmail.getText());
 
                         UserAction.addReceptionist(receptionist,UserRoll.ADMIN);
+
+
+                    case ADMIN:
+                        Admin admin = new Admin();
+                        admin.setUserRoll(userView_userTypeDrop.getValue());
+                        admin.setName(userView_name.getText()); ;
+                        admin.setGender(userView_gender.getValue());
+                        admin.setMaritalStatus(userView_marital.getValue());
+                        admin.setDob(userView_dob.getValue()); ;
+                        admin.setPhoneNumber(userView_phoneNum.getText());
+                        admin.setIdCardNumber(userView_NIC.getText());
+                        admin.setUserName(userView_NIC.getText());
+                        admin.setUserPassword(userView_NIC.getText());
+
+
+                        UserAction.addAdmin(admin,UserRoll.ADMIN);
+
+
 
 
                 }

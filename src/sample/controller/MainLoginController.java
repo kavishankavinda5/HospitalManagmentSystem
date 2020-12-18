@@ -1,4 +1,4 @@
-package sample.controller;
+   package sample.controller;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

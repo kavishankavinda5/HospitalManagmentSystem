@@ -53,8 +53,8 @@ public class Main extends Application {
         ReferenceViewController.setBloogGroup(BloodGroup.O_NEGATIVE);
         ReferenceViewController.setBloogGroup(BloodGroup.O_POSITIVE);
 
-
-
+        ReferenceViewController.setPostalTypes(PostalType.DISPATCH);
+        ReferenceViewController.setPostalTypes(PostalType.RECEIVED);
 
       launch(args);
     }

@@ -324,7 +324,7 @@ return patient1;
             receptionBufferedWriter.write(receptionist.getUserName()+",");
             receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
             receptionBufferedWriter.write(receptionist.getStaffID()+",");
-            receptionBufferedWriter.write(receptionist.getStaffEmailAddress());
+            receptionBufferedWriter.write(receptionist.getStaffEmailAddress()+" ");
             receptionBufferedWriter.newLine();
             receptionBufferedWriter.close();
             fileWriter.close();
@@ -339,7 +339,41 @@ return patient1;
 
     }
 
+    //write a method for add admin data
+public static void addAdmin (Admin admin,UserRoll userRoll){
+
+    if (userRoll.equals(UserRoll.ADMIN)) {
+        saveAdmin(admin);
+    }
+    else {
+        System.out.println("cannot save");}
 }
+//write a method for save admin data
+    private static void saveAdmin(Admin admin) {
+        File file = new File(adminFilePath);
 
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            BufferedWriter adminBufferedWriter = new BufferedWriter(fileWriter);
+            adminBufferedWriter.write(admin.getUserRoll().toString() + ",");
+            adminBufferedWriter.write(admin.getName() + ",");
+            adminBufferedWriter.write(admin.getGender() + ",");
+            adminBufferedWriter.write(admin.getMaritalStatus() + ",");
+            adminBufferedWriter.write(admin.getDob() + ",");
+            adminBufferedWriter.write(admin.getPhoneNumber() + ",");
+            adminBufferedWriter.write(admin.getIdCardNumber() + ",");
+            adminBufferedWriter.write(admin.getUserName() + ",");
+            adminBufferedWriter.write(admin.getUserPassword() + ",");
 
+            adminBufferedWriter.newLine();
+            adminBufferedWriter.close();
+            fileWriter.close();
+            System.out.println("file path : " + file.getPath() + " admin saved");
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+}
 
