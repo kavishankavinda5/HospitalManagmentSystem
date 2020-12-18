@@ -56,6 +56,7 @@ public class Main extends Application {
         ReferenceViewController.setPostalTypes(PostalType.DISPATCH);
         ReferenceViewController.setPostalTypes(PostalType.RECEIVED);
 
+
       launch(args);
     }
 

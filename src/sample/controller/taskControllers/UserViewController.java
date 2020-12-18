@@ -184,60 +184,21 @@ public class UserViewController {
                     }
                 });
 
-
                 switch (userView_userTypeDrop.getValue()){
                     case PATIENT:
-                        Patient patient = new Patient();
-                        patient.setUserRoll(userView_userTypeDrop.getValue());
-                        patient.setName(userView_name.getText());
-                        patient.setGender(userView_gender.getValue());
-                        patient.setMaritalStatus(userView_marital.getValue());
-                        patient.setDob(userView_dob.getValue());
-                        patient.setPhoneNumber(userView_phoneNum.getText());
-                        patient.setIdCardNumber(userView_NIC.getText());
-                        patient.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
-                        patient.setUserName(userView_NIC.getText());
-                        patient.setUserPassword(userView_NIC.getText());
-                        patient.setBloodGroup(userView_bloodGroup.getValue());
-                        patient.setAllergies(userView_allergies.getText());
-
-                        UserAction.addPatient(patient,UserRoll.ADMIN);
+                        UserAction.addPatient(getPatient(),UserRoll.ADMIN);
+                        break;
 
                     case RECEPTIONIST:
-                        Receptionist receptionist = new Receptionist();
-                        receptionist.setUserRoll(userView_userTypeDrop.getValue());
-                        receptionist.setName(userView_name.getText()); ;
-                        receptionist.setGender(userView_gender.getValue());
-                        receptionist.setMaritalStatus(userView_marital.getValue());
-                        receptionist.setDob(userView_dob.getValue()); ;
-                        receptionist.setPhoneNumber(userView_phoneNum.getText());
-                        receptionist.setIdCardNumber(userView_NIC.getText());
-                        receptionist.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
-                        receptionist.setUserName(userView_NIC.getText());
-                        receptionist.setUserPassword(userView_NIC.getText());
-                        receptionist.setStaffID(getStaffId());
-                        receptionist.setStaffEmailAddress(userView_staffEmail.getText());
 
-                        UserAction.addReceptionist(receptionist,UserRoll.ADMIN);
+                        UserAction.addReceptionist(getReceptionist(),UserRoll.ADMIN);
+                        break;
 
 
                     case ADMIN:
-                        Admin admin = new Admin();
-                        admin.setUserRoll(userView_userTypeDrop.getValue());
-                        admin.setName(userView_name.getText()); ;
-                        admin.setGender(userView_gender.getValue());
-                        admin.setMaritalStatus(userView_marital.getValue());
-                        admin.setDob(userView_dob.getValue()); ;
-                        admin.setPhoneNumber(userView_phoneNum.getText());
-                        admin.setIdCardNumber(userView_NIC.getText());
-                        admin.setUserName(userView_NIC.getText());
-                        admin.setUserPassword(userView_NIC.getText());
 
-
-                        UserAction.addAdmin(admin,UserRoll.ADMIN);
-
-
-
+                        UserAction.addAdmin(getAdmin(),UserRoll.ADMIN);
+                        break;
 
                 }
             }
@@ -251,20 +212,113 @@ public class UserViewController {
                 displayUserdata(patient);
             }
         });
+
+        userView_deleteUser.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                UserAction.deletePatientRecord(UserRoll.ADMIN,userView_nicSearch.getText());
+            }
+        });
+
+
+        userView_updateUser.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                UserAction.updatePatientRecord(UserRoll.ADMIN,getPatient(),userView_nicSearch.getText());
+            }
+        });
+
+        userView_reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                resetDisplay();
+            }
+        });
     }
 
     public void displayUserdata(Patient patient){
         userView_userTypeDrop.setValue(patient.getUserRoll());
-        userView_name.setText(patient.getUserName());
+        userView_name.setText(patient.getName());
         userView_gender.setValue(patient.getGender());
         userView_marital.setValue(patient.getMaritalStatus());
         userView_dob.setValue(patient.getDob());
         userView_phoneNum.setText(patient.getPhoneNumber());
         userView_NIC.setText(patient.getIdCardNumber());
+        userView_addressLine01.setText(patient.getAddress());
         userView_userName.setText(patient.getUserName());
-        userView_NIC.setText(patient.getIdCardNumber());
+        userView_userPassword.setText(patient.getIdCardNumber());
         userView_bloodGroup.setValue(patient.getBloodGroup());
         userView_allergies.setText(patient.getAllergies());
+    }
+
+    public Patient getPatient(){
+        Patient patient = new Patient();
+        patient.setUserRoll(userView_userTypeDrop.getValue());
+        patient.setName(userView_name.getText());
+        patient.setGender(userView_gender.getValue());
+        patient.setMaritalStatus(userView_marital.getValue());
+        patient.setDob(userView_dob.getValue());
+        patient.setPhoneNumber(userView_phoneNum.getText());
+        patient.setIdCardNumber(userView_NIC.getText());
+        patient.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
+        patient.setUserName(userView_NIC.getText());
+        patient.setUserPassword(userView_NIC.getText());
+        patient.setBloodGroup(userView_bloodGroup.getValue());
+        patient.setAllergies(userView_allergies.getText());
+
+        return patient;
+    }
+
+    public Receptionist getReceptionist(){
+        Receptionist receptionist = new Receptionist();
+        receptionist.setUserRoll(userView_userTypeDrop.getValue());
+        receptionist.setName(userView_name.getText()); ;
+        receptionist.setGender(userView_gender.getValue());
+        receptionist.setMaritalStatus(userView_marital.getValue());
+        receptionist.setDob(userView_dob.getValue()); ;
+        receptionist.setPhoneNumber(userView_phoneNum.getText());
+        receptionist.setIdCardNumber(userView_NIC.getText());
+        receptionist.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
+        receptionist.setUserName(userView_NIC.getText());
+        receptionist.setUserPassword(userView_NIC.getText());
+        receptionist.setStaffID(getStaffId());
+        receptionist.setStaffEmailAddress(userView_staffEmail.getText());
+
+        return receptionist;
+    }
+
+    public Admin getAdmin(){
+        Admin admin = new Admin();
+        admin.setUserRoll(userView_userTypeDrop.getValue());
+        admin.setName(userView_name.getText()); ;
+        admin.setGender(userView_gender.getValue());
+        admin.setMaritalStatus(userView_marital.getValue());
+        admin.setDob(userView_dob.getValue()); ;
+        admin.setPhoneNumber(userView_phoneNum.getText());
+        admin.setAddress(userView_addressLine01.getText() +" "+userView_addressLine02);
+        admin.setIdCardNumber(userView_NIC.getText());
+        admin.setUserName(userView_NIC.getText());
+        admin.setUserPassword(userView_NIC.getText());
+
+        return admin;
+
+    }
+
+    public void resetDisplay(){
+        userView_name.clear();
+        userView_gender.getItems();
+        userView_marital.getValue();
+        userView_phoneNum.clear();
+        userView_userPassword.clear();
+        userView_NIC.clear();
+        userView_userName.clear();
+        userView_addressLine01.clear();
+        userView_addressLine02.clear();
+        userView_allergies.clear();
+        userView_dob.setValue(null);
+        userView_staffdoj.setValue(null);
+        userView_gender.setValue(null);
+
     }
 
     public static int  getStaffId(){

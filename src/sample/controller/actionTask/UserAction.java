@@ -76,8 +76,6 @@ public class UserAction {
                     loginUser.setUserName(tempList.get(0).trim());
                     loginUser.setUserPassword(tempList.get(1).trim());
                     userData.add(loginUser);
-
-
                 }
 
 
@@ -150,6 +148,7 @@ public class UserAction {
             bufferedWriter.write(user.getDob() + ",");
             bufferedWriter.write(user.getPhoneNumber()+ ",");
             bufferedWriter.write(user.getIdCardNumber() + ",");
+            bufferedWriter.write(user.getAddress()+ ",");
             bufferedWriter.write(user.getUserName()+",");
             bufferedWriter.write(user.getUserPassword() + ",");
             bufferedWriter.write(user.getBloodGroup() + ",");
@@ -174,14 +173,14 @@ public class UserAction {
 
     public static Patient searchPatient(String seachTerm, String filepath){
         boolean found = false;
-        Patient patient1 = new Patient();
+        Patient searchedPatient = new Patient();
         String id =seachTerm;
 
 
 
         try{
             String userRoll = null;
-            String name=null;
+            String name=null,address =null;
             String gender=null,marital=null,dob=null,phonenumber=null,idcardNumber=null,userName=null,password=null,blood=null,allergy =null;
             scanner = new Scanner(new File(filepath));
             scanner.useDelimiter("[,\n]");
@@ -195,6 +194,7 @@ public class UserAction {
                 dob =scanner.next();
                 phonenumber = scanner.next();
                 idcardNumber = scanner.next();
+                address = scanner.next();
                 userName =scanner.next();
                 password=scanner.next();
                 blood =scanner.next();
@@ -205,19 +205,20 @@ public class UserAction {
                 }
             }
             if (found){
-                patient1.setUserRoll(getUserRoll(userRoll));
-                patient1.setName(name);
-                patient1.setGender(gender);
-                patient1.setMaritalStatus(marital);
-                patient1.setDob(getLocalDatefromString(dob));
-                patient1.setPhoneNumber(phonenumber);
-                patient1.setIdCardNumber(idcardNumber);
-                patient1.setUserName(userName);
-                patient1.setUserPassword(password);
-                patient1.setBloodGroup(getBloodGroup(blood));
-                patient1.setAllergies(allergy);
+                searchedPatient.setUserRoll(getUserRoll(userRoll));
+                searchedPatient.setName(name);
+                searchedPatient.setGender(gender);
+                searchedPatient.setMaritalStatus(marital);
+                searchedPatient.setDob(getLocalDatefromString(dob));
+                searchedPatient.setPhoneNumber(phonenumber);
+                searchedPatient.setIdCardNumber(idcardNumber);
+                searchedPatient.setAddress(address);
+                searchedPatient.setUserName(userName);
+                searchedPatient.setUserPassword(password);
+                searchedPatient.setBloodGroup(getBloodGroup(blood));
+                searchedPatient.setAllergies(allergy);
 
-                System.out.println(patient1.toString());
+                System.out.println(searchedPatient.toString());
 
 
             }else {
@@ -230,7 +231,7 @@ public class UserAction {
             e.printStackTrace();
         }
 
-return patient1;
+return searchedPatient;
 
     }
 
@@ -269,6 +270,15 @@ return patient1;
         }
     }
 
+    public static String getStringfromLocalDate(LocalDate date) {
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (date != null) {
+            return dateFormatter.format(date);
+        } else {
+            return "";
+        }
+    }
 
     public static BloodGroup getBloodGroup(String name){
         BloodGroup blooGroup = null;
@@ -294,6 +304,12 @@ return patient1;
             case "B_NEGATIVE":
                 blooGroup =BloodGroup.B_NEGATIVE;
                 break;
+            case "O_POSITIVE":
+                blooGroup =BloodGroup.O_POSITIVE;
+                break;
+            case "O_NEGATIVE":
+                blooGroup =BloodGroup.O_NEGATIVE;
+                break;
 
         }
 
@@ -308,7 +324,7 @@ return patient1;
     }
 
     private static  void  saveReceptionist(Receptionist receptionist){
-        File receptionFile = new File("src/sample/fileStorage/userData/receptionistData.txt");
+        File receptionFile = new File(receptionistFilePath);
 
         try (FileWriter fileWriter = new FileWriter(receptionFile, true)) {
 
@@ -321,6 +337,7 @@ return patient1;
             receptionBufferedWriter.write(receptionist.getDob() + ",");
             receptionBufferedWriter.write(receptionist.getPhoneNumber()+ ",");
             receptionBufferedWriter.write(receptionist.getIdCardNumber() + ",");
+            receptionBufferedWriter.write(receptionist.getAddress()+",");
             receptionBufferedWriter.write(receptionist.getUserName()+",");
             receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
             receptionBufferedWriter.write(receptionist.getStaffID()+",");
@@ -338,9 +355,8 @@ return patient1;
     public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
 
     }
-
     //write a method for add admin data
-public static void addAdmin (Admin admin,UserRoll userRoll){
+    public static void addAdmin (Admin admin,UserRoll userRoll){
 
     if (userRoll.equals(UserRoll.ADMIN)) {
         saveAdmin(admin);
@@ -348,7 +364,8 @@ public static void addAdmin (Admin admin,UserRoll userRoll){
     else {
         System.out.println("cannot save");}
 }
-//write a method for save admin data
+
+    //write a method for save admin data
     private static void saveAdmin(Admin admin) {
         File file = new File(adminFilePath);
 
@@ -361,6 +378,7 @@ public static void addAdmin (Admin admin,UserRoll userRoll){
             adminBufferedWriter.write(admin.getDob() + ",");
             adminBufferedWriter.write(admin.getPhoneNumber() + ",");
             adminBufferedWriter.write(admin.getIdCardNumber() + ",");
+            adminBufferedWriter.write(admin.getAddress()+",");
             adminBufferedWriter.write(admin.getUserName() + ",");
             adminBufferedWriter.write(admin.getUserPassword() + ",");
 
@@ -374,6 +392,157 @@ public static void addAdmin (Admin admin,UserRoll userRoll){
         }
 
     }
+
+    public static void deletePatientRecord(UserRoll userRoll,String searchTerm){
+        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
+            removePatientRecord(patientDataFilePath,searchTerm);
+        }else {
+            System.out.println("acces denied");
+        }
+    }
+
+    public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID){
+        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
+            editPatientRecord(patientDataFilePath,patientRecord,searchedID);
+        }else {
+            System.out.println("acces denied(cannot update)");
+        }
+    }
+
+    private static void removePatientRecord(String filePath,String serachTerm){
+        ArrayList<String> tempPatientList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line =null;
+            while ((line = bufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split(","));
+                if(!tempList.get(6).equals(serachTerm)){
+                    tempPatientList.add(line);
+                }else {
+                    found = true;
+
+                }
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+
+            if (found == true){
+                try {
+
+                    File fileNew = new File(patientDataFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempPatientList.size();i++){
+                        newbufferedWriter.write(tempPatientList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("patient deleted success");
+                    System.out.println(tempPatientList.toString());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void editPatientRecord(String filePath,Patient patientEdit,String searchPetientid){
+
+        ArrayList<String> tempPatientList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line =null;
+            while ((line = bufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split(","));
+                if(!tempList.get(6).equals(searchPetientid)){
+                    tempPatientList.add(line);
+                }else {
+                    found = true;
+                    String newLine = getStringPatient(patientEdit);
+                    line =newLine;
+                    tempPatientList.add(line);
+
+                }
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+
+            if (found == true){
+                try {
+
+                    File fileNew = new File(patientDataFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempPatientList.size();i++){
+                        newbufferedWriter.write(tempPatientList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("patient edited  success");
+                    System.out.println(tempPatientList.toString());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String getStringPatient(Patient patientEdit) {
+        String editPatient = patientEdit.getUserRoll()+ ","
+                + patientEdit.getName() + ","
+                + patientEdit.getGender() + ","
+                + patientEdit.getMaritalStatus()+","
+                + patientEdit.getDob()+","
+                + patientEdit.getPhoneNumber()+","
+                +patientEdit.getIdCardNumber()+","
+                +patientEdit.getAddress()+","
+                +patientEdit.getUserName()+","
+                +patientEdit.getUserPassword()+","
+                +patientEdit.getBloodGroup() +","
+                +patientEdit.getAllergies() ;
+
+        return editPatient;
+
+    }
+
 
 }
 
