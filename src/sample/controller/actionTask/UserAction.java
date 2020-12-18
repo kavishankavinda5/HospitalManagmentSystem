@@ -324,7 +324,7 @@ return patient1;
             receptionBufferedWriter.write(receptionist.getUserName()+",");
             receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
             receptionBufferedWriter.write(receptionist.getStaffID()+",");
-            receptionBufferedWriter.write(receptionist.getStaffEmailAddress());
+            receptionBufferedWriter.write(receptionist.getStaffEmailAddress()+" ");
             receptionBufferedWriter.newLine();
             receptionBufferedWriter.close();
             fileWriter.close();
@@ -339,7 +339,7 @@ return patient1;
 
     }
 
-    //write a method for add admin
+    //write a method for add admin data
 public static void addAdmin (Admin admin,UserRoll userRoll){
 
     if (userRoll.equals(UserRoll.ADMIN)) {
@@ -348,7 +348,7 @@ public static void addAdmin (Admin admin,UserRoll userRoll){
     else {
         System.out.println("cannot save");}
 }
-//write a method for save admin
+//write a method for save admin data
     private static void saveAdmin(Admin admin) {
         File file = new File(adminFilePath);
 
@@ -374,5 +374,6 @@ public static void addAdmin (Admin admin,UserRoll userRoll){
         }
 
     }
+
 }
 
