@@ -10,10 +10,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.spec.KeySpec;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -128,6 +124,11 @@ public class UserAction {
 
     }
 
+    /* =============================================================================================================
+       PATIENT Action tasks
+      =============================================================================================================
+    */
+
     public static void addPatient(Patient user, UserRoll roll) {
 
         if (roll.equals(UserRoll.ADMIN) || roll.equals(UserRoll.RECEPTIONIST)) {
@@ -157,235 +158,6 @@ public class UserAction {
             bufferedWriter.close();
             fileWriter.close();
             System.out.println("file path : " + file.getPath()+" patient saved");
-
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-
-    }
-
-    public static void setVariable(int lineNumber, String data) throws IOException {
-        Path path = Paths.get("data.txt");
-        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        lines.set(lineNumber - 1, data);
-        Files.write(path, lines, StandardCharsets.UTF_8);
-    }
-
-    public static Patient searchPatient(String seachTerm, String filepath){
-        boolean found = false;
-        Patient searchedPatient = new Patient();
-        String id =seachTerm;
-
-
-
-        try{
-            String userRoll = null;
-            String name=null,address =null;
-            String gender=null,marital=null,dob=null,phonenumber=null,idcardNumber=null,userName=null,password=null,blood=null,allergy =null;
-            scanner = new Scanner(new File(filepath));
-            scanner.useDelimiter("[,\n]");
-
-            while (scanner.hasNext() && !found){
-
-                userRoll= scanner.next();
-                name =scanner.next();
-                gender =scanner.next();
-                marital =scanner.next();
-                dob =scanner.next();
-                phonenumber = scanner.next();
-                idcardNumber = scanner.next();
-                address = scanner.next();
-                userName =scanner.next();
-                password=scanner.next();
-                blood =scanner.next();
-                allergy =scanner.next();
-
-                if (idcardNumber.equals(seachTerm)){
-                    found = true;
-                }
-            }
-            if (found){
-                searchedPatient.setUserRoll(getUserRoll(userRoll));
-                searchedPatient.setName(name);
-                searchedPatient.setGender(gender);
-                searchedPatient.setMaritalStatus(marital);
-                searchedPatient.setDob(getLocalDatefromString(dob));
-                searchedPatient.setPhoneNumber(phonenumber);
-                searchedPatient.setIdCardNumber(idcardNumber);
-                searchedPatient.setAddress(address);
-                searchedPatient.setUserName(userName);
-                searchedPatient.setUserPassword(password);
-                searchedPatient.setBloodGroup(getBloodGroup(blood));
-                searchedPatient.setAllergies(allergy);
-
-                System.out.println(searchedPatient.toString());
-
-
-            }else {
-                System.out.println("record not found");
-            }
-
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-return searchedPatient;
-
-    }
-
-    //get UserRoll enum object with the String type input of the name
-    public static UserRoll getUserRoll(String name){
-        UserRoll userRoll = null;
-        switch (name){
-            case "PATIENT":
-                userRoll = UserRoll.PATIENT;
-                break;
-
-            case  "ADMIN":
-                userRoll = UserRoll.ADMIN;
-                break;
-
-            case "RECEPTIONIST":
-                userRoll = UserRoll.RECEPTIONIST;
-                break;
-
-            case "MEDICALOFFICER":
-                userRoll = UserRoll.MEDICALOFFICER;
-                break;
-
-        }
-
-        return  userRoll;
-    }
-
-    public static LocalDate getLocalDatefromString(String string) {
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-        if (string != null && !string.isEmpty()) {
-            return LocalDate.parse(string, dateFormatter);
-        } else {
-            return null;
-        }
-    }
-
-    public static String getStringfromLocalDate(LocalDate date) {
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-        if (date != null) {
-            return dateFormatter.format(date);
-        } else {
-            return "";
-        }
-    }
-
-    public static BloodGroup getBloodGroup(String name){
-        BloodGroup blooGroup = null;
-        switch (name){
-            case "A_POSITIVE":
-                blooGroup = BloodGroup.A_POSITIVE;
-                break;
-
-            case  "A_NEGATIVE":
-                blooGroup = BloodGroup.A_NEGATIVE;
-                break;
-
-            case "AB_POSITIVE":
-                blooGroup = BloodGroup.AB_POSITIVE;
-                break;
-
-            case "AB_NEGATIVE":
-                blooGroup = BloodGroup.AB_NEGATIVE;
-                break;
-            case "B_POSITIVE":
-                blooGroup =BloodGroup.B_POSITIVE;
-                break;
-            case "B_NEGATIVE":
-                blooGroup =BloodGroup.B_NEGATIVE;
-                break;
-            case "O_POSITIVE":
-                blooGroup =BloodGroup.O_POSITIVE;
-                break;
-            case "O_NEGATIVE":
-                blooGroup =BloodGroup.O_NEGATIVE;
-                break;
-
-        }
-
-        return  blooGroup;
-    }
-
-    public static void addReceptionist(Receptionist receptionist,UserRoll roll){
-
-        if (roll.equals(UserRoll.ADMIN)){
-            saveReceptionist(receptionist);
-        }
-    }
-
-    private static  void  saveReceptionist(Receptionist receptionist){
-        File receptionFile = new File(receptionistFilePath);
-
-        try (FileWriter fileWriter = new FileWriter(receptionFile, true)) {
-
-            BufferedWriter receptionBufferedWriter = new BufferedWriter(fileWriter);
-
-            receptionBufferedWriter.write(receptionist.getUserRoll().toString() + ",");
-            receptionBufferedWriter.write(receptionist.getName() + ",");
-            receptionBufferedWriter.write(receptionist.getGender() + ",");
-            receptionBufferedWriter.write(receptionist.getMaritalStatus()+",");
-            receptionBufferedWriter.write(receptionist.getDob() + ",");
-            receptionBufferedWriter.write(receptionist.getPhoneNumber()+ ",");
-            receptionBufferedWriter.write(receptionist.getIdCardNumber() + ",");
-            receptionBufferedWriter.write(receptionist.getAddress()+",");
-            receptionBufferedWriter.write(receptionist.getUserName()+",");
-            receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
-            receptionBufferedWriter.write(receptionist.getStaffID()+",");
-            receptionBufferedWriter.write(receptionist.getStaffEmailAddress()+" ");
-            receptionBufferedWriter.newLine();
-            receptionBufferedWriter.close();
-            fileWriter.close();
-            System.out.println("Receptionist saved: " + receptionFile.getPath()+" patient saved");
-
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
-
-    }
-    //write a method for add admin data
-    public static void addAdmin (Admin admin,UserRoll userRoll){
-
-    if (userRoll.equals(UserRoll.ADMIN)) {
-        saveAdmin(admin);
-    }
-    else {
-        System.out.println("cannot save");}
-}
-
-    //write a method for save admin data
-    private static void saveAdmin(Admin admin) {
-        File file = new File(adminFilePath);
-
-        try (FileWriter fileWriter = new FileWriter(file, true)) {
-            BufferedWriter adminBufferedWriter = new BufferedWriter(fileWriter);
-            adminBufferedWriter.write(admin.getUserRoll().toString() + ",");
-            adminBufferedWriter.write(admin.getName() + ",");
-            adminBufferedWriter.write(admin.getGender() + ",");
-            adminBufferedWriter.write(admin.getMaritalStatus() + ",");
-            adminBufferedWriter.write(admin.getDob() + ",");
-            adminBufferedWriter.write(admin.getPhoneNumber() + ",");
-            adminBufferedWriter.write(admin.getIdCardNumber() + ",");
-            adminBufferedWriter.write(admin.getAddress()+",");
-            adminBufferedWriter.write(admin.getUserName() + ",");
-            adminBufferedWriter.write(admin.getUserPassword() + ",");
-
-            adminBufferedWriter.newLine();
-            adminBufferedWriter.close();
-            fileWriter.close();
-            System.out.println("file path : " + file.getPath() + " admin saved");
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -525,6 +297,161 @@ return searchedPatient;
         }
     }
 
+    public static Patient searchPatient(String seachTerm, String filepath){
+        boolean found = false;
+        Patient searchedPatient = new Patient();
+        String id =seachTerm;
+
+
+
+        try{
+            String userRoll = null;
+            String name=null,address =null;
+            String gender=null,marital=null,dob=null,phonenumber=null,idcardNumber=null,userName=null,password=null,blood=null,allergy =null;
+            scanner = new Scanner(new File(filepath));
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext() && !found){
+
+                userRoll= scanner.next();
+                name =scanner.next();
+                gender =scanner.next();
+                marital =scanner.next();
+                dob =scanner.next();
+                phonenumber = scanner.next();
+                idcardNumber = scanner.next();
+                address = scanner.next();
+                userName =scanner.next();
+                password=scanner.next();
+                blood =scanner.next();
+                allergy =scanner.next();
+
+                if (idcardNumber.equals(seachTerm)){
+                    found = true;
+                }
+            }
+            if (found){
+                searchedPatient.setUserRoll(getUserRoll(userRoll));
+                searchedPatient.setName(name);
+                searchedPatient.setGender(gender);
+                searchedPatient.setMaritalStatus(marital);
+                searchedPatient.setDob(getLocalDatefromString(dob));
+                searchedPatient.setPhoneNumber(phonenumber);
+                searchedPatient.setIdCardNumber(idcardNumber);
+                searchedPatient.setAddress(address);
+                searchedPatient.setUserName(userName);
+                searchedPatient.setUserPassword(password);
+                searchedPatient.setBloodGroup(getBloodGroup(blood));
+                searchedPatient.setAllergies(allergy);
+
+                System.out.println(searchedPatient.toString());
+
+
+            }else {
+                System.out.println("record not found");
+            }
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+return searchedPatient;
+
+    }
+
+    /* =============================================================================================================
+       RECEPTIONIST Action tasks
+      =============================================================================================================
+    */
+
+    public static void addReceptionist(Receptionist receptionist,UserRoll roll){
+
+        if (roll.equals(UserRoll.ADMIN)){
+            saveReceptionist(receptionist);
+        }
+    }
+
+    private static  void  saveReceptionist(Receptionist receptionist){
+        File receptionFile = new File(receptionistFilePath);
+
+        try (FileWriter fileWriter = new FileWriter(receptionFile, true)) {
+
+            BufferedWriter receptionBufferedWriter = new BufferedWriter(fileWriter);
+
+            receptionBufferedWriter.write(receptionist.getUserRoll().toString() + ",");
+            receptionBufferedWriter.write(receptionist.getName() + ",");
+            receptionBufferedWriter.write(receptionist.getGender() + ",");
+            receptionBufferedWriter.write(receptionist.getMaritalStatus()+",");
+            receptionBufferedWriter.write(receptionist.getDob() + ",");
+            receptionBufferedWriter.write(receptionist.getPhoneNumber()+ ",");
+            receptionBufferedWriter.write(receptionist.getIdCardNumber() + ",");
+            receptionBufferedWriter.write(receptionist.getAddress()+",");
+            receptionBufferedWriter.write(receptionist.getUserName()+",");
+            receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
+            receptionBufferedWriter.write(receptionist.getStaffID()+",");
+            receptionBufferedWriter.write(receptionist.getStaffEmailAddress()+" ");
+            receptionBufferedWriter.newLine();
+            receptionBufferedWriter.close();
+            fileWriter.close();
+            System.out.println("Receptionist saved: " + receptionFile.getPath()+" patient saved");
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+
+
+    /* =============================================================================================================
+       ADMIN Action tasks
+      =============================================================================================================
+    */
+
+    //write a method for add admin data
+    public static void addAdmin (Admin admin,UserRoll userRoll){
+
+    if (userRoll.equals(UserRoll.ADMIN)) {
+        saveAdmin(admin);
+    }
+    else {
+        System.out.println("cannot save");}
+}
+
+    //write a method for save admin data
+    private static void saveAdmin(Admin admin) {
+        File file = new File(adminFilePath);
+
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            BufferedWriter adminBufferedWriter = new BufferedWriter(fileWriter);
+            adminBufferedWriter.write(admin.getUserRoll().toString() + ",");
+            adminBufferedWriter.write(admin.getName() + ",");
+            adminBufferedWriter.write(admin.getGender() + ",");
+            adminBufferedWriter.write(admin.getMaritalStatus() + ",");
+            adminBufferedWriter.write(admin.getDob() + ",");
+            adminBufferedWriter.write(admin.getPhoneNumber() + ",");
+            adminBufferedWriter.write(admin.getIdCardNumber() + ",");
+            adminBufferedWriter.write(admin.getAddress()+",");
+            adminBufferedWriter.write(admin.getUserName() + ",");
+            adminBufferedWriter.write(admin.getUserPassword() + ",");
+
+            adminBufferedWriter.newLine();
+            adminBufferedWriter.close();
+            fileWriter.close();
+            System.out.println("file path : " + file.getPath() + " admin saved");
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+    /* =============================================================================================================
+       Common User  Action tasks
+      =============================================================================================================
+    */
+
     private static String getStringPatient(Patient patientEdit) {
         String editPatient = patientEdit.getUserRoll()+ ","
                 + patientEdit.getName() + ","
@@ -542,6 +469,89 @@ return searchedPatient;
         return editPatient;
 
     }
+
+    public static BloodGroup getBloodGroup(String name){
+        BloodGroup blooGroup = null;
+        switch (name){
+            case "A_POSITIVE":
+                blooGroup = BloodGroup.A_POSITIVE;
+                break;
+
+            case  "A_NEGATIVE":
+                blooGroup = BloodGroup.A_NEGATIVE;
+                break;
+
+            case "AB_POSITIVE":
+                blooGroup = BloodGroup.AB_POSITIVE;
+                break;
+
+            case "AB_NEGATIVE":
+                blooGroup = BloodGroup.AB_NEGATIVE;
+                break;
+            case "B_POSITIVE":
+                blooGroup =BloodGroup.B_POSITIVE;
+                break;
+            case "B_NEGATIVE":
+                blooGroup =BloodGroup.B_NEGATIVE;
+                break;
+            case "O_POSITIVE":
+                blooGroup =BloodGroup.O_POSITIVE;
+                break;
+            case "O_NEGATIVE":
+                blooGroup =BloodGroup.O_NEGATIVE;
+                break;
+
+        }
+
+        return  blooGroup;
+    }
+
+    public static LocalDate getLocalDatefromString(String string) {
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (string != null && !string.isEmpty()) {
+            return LocalDate.parse(string, dateFormatter);
+        } else {
+            return null;
+        }
+    }
+
+    public static String getStringfromLocalDate(LocalDate date) {
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (date != null) {
+            return dateFormatter.format(date);
+        } else {
+            return "";
+        }
+    }
+
+    //get UserRoll enum object with the String type input of the name
+    public static UserRoll getUserRoll(String name){
+        UserRoll userRoll = null;
+        switch (name){
+            case "PATIENT":
+                userRoll = UserRoll.PATIENT;
+                break;
+
+            case  "ADMIN":
+                userRoll = UserRoll.ADMIN;
+                break;
+
+            case "RECEPTIONIST":
+                userRoll = UserRoll.RECEPTIONIST;
+                break;
+
+            case "MEDICALOFFICER":
+                userRoll = UserRoll.MEDICALOFFICER;
+                break;
+
+        }
+
+        return  userRoll;
+    }
+
+
 
 
 }
