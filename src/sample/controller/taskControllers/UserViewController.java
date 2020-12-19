@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -216,7 +215,7 @@ public class UserViewController {
         userView_deleteUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                UserAction.deletePatientRecord(UserRoll.ADMIN,userView_nicSearch.getText());
+                UserAction.deleteUserRecord(UserRoll.ADMIN,userView_nicSearch.getText(),userView_userTypeDrop.getValue());
             }
         });
 
