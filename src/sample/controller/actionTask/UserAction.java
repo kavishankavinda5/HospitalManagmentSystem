@@ -492,115 +492,335 @@ return searchedPatient;
 
     }
 
+    //Write a method for delete medicalofficer data record
+    public static void deleteMedicalOfficerRcord(UserRoll userRoll,String searchTerm){
+        if (userRoll.equals(UserRoll.ADMIN)){
+            removeMedicalOfficerRecord(medicalOfficerFilePath,searchTerm);
+        }else {
+            System.out.println("Access denied");
+        }
+    }
 
-    
+    //Write a method for update medicalofficer data record
+    public static void updateMedicalOfficerRecord(UserRoll userRoll,MedicalOfficer medicalOfficerRecord,String searchedID){
+        if (userRoll.equals(UserRoll.ADMIN)){
+            editMedicalOfficerRecord(medicalOfficerFilePath,medicalOfficerRecord,searchedID);
+        }else {
+            System.out.println("Access denied(Cannot update)");
+        }
+    }
+
+    //Write a method for remove medicalofficer data record
+    private static void removeMedicalOfficerRecord(String filePath,String serachTerm){
+        ArrayList<String> tempMedicalOfficertList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line =null;
+            while ((line = bufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split(","));
+                if(!tempList.get(6).equals(serachTerm)){
+                    tempMedicalOfficertList.add(line);
+                }else {
+                    found = true;
+
+                }
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+
+            if (found == true){
+                try {
+
+                    File fileNew = new File(medicalOfficerFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempMedicalOfficertList.size();i++){
+                        newbufferedWriter.write(tempMedicalOfficertList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("Medical Officer deleted success");
+                    System.out.println(tempMedicalOfficertList.toString());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Write a method foe edit medicalofficer data record
+    private static void editMedicalOfficerRecord(String filePath,MedicalOfficer medicalOfficer,String searchMedicalOfficerId){
+
+        ArrayList<String> tempMedicalOfficerList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line =null;
+            while ((line = bufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split(","));
+                if(!tempList.get(6).equals(searchMedicalOfficerId)){
+                    tempMedicalOfficerList.add(line);
+                }else {
+                    found = true;
+                    String newLine = getStringMedicalOfficer(medicalOfficer);
+                    line =newLine;
+                    tempMedicalOfficerList.add(line);
+
+                }
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+
+            if (found == true){
+                try {
+
+                    File fileNew = new File(medicalOfficerFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempMedicalOfficerList.size();i++){
+                        newbufferedWriter.write(tempMedicalOfficerList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("Medical Officer Edited Success");
+                    System.out.println(tempMedicalOfficerList.toString());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Write a method for Search medicalofficer data record
+    public static MedicalOfficer searchMedicalOfficer(String seachTerm, String filepath) {
+        boolean found = false;
+        MedicalOfficer searchedMedicalOfficer = new MedicalOfficer();
+        String id = seachTerm;
+
+
+        try {
+            String userRoll = null;
+            String name = null, address = null;
+            String gender = null, marital = null, dob = null, phonenumber = null, idcardNumber = null, userName = null, password = null;
+            int staffId = 0;
+            String staffEmailAddress = null, speciality = null;
+            scanner = new Scanner(new File(filepath));
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext() && !found) {
+
+                userRoll = scanner.next();
+                name = scanner.next();
+                gender = scanner.next();
+                marital = scanner.next();
+                dob = scanner.next();
+                phonenumber = scanner.next();
+                idcardNumber = scanner.next();
+                address = scanner.next();
+                userName = scanner.next();
+                password = scanner.next();
+                staffId = scanner.nextInt();
+                staffEmailAddress = scanner.next();
+                speciality = scanner.next();
+
+                if (idcardNumber.equals(seachTerm)) {
+                    found = true;
+                }
+            }
+            if (found){
+                searchedMedicalOfficer.setUserRoll(getUserRoll(userRoll));
+                searchedMedicalOfficer.setName(name);
+                searchedMedicalOfficer.setGender(gender);
+                searchedMedicalOfficer.setMaritalStatus(marital);
+                searchedMedicalOfficer.setDob(getLocalDatefromString(dob));
+                searchedMedicalOfficer.setPhoneNumber(phonenumber);
+                searchedMedicalOfficer.setIdCardNumber(idcardNumber);
+                searchedMedicalOfficer.setAddress(address);
+                searchedMedicalOfficer.setUserName(userName);
+                searchedMedicalOfficer.setUserPassword(password);
+                searchedMedicalOfficer.setStaffID(staffId);
+                searchedMedicalOfficer.setStaffEmailAddress(staffEmailAddress);
+                searchedMedicalOfficer.setSpeciality(speciality);
+
+
+                System.out.println(searchedMedicalOfficer.toString());
+
+
+            }else {
+                System.out.println("record not found");
+            }
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return searchedMedicalOfficer;
+
+    }
+
 
     /* =============================================================================================================
        Common User  Action tasks
       =============================================================================================================
     */
 
-    private static String getStringPatient(Patient patientEdit) {
-        String editPatient = patientEdit.getUserRoll()+ ","
-                + patientEdit.getName() + ","
-                + patientEdit.getGender() + ","
-                + patientEdit.getMaritalStatus()+","
-                + patientEdit.getDob()+","
-                + patientEdit.getPhoneNumber()+","
-                +patientEdit.getIdCardNumber()+","
-                +patientEdit.getAddress()+","
-                +patientEdit.getUserName()+","
-                +patientEdit.getUserPassword()+","
-                +patientEdit.getBloodGroup() +","
-                +patientEdit.getAllergies() ;
+            private static String getStringPatient (Patient patientEdit){
+                String editPatient = patientEdit.getUserRoll() + ","
+                        + patientEdit.getName() + ","
+                        + patientEdit.getGender() + ","
+                        + patientEdit.getMaritalStatus() + ","
+                        + patientEdit.getDob() + ","
+                        + patientEdit.getPhoneNumber() + ","
+                        + patientEdit.getIdCardNumber() + ","
+                        + patientEdit.getAddress() + ","
+                        + patientEdit.getUserName() + ","
+                        + patientEdit.getUserPassword() + ","
+                        + patientEdit.getBloodGroup() + ","
+                        + patientEdit.getAllergies();
 
-        return editPatient;
+                return editPatient;
 
-    }
+            }
 
-    public static BloodGroup getBloodGroup(String name){
-        BloodGroup blooGroup = null;
-        switch (name){
-            case "A_POSITIVE":
-                blooGroup = BloodGroup.A_POSITIVE;
-                break;
+            private static String getStringMedicalOfficer(MedicalOfficer medicalOfficerEdit) {
 
-            case  "A_NEGATIVE":
-                blooGroup = BloodGroup.A_NEGATIVE;
-                break;
+                String editMedicalOfficer = medicalOfficerEdit.getUserRoll() + ","
+                        + medicalOfficerEdit.getName() + ","
+                        + medicalOfficerEdit.getGender() + ","
+                        + medicalOfficerEdit.getMaritalStatus() + ","
+                        + medicalOfficerEdit.getDob() + ","
+                        + medicalOfficerEdit.getPhoneNumber() + ","
+                        + medicalOfficerEdit.getIdCardNumber() + ","
+                        + medicalOfficerEdit.getAddress() + ","
+                        + medicalOfficerEdit.getUserName() + ","
+                        + medicalOfficerEdit.getUserPassword() + ","
+                        + medicalOfficerEdit.getStaffID() + ","
+                        + medicalOfficerEdit.getStaffEmailAddress() + ","
+                        + medicalOfficerEdit.getSpeciality();
 
-            case "AB_POSITIVE":
-                blooGroup = BloodGroup.AB_POSITIVE;
-                break;
+                return editMedicalOfficer;
 
-            case "AB_NEGATIVE":
-                blooGroup = BloodGroup.AB_NEGATIVE;
-                break;
-            case "B_POSITIVE":
-                blooGroup =BloodGroup.B_POSITIVE;
-                break;
-            case "B_NEGATIVE":
-                blooGroup =BloodGroup.B_NEGATIVE;
-                break;
-            case "O_POSITIVE":
-                blooGroup =BloodGroup.O_POSITIVE;
-                break;
-            case "O_NEGATIVE":
-                blooGroup =BloodGroup.O_NEGATIVE;
-                break;
+            }
+
+            public static BloodGroup getBloodGroup (String name){
+                BloodGroup blooGroup = null;
+                switch (name) {
+                    case "A_POSITIVE":
+                        blooGroup = BloodGroup.A_POSITIVE;
+                        break;
+
+                    case "A_NEGATIVE":
+                        blooGroup = BloodGroup.A_NEGATIVE;
+                        break;
+
+                    case "AB_POSITIVE":
+                        blooGroup = BloodGroup.AB_POSITIVE;
+                        break;
+
+                    case "AB_NEGATIVE":
+                        blooGroup = BloodGroup.AB_NEGATIVE;
+                        break;
+                    case "B_POSITIVE":
+                        blooGroup = BloodGroup.B_POSITIVE;
+                        break;
+                    case "B_NEGATIVE":
+                        blooGroup = BloodGroup.B_NEGATIVE;
+                        break;
+                    case "O_POSITIVE":
+                        blooGroup = BloodGroup.O_POSITIVE;
+                        break;
+                    case "O_NEGATIVE":
+                        blooGroup = BloodGroup.O_NEGATIVE;
+                        break;
+
+                }
+
+                return blooGroup;
+            }
+
+            public static LocalDate getLocalDatefromString (String string){
+                String pattern = "yyyy-MM-dd";
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+
+            public static String getStringfromLocalDate (LocalDate date){
+                String pattern = "yyyy-MM-dd";
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            //get UserRoll enum object with the String type input of the name
+            public static UserRoll getUserRoll (String name){
+                UserRoll userRoll = null;
+                switch (name) {
+                    case "PATIENT":
+                        userRoll = UserRoll.PATIENT;
+                        break;
+
+                    case "ADMIN":
+                        userRoll = UserRoll.ADMIN;
+                        break;
+
+                    case "RECEPTIONIST":
+                        userRoll = UserRoll.RECEPTIONIST;
+                        break;
+
+                    case "MEDICALOFFICER":
+                        userRoll = UserRoll.MEDICALOFFICER;
+                        break;
+
+                }
+
+                return userRoll;
+            }
+
 
         }
-
-        return  blooGroup;
-    }
-
-    public static LocalDate getLocalDatefromString(String string) {
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-        if (string != null && !string.isEmpty()) {
-            return LocalDate.parse(string, dateFormatter);
-        } else {
-            return null;
-        }
-    }
-
-    public static String getStringfromLocalDate(LocalDate date) {
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-        if (date != null) {
-            return dateFormatter.format(date);
-        } else {
-            return "";
-        }
-    }
-
-    //get UserRoll enum object with the String type input of the name
-    public static UserRoll getUserRoll(String name){
-        UserRoll userRoll = null;
-        switch (name){
-            case "PATIENT":
-                userRoll = UserRoll.PATIENT;
-                break;
-
-            case  "ADMIN":
-                userRoll = UserRoll.ADMIN;
-                break;
-
-            case "RECEPTIONIST":
-                userRoll = UserRoll.RECEPTIONIST;
-                break;
-
-            case "MEDICALOFFICER":
-                userRoll = UserRoll.MEDICALOFFICER;
-                break;
-
-        }
-
-        return  userRoll;
-    }
-
-
-
-
-}
-
