@@ -1,1 +1,1 @@
-RECEPTIONIST,Rukshini Gomis,Female,Unmarried,1999-04-01,0769999999,1212,1212,1212,1,rukshini@gmail.com
+RECEPTIONIST,thilini,Female,Unmarried,2011-12-06,0756324545,1111,kandy sri lanaka,1111,1111,1,thilini@gmail.com 
