@@ -103,40 +103,35 @@ public class UserViewController {
 
     @FXML
     void initialize() {
-
-        userView_userTypeDrop.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                switch (userView_userTypeDrop.getValue()){
-                    case ADMIN:
-                        userView_name.setDisable(false);
-                        userView_gender.setDisable(false);
-                        userView_marital.setDisable(false);
-                        userView_dob.setDisable(false);
-                        userView_phoneNum.setDisable(false);
-                        userView_NIC.setDisable(false);
-                        userView_address.setDisable(false);
-                        userView_userName.setDisable(false);
-                        userView_userPassword.setDisable(true);
-                        userView_bloodGroup.setDisable(true);
-                        userView_allergies.setDisable(true);
-                        userView_staffID.setDisable(true);
-                        userView_staffEmail.setDisable(true);
-                        userView_staffdoj.setDisable(true);
-                        userView_speciality.setDisable(true);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
         //set the derop down wit the data taken by the reference module
         userView_userTypeDrop.getItems().addAll(ReferenceViewController.getUserRolls());
         userView_speciality.getItems().addAll(ReferenceViewController.getDoctorSpeciality());
         userView_gender.getItems().addAll(ReferenceViewController.getGender());
         userView_bloodGroup.getItems().addAll(ReferenceViewController.getBloogGroup());
         userView_marital.getItems().addAll(ReferenceViewController.getMaritalStatus());
+
+        userView_userTypeDrop.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                switch (userView_userTypeDrop.getValue()){
+                    case ADMIN:
+                        setViewForAdmin();
+                        break;
+                    case PATIENT:
+                        setViewForPatient();
+                        break;
+                    case RECEPTIONIST:
+                        setViewForReception();
+                        break;
+                    case MEDICALOFFICER:
+                        setViewForMedicalOfficer();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
 
         userView_addUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -239,7 +234,6 @@ public class UserViewController {
 
             }
         });
-
 
         userView_updateUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -376,7 +370,7 @@ public class UserViewController {
 
     public void resetDisplay(){
         userView_name.clear();
-        userView_gender.setValue(null);
+        userView_gender.setValue("");
         userView_marital.setValue(null);
         userView_phoneNum.clear();
         userView_userPassword.clear();
@@ -387,16 +381,88 @@ public class UserViewController {
         userView_dob.setValue(null);
         userView_staffdoj.setValue(null);
         userView_gender.setValue(null);
-        userView_speciality.setValue(null);
+        userView_speciality.setValue("");
         userView_bloodGroup.setValue(null);
         userView_staffEmail.clear();
         userView_searchField.clear();
-        userView_userTypeDrop.setValue(null);
+        userView_userTypeDrop.getItems();
 
     }
 
     public static int  getStaffId(){
         staffID ++;
         return  staffID;
+    }
+
+    public void setViewForAdmin(){
+        userView_name.setDisable(false);
+        userView_gender.setDisable(false);
+        userView_marital.setDisable(false);
+        userView_dob.setDisable(false);
+        userView_phoneNum.setDisable(false);
+        userView_NIC.setDisable(false);
+        userView_address.setDisable(false);
+        userView_userName.setDisable(false);
+        userView_userPassword.setDisable(true);
+        userView_bloodGroup.setDisable(true);
+        userView_allergies.setDisable(true);
+        userView_staffID.setDisable(true);
+        userView_staffEmail.setDisable(true);
+        userView_staffdoj.setDisable(true);
+        userView_speciality.setDisable(true);
+    }
+
+    public void setViewForReception(){
+        userView_name.setDisable(false);
+        userView_gender.setDisable(false);
+        userView_marital.setDisable(false);
+        userView_dob.setDisable(false);
+        userView_phoneNum.setDisable(false);
+        userView_NIC.setDisable(false);
+        userView_address.setDisable(false);
+        userView_userName.setDisable(false);
+        userView_userPassword.setDisable(true);
+        userView_bloodGroup.setDisable(true);
+        userView_allergies.setDisable(true);
+        userView_staffID.setDisable(true);
+        userView_staffEmail.setDisable(false);
+        userView_staffdoj.setDisable(false);
+        userView_speciality.setDisable(true);
+    }
+
+    public void setViewForPatient(){
+        userView_name.setDisable(false);
+        userView_gender.setDisable(false);
+        userView_marital.setDisable(false);
+        userView_dob.setDisable(false);
+        userView_phoneNum.setDisable(false);
+        userView_NIC.setDisable(false);
+        userView_address.setDisable(false);
+        userView_userName.setDisable(true);
+        userView_userPassword.setDisable(true);
+        userView_bloodGroup.setDisable(false);
+        userView_allergies.setDisable(false);
+        userView_staffID.setDisable(true);
+        userView_staffEmail.setDisable(true);
+        userView_staffdoj.setDisable(true);
+        userView_speciality.setDisable(true);
+    }
+
+    public void setViewForMedicalOfficer(){
+        userView_name.setDisable(false);
+        userView_gender.setDisable(false);
+        userView_marital.setDisable(false);
+        userView_dob.setDisable(false);
+        userView_phoneNum.setDisable(false);
+        userView_NIC.setDisable(false);
+        userView_address.setDisable(false);
+        userView_userName.setDisable(true);
+        userView_userPassword.setDisable(true);
+        userView_bloodGroup.setDisable(true);
+        userView_allergies.setDisable(true);
+        userView_staffID.setDisable(true);
+        userView_staffEmail.setDisable(false);
+        userView_staffdoj.setDisable(false);
+        userView_speciality.setDisable(false);
     }
 }

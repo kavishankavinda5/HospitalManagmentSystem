@@ -21,6 +21,12 @@ public class UserAction {
     private static String secretKey = "boooooooooom!!!!";
     private static String salt = "ssshhhhhhhhhhh!!!!";
     private  static Scanner scanner;
+
+    public static String patientloginData = "src/sample/fileStorage/loginData/patientLoginData.txt";
+    public static String adminloginData = "src/sample/fileStorage/loginData/adminLoginData.txt";
+    public static String receptionLoginData = "src/sample/fileStorage/loginData/receptionLoginData.txt";
+    public static String medicalLoginData = "src/sample/fileStorage/loginData/medicalofficerLoginData.txt";
+
     public static  String patientDataFilePath = "src/sample/fileStorage/moduleData/userData/patientData.txt";
     public static  String receptionistFilePath = "src/sample/fileStorage/moduleData/userData/receptionistData.txt";
     public static String medicalOfficerFilePath = "src/sample/fileStorage/moduleData/userData/medicalOfficerData.txt";
@@ -157,14 +163,15 @@ public class UserAction {
             bufferedWriter.write(user.getIdCardNumber() + ",");
             bufferedWriter.write(user.getAddress()+ ",");
             bufferedWriter.write(user.getUserName()+",");
-            bufferedWriter.write(user.getUserPassword() + ",");
+            bufferedWriter.write(user.getUserPassword()+ ",");
             bufferedWriter.write(user.getBloodGroup() + ",");
             bufferedWriter.write(user.getAllergies());
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
-            System.out.println("file path : " + file.getPath()+" patient saved");
 
+            System.out.println("file path : " + file.getPath()+" patient saved");
+            addUserLoginData(patientloginData,new LoginUser(user.getUserName(), user.getUserPassword()));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -420,6 +427,7 @@ return searchedPatient;
             receptionBufferedWriter.close();
             fileWriter.close();
             System.out.println("Receptionist saved: " + receptionFile.getPath()+" patient saved");
+            addUserLoginData(receptionLoginData,new LoginUser(receptionist.getUserName(), receptionist.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -457,18 +465,18 @@ return searchedPatient;
             adminBufferedWriter.write(admin.getPhoneNumber() + ",");
             adminBufferedWriter.write(admin.getIdCardNumber() + ",");
             adminBufferedWriter.write(admin.getAddress()+",");
-            adminBufferedWriter.write(admin.getUserName() + ",");
-            adminBufferedWriter.write(admin.getUserPassword() + ",");
-
+            adminBufferedWriter.write(admin.getUserName()+ ",");
+            adminBufferedWriter.write(admin.getUserPassword());
             adminBufferedWriter.newLine();
             adminBufferedWriter.close();
             fileWriter.close();
+
             System.out.println("file path : " + file.getPath() + " admin saved");
+            addUserLoginData(adminloginData,new LoginUser(admin.getUserName(), admin.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
     }
 
 
@@ -509,6 +517,7 @@ return searchedPatient;
             bufferedWriter.close();
             fileWriter.close();
             System.out.println("file path : " + file.getPath()+" medicalOfficer saved");
+            addUserLoginData(medicalLoginData,new LoginUser(medicalOfficer.getUserName(), medicalOfficer.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -656,14 +665,12 @@ return searchedPatient;
     public static MedicalOfficer searchMedicalOfficer(String seachTerm, String filepath) {
         boolean found = false;
         MedicalOfficer searchedMedicalOfficer = new MedicalOfficer();
-        String id = seachTerm;
-
 
         try {
             String userRoll = null;
             String name = null, address = null;
             String gender = null, marital = null, dob = null, phonenumber = null, idcardNumber = null, userName = null, password = null;
-            int staffId = 0;
+            String staffId =null;
             String staffEmailAddress = null, speciality = null;
             scanner = new Scanner(new File(filepath));
             scanner.useDelimiter("[,\n]");
@@ -680,7 +687,7 @@ return searchedPatient;
                 address = scanner.next();
                 userName = scanner.next();
                 password = scanner.next();
-                staffId = scanner.nextInt();
+                staffId = scanner.next();
                 staffEmailAddress = scanner.next();
                 speciality = scanner.next();
 
@@ -699,10 +706,9 @@ return searchedPatient;
                 searchedMedicalOfficer.setAddress(address);
                 searchedMedicalOfficer.setUserName(userName);
                 searchedMedicalOfficer.setUserPassword(password);
-                searchedMedicalOfficer.setStaffID(staffId);
+                searchedMedicalOfficer.setStaffID(Integer.parseInt(staffId));
                 searchedMedicalOfficer.setStaffEmailAddress(staffEmailAddress);
                 searchedMedicalOfficer.setSpeciality(speciality);
-
 
                 System.out.println(searchedMedicalOfficer.toString());
 
@@ -710,8 +716,6 @@ return searchedPatient;
             }else {
                 System.out.println("record not found");
             }
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -846,5 +850,32 @@ return searchedPatient;
                 return userRoll;
             }
 
+    /* =============================================================================================================
+       User Login Action  tasks
+      =============================================================================================================
+    */
+            private static void addUserLoginData(String fileName,LoginUser user) {
+                File addLoginFile = new File(fileName);
+                String userName = encrypt(user.getUserName(), secretKey);
+                String userPass = encrypt(user.getUserPassword(), secretKey);
 
-        }
+                try (FileWriter userLoginWriter = new FileWriter(addLoginFile, true)) {
+                    BufferedWriter userLoginBufferedWriter = new BufferedWriter(userLoginWriter);
+                    userLoginBufferedWriter.write(userName + ",");
+                    userLoginBufferedWriter.write(userPass);
+                    userLoginBufferedWriter.newLine();
+                    userLoginBufferedWriter.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    System.out.println("user Login data added success");
+                }
+            }
+
+
+
+
+
+}

@@ -1,1 +1,0 @@
-PATIENT,pahan,Male,Unmarried,1998-12-15,0768899777,2020,moratuwa sri lanka,2020,2020,B_NEGATIVE,car
