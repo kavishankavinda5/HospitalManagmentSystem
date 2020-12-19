@@ -33,55 +33,6 @@ public class ReportGenController {
 
     @FXML
     void initialize() {
-        reportGenarator_reportType.getItems().add("UserLog Report");
-        reportGenarator_reportType.getItems().add("Appointment Report");
-        reportGenarator_reportType.getItems().add("Patientlogin Report");
-
-
-        reportGenarator_reportType.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                switch (reportGenarator_reportType.getValue()){
-                    case "UserLog Report":
-                        try {
-                            FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("/sample/view/taskView/extra_report_view/reportsUserLog.fxml"));
-                            loader.getController();
-                            reportGenarator_boarderPane.setCenter(loader.load());
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "Appointment Report":
-
-                        try {
-                            FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("/sample/view/taskView/extra_report_view/reportsAppointment.fxml"));
-                            loader.getController();
-                            reportGenarator_boarderPane.setCenter(loader.load());
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case "Patientlogin Report" :
-
-                        try {
-                            FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("/sample/view/taskView/extra_report_view/reportsPatientlogin.fxml"));
-                            loader.getController();
-                            reportGenarator_boarderPane.setCenter(loader.load());
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        break;
-
-                }
-            }
-        });
 
     }
 }
