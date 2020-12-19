@@ -447,6 +447,54 @@ return searchedPatient;
 
     }
 
+
+    /* =============================================================================================================
+       MEDICALOFFICER Action tasks
+      =============================================================================================================
+    */
+
+    //write a method for add medicalofficer data
+    public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
+
+         if (userRoll.equals(UserRoll.ADMIN)) {
+             saveMedicalOfficer(medicalOfficer);
+         }
+
+     }
+
+    //write a method for save medicalofficer data
+    private static void saveMedicalOfficer(MedicalOfficer medicalOfficer) {
+        File file = new File(medicalOfficerFilePath);
+
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(medicalOfficer.getUserRoll().toString() + ",");
+            bufferedWriter.write(medicalOfficer.getName() + ",");
+            bufferedWriter.write(medicalOfficer.getGender() + ",");
+            bufferedWriter.write(medicalOfficer.getMaritalStatus()+",");
+            bufferedWriter.write(medicalOfficer.getDob() + ",");
+            bufferedWriter.write(medicalOfficer.getPhoneNumber()+ ",");
+            bufferedWriter.write(medicalOfficer.getIdCardNumber() + ",");
+            bufferedWriter.write(medicalOfficer.getAddress()  + ",");
+            bufferedWriter.write(medicalOfficer.getUserName()+",");
+            bufferedWriter.write(medicalOfficer.getUserPassword() + ",");
+            bufferedWriter.write(medicalOfficer.getStaffID() + ",");
+            bufferedWriter.write(medicalOfficer.getStaffEmailAddress() + ",");
+            bufferedWriter.write(medicalOfficer.getSpeciality());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+            fileWriter.close();
+            System.out.println("file path : " + file.getPath()+" medicalOfficer saved");
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+
+    
+
     /* =============================================================================================================
        Common User  Action tasks
       =============================================================================================================
