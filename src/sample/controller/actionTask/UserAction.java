@@ -25,6 +25,12 @@ public class UserAction {
     public static  String receptionistFilePath = "src/sample/fileStorage/moduleData/userData/receptionistData.txt";
     public static String medicalOfficerFilePath = "src/sample/fileStorage/moduleData/userData/medicalOfficerData.txt";
     public static String adminFilePath = "src/sample/fileStorage/moduleData/userData/adminData.txt";
+
+    /* =============================================================================================================
+       LOGIN_USER Action tasks
+      =============================================================================================================
+    */
+
     // verify user login credentials
     // parameters UserName , User Password , UserType (reception,admin.doctor,patient)
     public static int verifyLogin(String userName, String password, String userType) {
@@ -165,23 +171,33 @@ public class UserAction {
 
     }
 
-    public static void deletePatientRecord(UserRoll userRoll,String searchTerm){
-        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
-            removePatientRecord(patientDataFilePath,searchTerm);
+    public static void deleteUserRecord(UserRoll taskUserRoll, String searchTerm, UserRoll currentUserRoll){
+        if (taskUserRoll.equals(UserRoll.RECEPTIONIST)){
+            removeUserRecord(patientDataFilePath,searchTerm);
+
+        }else if (taskUserRoll.equals(UserRoll.ADMIN)){
+           switch (currentUserRoll){
+               case ADMIN:
+                   removeUserRecord(adminFilePath,searchTerm);
+                   break;
+               case RECEPTIONIST:
+                   removeUserRecord(receptionistFilePath,searchTerm);
+                   break;
+               case PATIENT:
+                   removeUserRecord(patientDataFilePath,searchTerm);
+                   break;
+               case MEDICALOFFICER:
+                   removeUserRecord(medicalOfficerFilePath,searchTerm);
+                   break;
+               default:
+                   break;
+           }
         }else {
-            System.out.println("acces denied");
+
         }
     }
 
-    public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID){
-        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
-            editPatientRecord(patientDataFilePath,patientRecord,searchedID);
-        }else {
-            System.out.println("acces denied(cannot update)");
-        }
-    }
-
-    private static void removePatientRecord(String filePath,String serachTerm){
+    private static void removeUserRecord(String filePath, String serachTerm){
         ArrayList<String> tempPatientList =new ArrayList<>();
         File file = new File(filePath);
         boolean found =false;
@@ -205,7 +221,7 @@ public class UserAction {
             if (found == true){
                 try {
 
-                    File fileNew = new File(patientDataFilePath);
+                    File fileNew = new File(filePath);
                     if(file.exists()){
                         file.delete();
                     }
@@ -234,6 +250,14 @@ public class UserAction {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID){
+        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
+            editPatientRecord(patientDataFilePath,patientRecord,searchedID);
+        }else {
+            System.out.println("acces denied(cannot update)");
         }
     }
 

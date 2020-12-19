@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTimePicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,74 +9,58 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="850.0" style="-fx-background-color: pink;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AppointmentViewController">
+<AnchorPane prefHeight="700.0" prefWidth="850.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.AppointmentViewController">
    <children>
       <Label layoutX="179.0" layoutY="305.0" text="Reference Module">
          <font>
             <Font size="61.0" />
          </font>
       </Label>
-      <AnchorPane prefHeight="460.0" prefWidth="850.0" style="-fx-background-color: #F5F5F5;">
+      <AnchorPane prefHeight="459.0" prefWidth="850.0" style="-fx-background-color: #F5F5F5;">
          <children>
-            <Label alignment="CENTER" layoutX="342.0" layoutY="-3.0" prefHeight="27.0" prefWidth="167.0" style="-fx-border-color: black;" text="Reference View" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="341.0">
+            <Label alignment="CENTER" layoutX="327.0" layoutY="33.0" prefHeight="42.0" prefWidth="195.0" text="REFERENCES" AnchorPane.leftAnchor="327.0" AnchorPane.rightAnchor="328.0">
                <font>
-                  <Font size="24.0" />
+                  <Font size="28.0" />
                </font>
             </Label>
-            <Label layoutX="537.0" layoutY="87.0" text="Date">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <DatePicker layoutX="595.0" layoutY="85.0" promptText="MM/DD/YYYY" />
-            <Label layoutX="49.0" layoutY="87.0" text="Time">
+            <Label layoutX="41.0" layoutY="136.0" text="Date">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTimePicker layoutX="105.0" layoutY="82.0" promptText="Set Time" style="-fx-border-color: black;" />
-            <Label layoutX="56.0" layoutY="230.0" text="Complaint Type">
+            <DatePicker layoutX="103.0" layoutY="133.0" prefHeight="26.0" prefWidth="144.0" promptText="MM/DD/YYYY" />
+            <Label layoutX="161.0" layoutY="272.0" prefHeight="20.0" prefWidth="138.0" text="Add Complaint Type">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTextField layoutX="210.0" layoutY="227.0" prefHeight="25.0" prefWidth="344.0" promptText="Type here" style="-fx-border-color: black;" unFocusColor="#f8f8f8" />
-            <JFXTextField layoutX="56.0" layoutY="173.0" prefHeight="25.0" prefWidth="174.0" promptText="Complaint Type" style="-fx-border-color: black;" unFocusColor="#f8f6f6" />
-            <JFXButton layoutX="251.0" layoutY="174.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #1e90ff;" text="Search" />
-            <JFXButton layoutX="251.0" layoutY="335.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #1e90ff;" text="Search" />
-            <JFXTextField layoutX="56.0" layoutY="335.0" prefHeight="27.0" prefWidth="174.0" promptText="Specialist Area" style="-fx-border-color: black;" unFocusColor="#f2eeee" />
-            <JFXTextField layoutX="206.0" layoutY="390.0" prefHeight="25.0" prefWidth="352.0" promptText="Type here" style="-fx-border-color: black;" unFocusColor="#f2ecec" />
-            <Label layoutX="56.0" layoutY="393.0" text="Specialist Area">
+            <Label layoutX="163.0" layoutY="336.0" prefHeight="20.0" prefWidth="129.0" text="Add Speciality Area">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
+            <JFXButton layoutX="596.0" layoutY="269.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: silver;" text="Save" />
+            <JFXButton layoutX="596.0" layoutY="333.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: silver;" text="Save" />
+            <JFXComboBox layoutX="350.0" layoutY="270.0" prefHeight="26.0" prefWidth="195.0" promptText="Complaint Type" />
+            <JFXComboBox layoutX="350.0" layoutY="333.0" prefHeight="26.0" prefWidth="195.0" promptText="Speciality Area" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="460.0" prefHeight="40.0" prefWidth="850.0" style="-fx-background-color: #F5F5F5;">
+      <AnchorPane layoutY="500.0" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: white;">
          <children>
-            <JFXButton layoutX="37.0" layoutY="8.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #1e90ff;" text="Add" />
-            <JFXButton layoutX="493.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #cc0000;" text="Delete" />
-            <JFXButton layoutX="254.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: #009933;" text="Update" />
-            <JFXButton layoutX="708.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" style="-fx-border-color: black; -fx-background-color: Gray;" text="Reset" />
+            <TableView layoutY="-1.0" prefHeight="206.0" prefWidth="850.0" style="-fx-background-color: e8e8e8;">
+              <columns>
+                <TableColumn prefWidth="162.40003049373627" text="Time" />
+                <TableColumn prefWidth="149.5999755859375" text="Date" />
+                  <TableColumn prefWidth="535.9999694824219" text="Specialist Area/ Complaint Type" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="500.0" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: gray;">
+      <AnchorPane layoutX="-1.0" layoutY="456.0" prefHeight="42.0" prefWidth="850.0" style="-fx-background-color: f3f2da;">
          <children>
-            <TableView layoutX="22.0" layoutY="10.0" prefHeight="183.0" prefWidth="381.0">
-              <columns>
-                <TableColumn prefWidth="88.0" text="Time" />
-                <TableColumn prefWidth="86.0" text="Date" />
-                  <TableColumn prefWidth="206.0" text="Complaint Type" />
-              </columns>
-            </TableView>
-            <TableView layoutX="455.0" layoutY="9.0" prefHeight="183.0" prefWidth="381.0">
-              <columns>
-                <TableColumn prefWidth="88.0" text="Time" />
-                <TableColumn prefWidth="85.0" text="Date" />
-                  <TableColumn prefWidth="207.0" text="Specialist Area" />
-              </columns>
-            </TableView>
+            <JFXButton layoutX="309.0" layoutY="8.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #cc0000;" text="Delete" textFill="WHITE" />
+            <JFXButton layoutX="116.0" layoutY="8.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #009933;" text="Update" textFill="WHITE" />
+            <JFXButton layoutX="502.0" layoutY="8.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: Gray;" text="Reset" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>
