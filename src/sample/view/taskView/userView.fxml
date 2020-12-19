@@ -108,9 +108,9 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXButton fx:id="userView_searchButton" layoutX="732.0" layoutY="17.0" prefHeight="34.0" prefWidth="46.0" style="-fx-background-color: #1e90ff;" text="search" textFill="WHITE">
+            <JFXButton fx:id="userView_searchButton" layoutX="737.0" layoutY="21.0" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: #1e90ff;" text="search" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/icons8-search-512.png" />
                      </image>
@@ -125,8 +125,8 @@
             <Label layoutX="200.0" layoutY="23.0" prefHeight="22.0" prefWidth="54.0" text="User Type" />
             <JFXComboBox fx:id="userView_userTypeDrop" layoutX="261.0" layoutY="21.0" prefHeight="26.0" prefWidth="215.0" promptText="usertype" style="-fx-background-color: e8e8e8;" />
             <JFXPasswordField layoutX="96.0" layoutY="415.0" prefHeight="26.0" prefWidth="307.0" promptText="password" style="-fx-background-color: e8e8e8;" />
-            <JFXTextArea layoutX="96.0" layoutY="315.0" prefHeight="52.0" prefWidth="307.0" style="-fx-background-color: e8e8e8;" />
-            <TextField layoutX="552.0" layoutY="22.0" prefHeight="26.0" prefWidth="149.0" promptText="ID Number" />
+            <JFXTextArea fx:id="userView_address" layoutX="96.0" layoutY="315.0" prefHeight="52.0" prefWidth="307.0" style="-fx-background-color: e8e8e8;" />
+            <TextField fx:id="userView_searchField" layoutX="552.0" layoutY="22.0" prefHeight="26.0" prefWidth="164.0" promptText="ID Number" />
          </children>
       </AnchorPane>
    </children>
