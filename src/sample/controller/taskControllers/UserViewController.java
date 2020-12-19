@@ -219,7 +219,20 @@ public class UserViewController {
         userView_deleteUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                UserAction.deleteUserRecord(UserRoll.ADMIN,userView_nicSearch.getText(),userView_userTypeDrop.getValue());
+
+                switch (userView_userTypeDrop.getValue()){
+                    case ADMIN:
+                        break;
+                    case PATIENT:
+                        UserAction.deleteUserRecord(UserRoll.ADMIN,userView_nicSearch.getText(),userView_userTypeDrop.getValue());
+                        break;
+                    case MEDICALOFFICER:
+                        UserAction.deleteMedicalOfficerRcord(UserRoll.ADMIN,userView_nicSearch.getText());
+                        break;
+                    case RECEPTIONIST:
+                        break;
+                }
+
             }
         });
 
@@ -227,7 +240,19 @@ public class UserViewController {
         userView_updateUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                UserAction.updatePatientRecord(UserRoll.ADMIN,getPatient(),userView_nicSearch.getText());
+                switch (userView_userTypeDrop.getValue()){
+                    case ADMIN:
+                        break;
+                    case PATIENT:
+                        UserAction.updatePatientRecord(UserRoll.ADMIN,getPatient(),userView_nicSearch.getText());
+                        break;
+                    case MEDICALOFFICER:
+                        UserAction.updateMedicalOfficerRecord(UserRoll.ADMIN,getMedicalOfficer(),userView_nicSearch.getText());
+                        break;
+                    case RECEPTIONIST:
+                        break;
+                }
+
             }
         });
 
