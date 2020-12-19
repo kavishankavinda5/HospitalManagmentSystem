@@ -193,10 +193,14 @@ public class UserViewController {
                         UserAction.addReceptionist(getReceptionist(),UserRoll.ADMIN);
                         break;
 
-
                     case ADMIN:
 
                         UserAction.addAdmin(getAdmin(),UserRoll.ADMIN);
+                        break;
+
+                    case MEDICALOFFICER:
+
+                        UserAction.addMedicalOfficer(getMedicalOfficer(),UserRoll.ADMIN);
                         break;
 
                 }
@@ -300,6 +304,28 @@ public class UserViewController {
         admin.setUserPassword(userView_NIC.getText());
 
         return admin;
+
+    }
+
+    public  MedicalOfficer getMedicalOfficer(){
+
+        MedicalOfficer medicalOfficer = new MedicalOfficer();
+
+        medicalOfficer.setUserRoll(userView_userTypeDrop.getValue());
+        medicalOfficer.setName(userView_name.getText()); ;
+        medicalOfficer.setGender(userView_gender.getValue());
+        medicalOfficer.setMaritalStatus(userView_marital.getValue());
+        medicalOfficer.setDob(userView_dob.getValue()); ;
+        medicalOfficer.setPhoneNumber(userView_phoneNum.getText());
+        medicalOfficer.setIdCardNumber(userView_NIC.getText());
+        medicalOfficer.setAddress(userView_addressLine01.getText() + " " + userView_addressLine02.getText());
+        medicalOfficer.setUserName(userView_NIC.getText());
+        medicalOfficer.setUserPassword(userView_NIC.getText());
+        medicalOfficer.setStaffID(getStaffId());
+        medicalOfficer.setStaffEmailAddress(userView_staffEmail.getText());
+        medicalOfficer.setSpeciality(userView_speciality.getValue());
+
+       return medicalOfficer;
 
     }
 

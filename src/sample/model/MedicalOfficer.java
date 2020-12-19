@@ -12,4 +12,5 @@ public class MedicalOfficer extends Employee{
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
+
 }
