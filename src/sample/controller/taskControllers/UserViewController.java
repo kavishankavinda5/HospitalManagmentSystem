@@ -103,44 +103,33 @@ public class UserViewController {
 
     @FXML
     void initialize() {
+
         userView_userTypeDrop.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (userView_userTypeDrop.getValue()==UserRoll.PATIENT){
-                    userView_staffID.setDisable(true);
-                    userView_staffdoj.setDisable(true);
-                    userView_staffEmail.setDisable(true);
-                    userView_speciality.setDisable(true);
-                    userView_bloodGroup.setDisable(false);
-                    userView_userName.setDisable(true);
-                    userView_userPassword.setDisable(true);
-                    userView_userNameLable.setDisable(true);
-
-
-                }else if (userView_userTypeDrop.getValue()==UserRoll.ADMIN){
-                    userView_bloodGroup.setDisable(true);
-                    userView_staffID.setDisable(true);
-                    userView_staffdoj.setDisable(true);
-                    userView_staffEmail.setDisable(true);
-                    userView_speciality.setDisable(true);
-                    userView_bloodGroup.setDisable(true);
-                    userView_userName.setDisable(true);
-                    userView_userPassword.setDisable(true);
-                    userView_allergies.setDisable(true);
-                    userView_userNameLable.setDisable(true);
-                    userView_speciality.setDisable(true);
-                }
-                else if (userView_userTypeDrop.getValue()==UserRoll.RECEPTIONIST){
-                    userView_staffID.setDisable(false);
-                    userView_staffdoj.setDisable(false);
-                    userView_staffEmail.setDisable(false);
-                    userView_speciality.setDisable(true);
-                }else {
-                    userView_speciality.setDisable(false);
+                switch (userView_userTypeDrop.getValue()){
+                    case ADMIN:
+                        userView_name.setDisable(false);
+                        userView_gender.setDisable(false);
+                        userView_marital.setDisable(false);
+                        userView_dob.setDisable(false);
+                        userView_phoneNum.setDisable(false);
+                        userView_NIC.setDisable(false);
+                        userView_address.setDisable(false);
+                        userView_userName.setDisable(false);
+                        userView_userPassword.setDisable(true);
+                        userView_bloodGroup.setDisable(true);
+                        userView_allergies.setDisable(true);
+                        userView_staffID.setDisable(true);
+                        userView_staffEmail.setDisable(true);
+                        userView_staffdoj.setDisable(true);
+                        userView_speciality.setDisable(true);
+                        break;
+                    default:
+                        break;
                 }
             }
         });
-
 
         //set the derop down wit the data taken by the reference module
         userView_userTypeDrop.getItems().addAll(ReferenceViewController.getUserRolls());

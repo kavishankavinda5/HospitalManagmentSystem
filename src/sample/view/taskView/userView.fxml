@@ -124,7 +124,7 @@
             <Line endX="-458.0" endY="-478.0" layoutX="575.0" layoutY="569.0" startX="-577.0" startY="-478.0" stroke="#d9d9d9" />
             <Label layoutX="200.0" layoutY="23.0" prefHeight="22.0" prefWidth="54.0" text="User Type" />
             <JFXComboBox fx:id="userView_userTypeDrop" layoutX="261.0" layoutY="21.0" prefHeight="26.0" prefWidth="215.0" promptText="usertype" style="-fx-background-color: e8e8e8;" />
-            <JFXPasswordField layoutX="96.0" layoutY="415.0" prefHeight="26.0" prefWidth="307.0" promptText="password" style="-fx-background-color: e8e8e8;" />
+            <JFXPasswordField fx:id="userView_userPassword" layoutX="96.0" layoutY="415.0" prefHeight="26.0" prefWidth="307.0" promptText="password" style="-fx-background-color: e8e8e8;" />
             <JFXTextArea fx:id="userView_address" layoutX="96.0" layoutY="315.0" prefHeight="52.0" prefWidth="307.0" style="-fx-background-color: e8e8e8;" />
             <TextField fx:id="userView_searchField" layoutX="552.0" layoutY="22.0" prefHeight="26.0" prefWidth="164.0" promptText="ID Number" />
          </children>
