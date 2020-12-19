@@ -1,28 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-
 <BorderPane fx:id="reportGenarator_boarderPane" prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.ReportGenController">
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
    <top>
-      <AnchorPane fx:id="reportGenarator_topTask" prefHeight="130.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="reportGenarator_topTask" prefHeight="59.0" prefWidth="858.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="244.0" layoutY="22.0" prefHeight="38.0" prefWidth="150.0" text="Report Type" textFill="#575757">
+            <Label alignment="CENTER" layoutX="327.0" layoutY="11.0" prefHeight="40.0" prefWidth="199.0" text="REPORTS" textFill="#575757">
                <font>
-                  <Font size="20.0" />
+                  <Font size="28.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="reportGenarator_reportType" layoutX="432.0" layoutY="27.0" prefHeight="30.0" prefWidth="200.0" promptText="Select" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="104.0" layoutY="93.0" prefHeight="12.0" prefWidth="59.0" text="Date" textFill="#575757">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker layoutX="177.0" layoutY="94.0" prefHeight="26.0" prefWidth="144.0" promptText="Select" />
+            <Label alignment="BOTTOM_LEFT" layoutX="104.0" layoutY="140.0" prefHeight="24.0" prefWidth="38.0" text="To" textFill="#575757">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker layoutX="177.0" layoutY="141.0" prefHeight="26.0" prefWidth="144.0" promptText="Select" />
+            <Label layoutX="23.0" layoutY="202.0" prefHeight="38.0" prefWidth="170.0" text="Select a Medical Officer" textFill="#575757">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="290.0" prefHeight="38.0" prefWidth="105.0" text="Select a User " textFill="#575757">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="451.0" layoutY="402.0" prefHeight="27.0" prefWidth="100.0" text="Print Type">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <JFXCheckBox layoutX="551.0" layoutY="406.0" text="PDF" />
+            <JFXCheckBox layoutX="610.0" layoutY="406.0" prefHeight="18.0" prefWidth="59.0" text="CSV" />
+            <JFXButton layoutX="708.0" layoutY="400.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #009933;" text="Print" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <TableView layoutX="1.0" layoutY="442.0" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: e8e8e8;">
+               <columns>
+                  <TableColumn minWidth="107.99999690055847" prefWidth="107.99999690055847" text="Patient" />
+                  <TableColumn minWidth="115.99996948242188" prefWidth="115.99996948242188" text="Appoinment Date" />
+                  <TableColumn minWidth="118.40010070800781" prefWidth="118.40010070800781" text="Appoinment Time" />
+                  <TableColumn minWidth="107.20001220703125" prefWidth="113.60003662109375" text="Symptoms" />
+                  <TableColumn minWidth="126.39996337890625" prefWidth="126.39996337890625" text="Status" />
+                  <TableColumn minWidth="100.7999267578125" prefWidth="145.5999755859375" text="Password" />
+                  <TableColumn minWidth="79.2000732421875" prefWidth="123.99997558593748" text="User Name" />
+               </columns>
+            </TableView>
+            <TextArea layoutX="402.0" layoutY="10.0" prefHeight="384.0" prefWidth="435.0" />
+            <Label layoutX="23.0" layoutY="234.0" prefHeight="38.0" prefWidth="188.0" text="(for an appointment report)" textFill="#575757">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="321.0" prefHeight="38.0" prefWidth="112.0" text="(for user log)" textFill="#575757">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <JFXComboBox layoutX="133.0" layoutY="31.0" prefHeight="26.0" prefWidth="178.0" promptText="Report Type" />
+            <JFXComboBox layoutX="211.0" layoutY="208.0" prefHeight="26.0" prefWidth="178.0" promptText="Medical Officer" />
+            <JFXComboBox layoutX="211.0" layoutY="296.0" prefHeight="26.0" prefWidth="178.0" promptText="User" />
+         </children></AnchorPane>
+   </center>
 </BorderPane>
-
