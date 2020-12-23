@@ -1,2 +1,1 @@
-ADMIN,kp,Male,Unmarried,2013-12-04,0756324545,1212,colombo sri lanaka,1212,1212
-ADMIN,nimal,Male,Unmarried,2020-12-09,0756324545,1999,sri lanka,1999,1999
+ADMIN~kp~MALE~Unmarried~2020-12-15~0756324545~1999~colombo sri lanka~gzpOBhfg8dlNe9IZwNzATw==~hSRqiv6s2rTRfTEMfrOK3A==

@@ -1,1 +1,3 @@
-RECEPTIONIST,thilini,Female,Unmarried,2011-12-06,0756324545,1111,kandy sri lanaka,1111,1111,1,thilini@gmail.com 
+RECEPTIONIST~thilini,FEMALE~Unmarried~2020-12-08~0768889997~1212~kolonnawa sri lanka~U4ZWKmRUFLNJzPOY+p8k0w==~U4ZWKmRUFLNJzPOY+p8k0w==~2~thilini@gmail.com~2020-12-08
+RECEPTIONIST~rukshini,FEMALE~Unmarried~1999-12-14~07512345432~2020~colombo kaleniya sri lanka~tdO/FtjO511+tALB7PjSCQ==~tdO/FtjO511+tALB7PjSCQ==~1~rukshini@gmail.com~2020-12-08
+RECEPTIONIST~kamila,FEMALE~Unmarried~1999-12-16~07512345432~2030~colombo angoda sri lanka~UkW5ZEDccOR1RprQIkWXMQ==~UkW5ZEDccOR1RprQIkWXMQ==~2,kamila@gmail.com~2020-12-08

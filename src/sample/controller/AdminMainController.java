@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.model.Admin;
 
 
 import java.awt.*;
@@ -23,6 +24,7 @@ import java.util.ResourceBundle;
 
 public class AdminMainController {
 
+    private Admin CurrentAdmin;
 
     @FXML
     private ResourceBundle resources;
@@ -184,6 +186,11 @@ public class AdminMainController {
 
     }
 
+    public Admin getCurrentAdmin() {
+        return CurrentAdmin;
+    }
 
-
+    public void setCurrentAdmin(Admin currentAdmin) {
+        CurrentAdmin = currentAdmin;
+    }
 }

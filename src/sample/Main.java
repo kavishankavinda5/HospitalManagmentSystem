@@ -12,8 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.controller.MultipleFXMLLoader;
+import sample.controller.actionTask.ReferenceAction;
 import sample.controller.actionTask.UserAction;
-import sample.controller.taskControllers.ReferenceViewController;
 import sample.model.*;
 
 import java.time.LocalTime;
@@ -29,32 +29,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        ReferenceViewController.setUserRolls(UserRoll.ADMIN);
-        ReferenceViewController.setUserRolls(UserRoll.RECEPTIONIST);
-        ReferenceViewController.setUserRolls(UserRoll.PATIENT);
-        ReferenceViewController.setUserRolls(UserRoll.MEDICALOFFICER);
 
-        ReferenceViewController.setDoctorSpeciality("BoneSpeciality");
-        ReferenceViewController.setDoctorSpeciality("BrainSpeciality");
-        ReferenceViewController.setDoctorSpeciality("Kidney Speciality");
+        ReferenceAction.loadReference();
+        ReferenceAction.setPostalTypes(PostalType.DISPATCH);
+        ReferenceAction.setPostalTypes(PostalType.RECEIVED);
 
-        ReferenceViewController.setGender("Male");
-        ReferenceViewController.setGender("Female");
+        System.out.println(UserAction.getAllAdmin());
 
-        ReferenceViewController.setMaritalStatus("Married");
-        ReferenceViewController.setMaritalStatus("Unmarried");
-
-        ReferenceViewController.setBloogGroup(BloodGroup.A_POSITIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.A_NEGATIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.AB_NEGATIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.AB_POSITIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.B_NEGATIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.B_POSITIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.O_NEGATIVE);
-        ReferenceViewController.setBloogGroup(BloodGroup.O_POSITIVE);
-
-        ReferenceViewController.setPostalTypes(PostalType.DISPATCH);
-        ReferenceViewController.setPostalTypes(PostalType.RECEIVED);
 
 
       launch(args);

@@ -14,12 +14,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.model.MedicalOfficer;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MedicalOfficerController {
+
+    private MedicalOfficer currentmedicalofficer;
 
     @FXML
     private ResourceBundle resources;
@@ -100,4 +103,11 @@ public class MedicalOfficerController {
     }
 
 
+    public MedicalOfficer getCurrentmedicalofficer() {
+        return currentmedicalofficer;
+    }
+
+    public void setCurrentmedicalofficer(MedicalOfficer currentmedicalofficer) {
+        this.currentmedicalofficer = currentmedicalofficer;
+    }
 }

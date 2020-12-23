@@ -13,4 +13,8 @@ public class MedicalOfficer extends Employee{
         this.speciality = speciality;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+"~"+speciality;
+    }
 }
