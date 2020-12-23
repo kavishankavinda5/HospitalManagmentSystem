@@ -757,7 +757,7 @@ public class UserAction {
     */
 
     //write a method for add medicalofficer data
-    public static void addMedicalOfficer(MedicalOfficer medicalOfficer, UserRoll userRoll) {
+    public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
 
         if (userRoll.equals(UserRoll.ADMIN)) {
             saveMedicalOfficer(medicalOfficer);
@@ -771,24 +771,12 @@ public class UserAction {
 
         try (FileWriter fileWriter = new FileWriter(file, true)) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(medicalOfficer.getUserRoll().toString() + ",");
-            bufferedWriter.write(medicalOfficer.getName() + ",");
-            bufferedWriter.write(medicalOfficer.getGender() + ",");
-            bufferedWriter.write(medicalOfficer.getMaritalStatus() + ",");
-            bufferedWriter.write(medicalOfficer.getDob() + ",");
-            bufferedWriter.write(medicalOfficer.getPhoneNumber() + ",");
-            bufferedWriter.write(medicalOfficer.getIdCardNumber() + ",");
-            bufferedWriter.write(medicalOfficer.getAddress() + ",");
-            bufferedWriter.write(medicalOfficer.getUserName() + ",");
-            bufferedWriter.write(medicalOfficer.getUserPassword() + ",");
-            bufferedWriter.write(medicalOfficer.getStaffID() + ",");
-            bufferedWriter.write(medicalOfficer.getStaffEmailAddress() + ",");
-            bufferedWriter.write(medicalOfficer.getSpeciality());
+            bufferedWriter.write(medicalOfficer.toString());
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
-            System.out.println("file path : " + file.getPath() + " medicalOfficer saved");
-            addUserLoginData(medicalLoginData, new LoginUser(medicalOfficer.getUserName(), medicalOfficer.getUserPassword()));
+            System.out.println("file path : " + file.getPath()+" medicalOfficer saved");
+            addUserLoginData(medicalLoginData,new LoginUser(medicalOfficer.getUserName(), medicalOfficer.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -797,37 +785,37 @@ public class UserAction {
     }
 
     //Write a method for delete medicalofficer data record
-    public static void deleteMedicalOfficerRcord(UserRoll userRoll, String searchTerm) {
-        if (userRoll.equals(UserRoll.ADMIN)) {
-            removeMedicalOfficerRecord(medicalOfficerFilePath, searchTerm);
-        } else {
+    public static void deleteMedicalOfficerRcord(UserRoll userRoll,String searchTerm){
+        if (userRoll.equals(UserRoll.ADMIN)){
+            removeMedicalOfficerRecord(medicalOfficerFilePath,searchTerm);
+        }else {
             System.out.println("Access denied");
         }
     }
 
     //Write a method for update medicalofficer data record
-    public static void updateMedicalOfficerRecord(UserRoll userRoll, MedicalOfficer medicalOfficerRecord, String searchedID) {
-        if (userRoll.equals(UserRoll.ADMIN)) {
-            editMedicalOfficerRecord(medicalOfficerFilePath, medicalOfficerRecord, searchedID);
-        } else {
+    public static void updateMedicalOfficerRecord(UserRoll userRoll,MedicalOfficer medicalOfficerRecord,String searchedID,LoginUser loginUser){
+        if (userRoll.equals(UserRoll.ADMIN)){
+            editMedicalOfficerRecord(medicalOfficerFilePath,medicalOfficerRecord,searchedID,loginUser);
+        }else {
             System.out.println("Access denied(Cannot update)");
         }
     }
 
     //Write a method for remove medicalofficer data record
-    private static void removeMedicalOfficerRecord(String filePath, String serachTerm) {
-        ArrayList<String> tempMedicalOfficertList = new ArrayList<>();
+    private static void removeMedicalOfficerRecord(String filePath,String serachTerm){
+        ArrayList<String> tempMedicalOfficertList =new ArrayList<>();
         File file = new File(filePath);
-        boolean found = false;
-        try {
+        boolean found =false;
+        try{
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = null;
+            String line =null;
             while ((line = bufferedReader.readLine()) != null) {
-                List<String> tempList = Arrays.asList(line.split(","));
-                if (!tempList.get(6).equals(serachTerm)) {
+                List<String> tempList = Arrays.asList(line.split("~"));
+                if(!tempList.get(6).equals(serachTerm)){
                     tempMedicalOfficertList.add(line);
-                } else {
+                }else {
                     found = true;
 
                 }
@@ -836,11 +824,11 @@ public class UserAction {
             bufferedReader.close();
             fileReader.close();
 
-            if (found == true) {
+            if (found == true){
                 try {
 
                     File fileNew = new File(medicalOfficerFilePath);
-                    if (file.exists()) {
+                    if(file.exists()){
                         file.delete();
                     }
                     file.createNewFile();
@@ -848,7 +836,7 @@ public class UserAction {
                     FileWriter fileWriter = new FileWriter(fileNew);
                     BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
                     newbufferedWriter.write("");
-                    for (int i = 0; i < tempMedicalOfficertList.size(); i++) {
+                    for (int i=0;i<tempMedicalOfficertList.size();i++){
                         newbufferedWriter.write(tempMedicalOfficertList.get(i));
                         newbufferedWriter.newLine();
 
@@ -872,23 +860,23 @@ public class UserAction {
     }
 
     //Write a method foe edit medicalofficer data record
-    private static void editMedicalOfficerRecord(String filePath, MedicalOfficer medicalOfficer, String searchMedicalOfficerId) {
+    private static void editMedicalOfficerRecord(String filePath,MedicalOfficer medicalOfficer,String searchMedicalOfficerId,LoginUser loginUser){
 
-        ArrayList<String> tempMedicalOfficerList = new ArrayList<>();
+        ArrayList<String> tempMedicalOfficerList =new ArrayList<>();
         File file = new File(filePath);
-        boolean found = false;
-        try {
+        boolean found =false;
+        try{
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = null;
+            String line =null;
             while ((line = bufferedReader.readLine()) != null) {
-                List<String> tempList = Arrays.asList(line.split(","));
-                if (!tempList.get(6).equals(searchMedicalOfficerId)) {
+                List<String> tempList = Arrays.asList(line.split("~"));
+                if(!tempList.get(6).equals(searchMedicalOfficerId)){
                     tempMedicalOfficerList.add(line);
-                } else {
+                }else {
                     found = true;
-                    String newLine = getStringMedicalOfficer(medicalOfficer);
-                    line = newLine;
+                    String newLine = medicalOfficer.toString();
+                    line =newLine;
                     tempMedicalOfficerList.add(line);
 
                 }
@@ -897,11 +885,11 @@ public class UserAction {
             bufferedReader.close();
             fileReader.close();
 
-            if (found == true) {
+            if (found ){
                 try {
 
                     File fileNew = new File(medicalOfficerFilePath);
-                    if (file.exists()) {
+                    if(file.exists()){
                         file.delete();
                     }
                     file.createNewFile();
@@ -909,7 +897,7 @@ public class UserAction {
                     FileWriter fileWriter = new FileWriter(fileNew);
                     BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
                     newbufferedWriter.write("");
-                    for (int i = 0; i < tempMedicalOfficerList.size(); i++) {
+                    for (int i=0;i<tempMedicalOfficerList.size();i++){
                         newbufferedWriter.write(tempMedicalOfficerList.get(i));
                         newbufferedWriter.newLine();
 
@@ -919,6 +907,7 @@ public class UserAction {
                     System.out.println("Medical Officer Edited Success");
                     System.out.println(tempMedicalOfficerList.toString());
 
+                    updateUserLoginData(medicalLoginData,loginUser);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -941,10 +930,10 @@ public class UserAction {
             String userRoll = null;
             String name = null, address = null;
             String gender = null, marital = null, dob = null, phonenumber = null, idcardNumber = null, userName = null, password = null;
-            String staffId = null;
+            String staffId =null,dateOFJoin=null;
             String staffEmailAddress = null, speciality = null;
             scanner = new Scanner(new File(filepath));
-            scanner.useDelimiter("[,\n]");
+            scanner.useDelimiter("[~\n]");
 
             while (scanner.hasNext() && !found) {
 
@@ -960,16 +949,18 @@ public class UserAction {
                 password = scanner.next();
                 staffId = scanner.next();
                 staffEmailAddress = scanner.next();
+                dateOFJoin =scanner.next();
                 speciality = scanner.next();
+
 
                 if (idcardNumber.equals(seachTerm)) {
                     found = true;
                 }
             }
-            if (found) {
+            if (found){
                 searchedMedicalOfficer.setUserRoll(getUserRoll(userRoll));
                 searchedMedicalOfficer.setName(name);
-                searchedMedicalOfficer.setGender(gender);
+                searchedMedicalOfficer.setGender(getGender(gender));
                 searchedMedicalOfficer.setMaritalStatus(marital);
                 searchedMedicalOfficer.setDob(getLocalDatefromString(dob));
                 searchedMedicalOfficer.setPhoneNumber(phonenumber);
@@ -979,12 +970,13 @@ public class UserAction {
                 searchedMedicalOfficer.setUserPassword(password);
                 searchedMedicalOfficer.setStaffID(Integer.parseInt(staffId));
                 searchedMedicalOfficer.setStaffEmailAddress(staffEmailAddress);
+                searchedMedicalOfficer.setDateOfJoining(getLocalDatefromString(dateOFJoin));
                 searchedMedicalOfficer.setSpeciality(speciality);
 
                 System.out.println(searchedMedicalOfficer.toString());
 
 
-            } else {
+            }else {
                 System.out.println("record not found");
             }
 
@@ -995,6 +987,7 @@ public class UserAction {
         return searchedMedicalOfficer;
 
     }
+
 
 
     /* =============================================================================================================
