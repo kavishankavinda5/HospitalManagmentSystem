@@ -555,13 +555,13 @@ public class UserAction {
     */
 
     //write a method for add admin data
-    public static void addAdmin(Admin admin, UserRoll userRoll) {
+    public static void addAdmin (Admin admin,UserRoll userRoll){
 
         if (userRoll.equals(UserRoll.ADMIN)) {
             saveAdmin(admin);
-        } else {
-            System.out.println("cannot save");
         }
+        else {
+            System.out.println("cannot save");}
     }
 
     //write a method for save admin data
@@ -570,28 +570,186 @@ public class UserAction {
 
         try (FileWriter fileWriter = new FileWriter(file, true)) {
             BufferedWriter adminBufferedWriter = new BufferedWriter(fileWriter);
-            adminBufferedWriter.write(admin.getUserRoll().toString() + ",");
-            adminBufferedWriter.write(admin.getName() + ",");
-            adminBufferedWriter.write(admin.getGender() + ",");
-            adminBufferedWriter.write(admin.getMaritalStatus() + ",");
-            adminBufferedWriter.write(admin.getDob() + ",");
-            adminBufferedWriter.write(admin.getPhoneNumber() + ",");
-            adminBufferedWriter.write(admin.getIdCardNumber() + ",");
-            adminBufferedWriter.write(admin.getAddress() + ",");
-            adminBufferedWriter.write(admin.getUserName() + ",");
-            adminBufferedWriter.write(admin.getUserPassword());
+
+            adminBufferedWriter.write(admin.toString());
             adminBufferedWriter.newLine();
             adminBufferedWriter.close();
             fileWriter.close();
 
             System.out.println("file path : " + file.getPath() + " admin saved");
-            addUserLoginData(adminloginData, new LoginUser(admin.getUserName(), admin.getUserPassword()));
+            addUserLoginData(adminloginData,new LoginUser(admin.getUserName(), admin.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
 
+    public static void updateAdmin(UserRoll userRoll,Admin adminRecord,String searchedID,LoginUser loginUser){
+        if (userRoll.equals(UserRoll.ADMIN)){
+            editAdminRecord(adminFilePath,adminRecord,searchedID,loginUser);
+        }else {
+            System.out.println("acces denied(cannot update)");
+        }
+    }
+
+    private static void editAdminRecord(String filePath,Admin adminEdit,String searchAdminRec,LoginUser loginUser){
+
+        ArrayList<String> tempAdminList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader adminfileReader = new FileReader(file);
+            BufferedReader adminbufferedReader = new BufferedReader(adminfileReader);
+            String line =null;
+            while ((line = adminbufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split("~"));
+                if(!tempList.get(6).equals(searchAdminRec)){
+                    tempAdminList.add(line);
+                }else {
+                    found = true;
+                    String newLine = adminEdit.toString();
+                    line =newLine;
+                    tempAdminList.add(line);
+
+                }
+            }
+
+            adminbufferedReader.close();
+            adminfileReader.close();
+
+            if (found){
+                try {
+
+                    File fileNew = new File(adminFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempAdminList.size();i++){
+                        newbufferedWriter.write(tempAdminList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("Admin edited  success");
+                    System.out.println(tempAdminList.toString());
+
+                    updateUserLoginData(adminloginData,loginUser);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Admin searchAdmin(String seachTerm,String userPassword){
+
+        Admin foundAdmin = searchAdminRecord(seachTerm,userPassword);
+        System.out.println("return Patient :"+foundAdmin.toString());
+        return foundAdmin;
+    }
+
+    private static Admin searchAdminRecord(String searchTerm, String pass){
+
+        boolean found = false;
+        Admin searchedAdmin = new Admin();
+        List<String> temp = new ArrayList<>();
+
+        File adminFile = new File(adminFilePath);
+        if (adminFile != null) {
+            try (FileReader fileReader = new FileReader(adminFile)) {
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    List<String> tempList= Arrays.asList(line.split("~"));
+
+                    if ((tempList.get(6).equals(searchTerm) ||
+                            tempList.get(1).equals(searchTerm) && tempList.get(9).equals(pass)) && !found) {
+                        found = true;
+                        temp =tempList;
+                        System.out.println("search Admin found ");
+                    }
+                }
+                if (found){
+                    System.out.println("Admin record found :"+temp.toString());
+                    searchedAdmin.setUserRoll(getUserRoll(temp.get(0)));
+                    searchedAdmin.setName(temp.get(1));
+                    searchedAdmin.setGender(getGender(temp.get(2)));
+                    searchedAdmin.setMaritalStatus(temp.get(3));
+                    searchedAdmin.setDob(getLocalDatefromString(temp.get(4)));
+                    searchedAdmin.setPhoneNumber(temp.get(5));
+                    searchedAdmin.setIdCardNumber(temp.get(6));
+                    searchedAdmin.setAddress(temp.get(7));
+                    searchedAdmin.setUserName(temp.get(8));
+                    searchedAdmin.setUserPassword(temp.get(9));
+
+
+                    System.out.println("search found :"+searchedAdmin);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return searchedAdmin;
+    }
+
+    public static ArrayList<Admin> getAllAdmin(){
+        ArrayList<Admin> allAdminRecords =new ArrayList<>();
+        File newFile = new File(adminFilePath);
+        String adminRecord = null;
+        try (FileReader adminFileReader = new FileReader(newFile)){
+            BufferedReader adminBufferedRedaer = new BufferedReader(adminFileReader);
+
+            while ((adminRecord = adminBufferedRedaer.readLine()) != null) {
+                List<String> tempAdminList = Arrays.asList(adminRecord.split("~"));
+                System.out.println(tempAdminList.toString());
+                Admin newAdmin = getAdminFromList(tempAdminList);
+                allAdminRecords.add(newAdmin);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return allAdminRecords;
+    }
+
+    private static Admin getAdminFromList(List<String> tempAdminRec) {
+        Admin returnAdmiin =new Admin();
+
+        returnAdmiin.setUserRoll(getUserRoll(tempAdminRec.get(0)));
+        returnAdmiin.setName(tempAdminRec.get(1));
+        returnAdmiin.setGender(getGender(tempAdminRec.get(2)));
+        returnAdmiin.setMaritalStatus(tempAdminRec.get(3));
+        returnAdmiin.setDob(getLocalDatefromString(tempAdminRec.get(4)));
+        returnAdmiin.setPhoneNumber(tempAdminRec.get(5));
+        returnAdmiin.setIdCardNumber(tempAdminRec.get(6));
+        returnAdmiin.setAddress(tempAdminRec.get(7));
+        returnAdmiin.setUserName(tempAdminRec.get(8));
+        returnAdmiin.setUserPassword(tempAdminRec.get(9));
+        return returnAdmiin;
+    }
 
     /* =============================================================================================================
        MEDICALOFFICER Action tasks
