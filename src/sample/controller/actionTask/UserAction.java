@@ -342,42 +342,210 @@ public class UserAction {
       =============================================================================================================
     */
 
-    public static void addReceptionist(Receptionist receptionist, UserRoll roll) {
 
-        if (roll.equals(UserRoll.ADMIN)) {
+    public static void addReceptionist(Receptionist receptionist,UserRoll roll){
+
+        if (roll.equals(UserRoll.ADMIN)){
             saveReceptionist(receptionist);
         }
     }
 
-    private static void saveReceptionist(Receptionist receptionist) {
+    private static  void  saveReceptionist(Receptionist receptionist){
         File receptionFile = new File(receptionistFilePath);
 
         try (FileWriter fileWriter = new FileWriter(receptionFile, true)) {
 
             BufferedWriter receptionBufferedWriter = new BufferedWriter(fileWriter);
 
-            receptionBufferedWriter.write(receptionist.getUserRoll().toString() + ",");
-            receptionBufferedWriter.write(receptionist.getName() + ",");
-            receptionBufferedWriter.write(receptionist.getGender() + ",");
-            receptionBufferedWriter.write(receptionist.getMaritalStatus() + ",");
-            receptionBufferedWriter.write(receptionist.getDob() + ",");
-            receptionBufferedWriter.write(receptionist.getPhoneNumber() + ",");
-            receptionBufferedWriter.write(receptionist.getIdCardNumber() + ",");
-            receptionBufferedWriter.write(receptionist.getAddress() + ",");
-            receptionBufferedWriter.write(receptionist.getUserName() + ",");
-            receptionBufferedWriter.write(receptionist.getUserPassword() + ",");
-            receptionBufferedWriter.write(receptionist.getStaffID() + ",");
-            receptionBufferedWriter.write(receptionist.getStaffEmailAddress() + " ");
-            receptionBufferedWriter.newLine();
+            receptionBufferedWriter.write(receptionist.toString());
             receptionBufferedWriter.close();
             fileWriter.close();
-            System.out.println("Receptionist saved: " + receptionFile.getPath() + " patient saved");
-            addUserLoginData(receptionLoginData, new LoginUser(receptionist.getUserName(), receptionist.getUserPassword()));
+            System.out.println("Receptionist saved: " + receptionFile.getPath()+" patient saved");
+            addUserLoginData(receptionLoginData,new LoginUser(receptionist.getUserName(), receptionist.getUserPassword()));
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
+
+    public static void updateReceptionRecord(UserRoll userRoll,Receptionist receptionist,String searchedID,LoginUser loginUser){
+        if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
+            editReceptionRecord(receptionistFilePath,receptionist,searchedID,loginUser);
+        }else {
+            System.out.println("acces denied(cannot update)");
+        }
+    }
+
+    private static void editReceptionRecord(String filePath,Receptionist receptionist,String searchPetientid,LoginUser loginUser){
+
+        ArrayList<String> tempPatientList =new ArrayList<>();
+        File file = new File(filePath);
+        boolean found =false;
+        try{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line =null;
+            while ((line = bufferedReader.readLine()) != null) {
+                List<String> tempList = Arrays.asList(line.split("~"));
+                if(!tempList.get(6).equals(searchPetientid)){
+                    tempPatientList.add(line);
+                }else {
+                    found = true;
+                    String newLine = receptionist.toString();
+                    line =newLine;
+                    tempPatientList.add(line);
+
+                }
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+
+            if (found == true){
+                try {
+
+                    File fileNew = new File(receptionistFilePath);
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(fileNew);
+                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
+                    newbufferedWriter.write("");
+                    for (int i=0;i<tempPatientList.size();i++){
+                        newbufferedWriter.write(tempPatientList.get(i));
+                        newbufferedWriter.newLine();
+
+                    }
+                    newbufferedWriter.close();
+                    fileWriter.close();
+                    System.out.println("Receptionist edited  success");
+                    System.out.println(tempPatientList.toString());
+                    updateUserLoginData(receptionLoginData,loginUser);
+                    System.out.println("receptionist login data updated");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Receptionist searchReceptionRecord(String seachTerm,String userName,String userPass){
+
+        Receptionist foundReception = searchReceptionist(seachTerm,userName,userPass);
+        System.out.println("return Patient :"+foundReception.toString());
+        return foundReception;
+    }
+
+    private static Receptionist searchReceptionist(String searchTerm, String userName,String userPassword){
+
+
+        boolean found = false;
+        Receptionist searchedReceptionist = new Receptionist();
+        List<String> temp = new ArrayList<>();
+
+        File patientFile = new File(receptionistFilePath);
+        if (patientFile != null) {
+            try (FileReader fileReader = new FileReader(patientFile)) {
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    List<String> tempList= Arrays.asList(line.split("~"));
+
+                    if ((tempList.get(6).equals(searchTerm) ||
+                            tempList.get(1).equals(encryptUserData(userName)) && tempList.get(9).equals(encryptUserData(userPassword))) && !found) {
+                        found = true;
+                        temp =tempList;
+                        System.out.println("search Receptionist  found ");
+                    }
+                }
+                if (found){
+                    System.out.println("ReceptionRecord  found :"+temp.toString());
+                    searchedReceptionist.setUserRoll(getUserRoll(temp.get(0)));
+                    searchedReceptionist.setName(temp.get(1));
+                    searchedReceptionist.setGender(getGender(temp.get(2)));
+                    searchedReceptionist.setMaritalStatus(temp.get(3));
+                    searchedReceptionist.setDob(getLocalDatefromString(temp.get(4)));
+                    searchedReceptionist.setPhoneNumber(temp.get(5));
+                    searchedReceptionist.setIdCardNumber(temp.get(6));
+                    searchedReceptionist.setAddress(temp.get(7));
+                    searchedReceptionist.setUserName(temp.get(8));
+                    searchedReceptionist.setUserPassword(temp.get(9));
+                    searchedReceptionist.setStaffID(Integer.parseInt(temp.get(10)));
+                    searchedReceptionist.setStaffEmailAddress(temp.get(11));
+                    searchedReceptionist.setDateOfJoining(getLocalDatefromString(temp.get(12)));
+
+
+                    System.out.println("search found :"+searchedReceptionist);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return searchedReceptionist;
+    }
+
+
+
+    public static  ArrayList<Receptionist> getAllReceptionist(){
+        ArrayList<Receptionist> allReceptionRecords = new ArrayList<>();
+        File newFile = new File(receptionistFilePath);
+        String receptionRecord = null;
+        try (FileReader receptionReader = new FileReader(newFile)){
+            BufferedReader receptionBufferedRedaer = new BufferedReader(receptionReader);
+
+            while ((receptionRecord = receptionBufferedRedaer.readLine()) != null) {
+                List<String> tempReceptionList = Arrays.asList(receptionRecord.split("~"));
+                Receptionist newReception = getReceptionistFromList(tempReceptionList);
+                allReceptionRecords.add(newReception);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return allReceptionRecords;
+    }
+
+    private static Receptionist getReceptionistFromList(List<String> tempReceptionRec) {
+        Receptionist returnReceptionist = new Receptionist();
+
+        returnReceptionist.setUserRoll(getUserRoll(tempReceptionRec.get(0)));
+        returnReceptionist.setName(tempReceptionRec.get(1));
+        returnReceptionist.setGender(getGender(tempReceptionRec.get(2)));
+        returnReceptionist.setMaritalStatus(tempReceptionRec.get(3));
+        returnReceptionist.setDob(getLocalDatefromString(tempReceptionRec.get(4)));
+        returnReceptionist.setPhoneNumber(tempReceptionRec.get(5));
+        returnReceptionist.setIdCardNumber(tempReceptionRec.get(6));
+        returnReceptionist.setAddress(tempReceptionRec.get(7));
+        returnReceptionist.setUserName(tempReceptionRec.get(8));
+        returnReceptionist.setUserPassword(tempReceptionRec.get(9));
+        returnReceptionist.setStaffID(Integer.parseInt(tempReceptionRec.get(10)));
+        returnReceptionist.setStaffEmailAddress(tempReceptionRec.get(11));
+        returnReceptionist.setDateOfJoining(getLocalDatefromString(tempReceptionRec.get(12)));
+
+
+        return returnReceptionist;
+    }
+
+
 
 
 
