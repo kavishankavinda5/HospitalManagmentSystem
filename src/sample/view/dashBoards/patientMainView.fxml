@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -99,19 +100,19 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="153.0" layoutY="299.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
+                  <JFXTextField fx:id="patientView_name" layoutX="153.0" layoutY="299.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
                   <Label alignment="CENTER" layoutX="47.0" layoutY="386.0" prefHeight="26.0" prefWidth="66.0" text="Telephone">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="153.0" layoutY="386.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
+                  <JFXTextField fx:id="patientView_telephone" layoutX="153.0" layoutY="386.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
                   <Label alignment="CENTER" layoutX="463.0" layoutY="385.0" prefHeight="26.0" prefWidth="72.0" text="ID Number">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="584.0" layoutY="374.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
+                  <JFXTextField fx:id="patientView_idNumber" layoutX="584.0" layoutY="374.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
                   <AnchorPane layoutX="-1.0" prefHeight="96.0" prefWidth="850.0">
                      <children>
                         <Label alignment="CENTER" layoutX="275.0" layoutY="19.0" prefHeight="58.0" prefWidth="299.0" text="PATIENT">
@@ -131,7 +132,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea layoutX="584.0" layoutY="458.0" prefHeight="28.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
+                  <JFXTextArea fx:id="patientView_address" layoutX="584.0" layoutY="458.0" prefHeight="28.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
                   <AnchorPane layoutX="-1.0" layoutY="652.0" prefHeight="40.0" prefWidth="850.0">
                      <children>
                         <JFXButton layoutX="659.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #009933;" text="Edit" textFill="WHITE" />
@@ -143,10 +144,11 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea layoutX="584.0" layoutY="530.0" prefHeight="28.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
-                  <JFXComboBox layoutX="463.0" layoutY="298.0" prefHeight="26.0" prefWidth="194.0" promptText="Gender" />
-                  <JFXComboBox layoutX="47.0" layoutY="547.0" prefHeight="26.0" prefWidth="150.0" promptText="Marital Status" />
-                  <JFXComboBox layoutX="235.0" layoutY="547.0" prefHeight="26.0" prefWidth="150.0" promptText="Blood Group" />
+                  <JFXTextArea fx:id="patientView_allergies" layoutX="584.0" layoutY="530.0" prefHeight="28.0" prefWidth="195.0" style="-fx-background-color: e8e8e8;" />
+                  <JFXComboBox fx:id="patientView_gender" layoutX="463.0" layoutY="298.0" prefHeight="26.0" prefWidth="194.0" promptText="Gender" />
+                  <JFXComboBox fx:id="patientView_maritalStatus" layoutX="47.0" layoutY="547.0" prefHeight="26.0" prefWidth="150.0" promptText="Marital Status" />
+                  <JFXComboBox fx:id="patientView_bloodGroup" layoutX="235.0" layoutY="547.0" prefHeight="26.0" prefWidth="150.0" promptText="Blood Group" />
+                  <DatePicker fx:id="patientView_dob" layoutX="153.0" layoutY="464.0" prefHeight="25.0" prefWidth="195.0" />
                </children>
             </AnchorPane>
          </children>

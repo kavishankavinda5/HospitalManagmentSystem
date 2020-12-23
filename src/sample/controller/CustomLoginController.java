@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.controller.actionTask.UserAction;
+import sample.model.Patient;
+import sample.model.Receptionist;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +74,6 @@ public class CustomLoginController {
                 String inputPassword = userLogin_userPassword.getText().trim();
 
                 int i = UserAction.verifyLogin(inputUserName,inputPassword, userRoll.toLowerCase().trim());
-               // System.out.println(i);
 
                 if (i == 1){
                     switch (userRoll){
@@ -106,24 +107,40 @@ public class CustomLoginController {
         this.userRoll = name;
     }
 
-    public void openDashBoard(String fileName){
+    private void openDashBoard(String fileName){
         userLogin_SigninButoon.getScene().getWindow().hide();
-        Stage mainStage = new Stage();
+        Stage dashBoardStage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-
         loader.setLocation(getClass().getResource("/sample/view/dashBoards/"+fileName+".fxml"));
+
         try {
             loader.load();
-
 
         }catch (IOException e){
             e.printStackTrace();
         }
 
         Parent root = loader.getRoot();
-        mainStage.setScene(new Scene(root));
-        mainStage.show();
-    }
+        dashBoardStage.setScene(new Scene(root));
 
+        switch (fileName){
+            case "patientMainView":
+                Patient patientDetails = UserAction.searchPatient(userLogin_userName.getText(),userLogin_userName.getText(),userLogin_userPassword.getText());
+                PatientViewController patientViewController = loader.getController();
+                patientViewController.setCurrentpatient(patientDetails);
+                break;
+
+            case "receptionistMainView":
+                //Receptionist receptionistDetails =UserAction.searchReceptionRecord()
+                break;
+            case "adminMainView":
+                break;
+            case "medicalOfficerView":
+                break;
+            default:
+                break;
+        }
+        dashBoardStage.show();
+    }
 
 }

@@ -4,11 +4,9 @@ import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import sample.controller.actionTask.ReferenceAction;
 import sample.controller.actionTask.UserAction;
 import sample.model.*;
 
@@ -30,7 +28,7 @@ public class UserViewController {
     private Label userView_userNameLable;
 
     @FXML
-    private TableView<?> userView_userTable;
+    private TableView<Admin> userView_userTable;
 
     @FXML
     private JFXButton userView_addUser;
@@ -75,7 +73,7 @@ public class UserViewController {
     private JFXComboBox<BloodGroup> userView_bloodGroup;
 
     @FXML
-    private JFXComboBox<String> userView_gender;
+    private JFXComboBox<Gender> userView_gender;
 
     @FXML
     private JFXTextField userView_staffID;
@@ -103,12 +101,24 @@ public class UserViewController {
 
     @FXML
     void initialize() {
+
+//      ObservableList<Admin> adminData = FXCollections.observableArrayList(UserAction.getAllAdmin());
+//      System.out.println(adminData.toString());
+//
+//        TableColumn id =new TableColumn("NIC_Number");
+//        userView_userTable.getColumns().add(id);
+//        id.setCellValueFactory(new PropertyValueFactory<Admin,String>("idCardNumber"));
+//
+//        userView_userTable.setItems(adminData);
+
         //set the derop down wit the data taken by the reference module
-        userView_userTypeDrop.getItems().addAll(ReferenceViewController.getUserRolls());
-        userView_speciality.getItems().addAll(ReferenceViewController.getDoctorSpeciality());
-        userView_gender.getItems().addAll(ReferenceViewController.getGender());
-        userView_bloodGroup.getItems().addAll(ReferenceViewController.getBloogGroup());
-        userView_marital.getItems().addAll(ReferenceViewController.getMaritalStatus());
+
+
+        userView_userTypeDrop.getItems().addAll(ReferenceAction.getUserRolls());
+        userView_speciality.getItems().addAll(ReferenceAction.getDoctorSpeciality());
+        userView_gender.getItems().addAll(ReferenceAction.getGender());
+        userView_bloodGroup.getItems().addAll(ReferenceAction.getBloogGroup());
+        userView_marital.getItems().addAll(ReferenceAction.getMaritalStatus());
 
         userView_userTypeDrop.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -193,6 +203,8 @@ public class UserViewController {
 
                 switch (userView_userTypeDrop.getValue()){
                     case RECEPTIONIST:
+                        Receptionist receptionist =UserAction.searchReceptionRecord(serachID,null,null);
+                        displayReceptionistData(receptionist);
                         break;
 
                     case MEDICALOFFICER:
@@ -202,13 +214,14 @@ public class UserViewController {
 
                     case PATIENT:
 
-                        Patient patient =UserAction.searchPatient(serachID,UserAction.patientDataFilePath);
-                        displayUserdata(patient);
+                        Patient patient =UserAction.searchPatient(serachID,null,null);
+                        displayPatientData(patient);
                         break;
 
                     case ADMIN:
+                        Admin admin =UserAction.searchAdmin(serachID,null);
+                        displayAdminData(admin);
                         break;
-
 
                 }
 
@@ -218,21 +231,9 @@ public class UserViewController {
         userView_deleteUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                    UserAction.deleteUserRecord(UserRoll.ADMIN,userView_searchField.getText(),userView_userTypeDrop.getValue(),getLoginUser());
 
-                switch (userView_userTypeDrop.getValue()){
-                    case ADMIN:
-                        break;
-                    case PATIENT:
-                        UserAction.deleteUserRecord(UserRoll.ADMIN,userView_searchField.getText(),userView_userTypeDrop.getValue());
-                        break;
-                    case MEDICALOFFICER:
-                        UserAction.deleteMedicalOfficerRcord(UserRoll.ADMIN,userView_searchField.getText());
-                        break;
-                    case RECEPTIONIST:
-                        break;
                 }
-
-            }
         });
 
         userView_updateUser.setOnAction(new EventHandler<ActionEvent>() {
@@ -240,14 +241,18 @@ public class UserViewController {
             public void handle(ActionEvent actionEvent) {
                 switch (userView_userTypeDrop.getValue()){
                     case ADMIN:
+                        UserAction.updateAdmin(UserRoll.ADMIN,getAdmin(),userView_searchField.getText(),getLoginUser());
                         break;
                     case PATIENT:
-                        UserAction.updatePatientRecord(UserRoll.ADMIN,getPatient(),userView_searchField.getText());
+                        UserAction.updatePatientRecord(UserRoll.ADMIN,getPatient(),userView_searchField.getText(),getLoginUser());
                         break;
                     case MEDICALOFFICER:
-                        UserAction.updateMedicalOfficerRecord(UserRoll.ADMIN,getMedicalOfficer(),userView_searchField.getText());
+                        UserAction.updateMedicalOfficerRecord(UserRoll.ADMIN,getMedicalOfficer(),userView_searchField.getText(),getLoginUser());
                         break;
                     case RECEPTIONIST:
+                        UserAction.updateReceptionRecord(UserRoll.ADMIN,getReceptionist(),userView_searchField.getText(),getLoginUser());
+                        break;
+                    default:
                         break;
                 }
 
@@ -262,7 +267,15 @@ public class UserViewController {
         });
     }
 
-    public void displayUserdata(Patient patient){
+    private LoginUser getLoginUser() {
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUserName(UserAction.encryptUserData(userView_userName.getText()));
+        loginUser.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()));
+
+        return loginUser;
+    }
+
+    public void displayPatientData(Patient patient){
         userView_userTypeDrop.setValue(patient.getUserRoll());
         userView_name.setText(patient.getName());
         userView_gender.setValue(patient.getGender());
@@ -271,8 +284,8 @@ public class UserViewController {
         userView_phoneNum.setText(patient.getPhoneNumber());
         userView_NIC.setText(patient.getIdCardNumber());
         userView_address.setText(patient.getAddress());
-        userView_userName.setText(patient.getUserName());
-        userView_userPassword.setText(patient.getIdCardNumber());
+        userView_userName.setText(UserAction.decryptUserData(patient.getUserName()));
+        userView_userPassword.setText(UserAction.decryptUserData(patient.getUserPassword()));
         userView_bloodGroup.setValue(patient.getBloodGroup());
         userView_allergies.setText(patient.getAllergies());
     }
@@ -286,11 +299,42 @@ public class UserViewController {
         userView_phoneNum.setText(medicalOfficer.getPhoneNumber());
         userView_NIC.setText(medicalOfficer.getIdCardNumber());
         userView_address.setText(medicalOfficer.getAddress());
-        userView_userName.setText(medicalOfficer.getUserName());
-        userView_userPassword.setText(medicalOfficer.getIdCardNumber());
+        userView_userName.setText(UserAction.decryptUserData(medicalOfficer.getUserName()));
+        userView_userPassword.setText(UserAction.decryptUserData(medicalOfficer.getUserPassword()));
         userView_staffID.setText(String.valueOf(medicalOfficer.getStaffID()));
         userView_staffEmail.setText(medicalOfficer.getStaffEmailAddress());
-        userView_speciality.setValue(medicalOfficer.getSpeciality());
+        userView_staffdoj.setValue(medicalOfficer.getDateOfJoining());
+        userView_speciality.setValue(medicalOfficer.getSpeciality().trim());
+
+    }
+
+    public void displayAdminData(Admin admin){
+        userView_userTypeDrop.setValue(admin.getUserRoll());
+        userView_name.setText(admin.getName());
+        userView_gender.setValue(admin.getGender());
+        userView_marital.setValue(admin.getMaritalStatus());
+        userView_dob.setValue(admin.getDob());
+        userView_phoneNum.setText(admin.getPhoneNumber());
+        userView_NIC.setText(admin.getIdCardNumber());
+        userView_address.setText(admin.getAddress());
+        userView_userName.setText(UserAction.decryptUserData(admin.getUserName()));
+        userView_userPassword.setText(UserAction.decryptUserData(admin.getUserPassword()));
+    }
+
+    public void displayReceptionistData(Receptionist receptionist){
+        userView_userTypeDrop.setValue(receptionist.getUserRoll());
+        userView_name.setText(receptionist.getName());
+        userView_gender.setValue(receptionist.getGender());
+        userView_marital.setValue(receptionist.getMaritalStatus());
+        userView_dob.setValue(receptionist.getDob());
+        userView_phoneNum.setText(receptionist.getPhoneNumber());
+        userView_NIC.setText(receptionist.getIdCardNumber());
+        userView_address.setText(receptionist.getAddress());
+        userView_userName.setText(UserAction.decryptUserData(receptionist.getUserName()));
+        userView_userPassword.setText(UserAction.decryptUserData(receptionist.getUserPassword()));
+        userView_staffdoj.setValue(receptionist.getDateOfJoining());
+        userView_staffEmail.setText(receptionist.getStaffEmailAddress());
+        userView_staffID.setText(String.valueOf(receptionist.getStaffID()));
     }
 
     public Patient getPatient(){
@@ -303,8 +347,8 @@ public class UserViewController {
         patient.setPhoneNumber(userView_phoneNum.getText());
         patient.setIdCardNumber(userView_NIC.getText());
         patient.setAddress(userView_address.getText());
-        patient.setUserName(userView_NIC.getText());
-        patient.setUserPassword(userView_NIC.getText());
+        patient.setUserName(UserAction.encryptUserData(userView_userName.getText()));
+        patient.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()));
         patient.setBloodGroup(userView_bloodGroup.getValue());
         patient.setAllergies(userView_allergies.getText());
 
@@ -321,8 +365,8 @@ public class UserViewController {
         receptionist.setPhoneNumber(userView_phoneNum.getText());
         receptionist.setIdCardNumber(userView_NIC.getText());
         receptionist.setAddress(userView_address.getText());
-        receptionist.setUserName(userView_NIC.getText());
-        receptionist.setUserPassword(userView_NIC.getText());
+        receptionist.setUserName(UserAction.encryptUserData(userView_userName.getText()));
+        receptionist.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()));
         receptionist.setStaffID(getStaffId());
         receptionist.setStaffEmailAddress(userView_staffEmail.getText());
 
@@ -339,8 +383,8 @@ public class UserViewController {
         admin.setPhoneNumber(userView_phoneNum.getText());
         admin.setAddress(userView_address.getText());
         admin.setIdCardNumber(userView_NIC.getText());
-        admin.setUserName(userView_NIC.getText());
-        admin.setUserPassword(userView_NIC.getText());
+        admin.setUserName(UserAction.encryptUserData(userView_userName.getText()).trim());
+        admin.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()).trim());
 
         return admin;
 
@@ -358,11 +402,12 @@ public class UserViewController {
         medicalOfficer.setPhoneNumber(userView_phoneNum.getText());
         medicalOfficer.setIdCardNumber(userView_NIC.getText());
         medicalOfficer.setAddress(userView_address.getText());
-        medicalOfficer.setUserName(userView_NIC.getText());
-        medicalOfficer.setUserPassword(userView_NIC.getText());
+        medicalOfficer.setUserName(UserAction.encryptUserData(userView_userName.getText()));
+        medicalOfficer.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()));
         medicalOfficer.setStaffID(getStaffId());
         medicalOfficer.setStaffEmailAddress(userView_staffEmail.getText());
         medicalOfficer.setSpeciality(userView_speciality.getValue());
+        medicalOfficer.setDateOfJoining(userView_staffdoj.getValue());
 
        return medicalOfficer;
 
@@ -370,7 +415,7 @@ public class UserViewController {
 
     public void resetDisplay(){
         userView_name.clear();
-        userView_gender.setValue("");
+        userView_gender.setValue(null);
         userView_marital.setValue(null);
         userView_phoneNum.clear();
         userView_userPassword.clear();
@@ -385,7 +430,9 @@ public class UserViewController {
         userView_bloodGroup.setValue(null);
         userView_staffEmail.clear();
         userView_searchField.clear();
+        userView_staffID.clear();
         userView_userTypeDrop.getItems();
+
 
     }
 
@@ -403,7 +450,7 @@ public class UserViewController {
         userView_NIC.setDisable(false);
         userView_address.setDisable(false);
         userView_userName.setDisable(false);
-        userView_userPassword.setDisable(true);
+        userView_userPassword.setDisable(false);
         userView_bloodGroup.setDisable(true);
         userView_allergies.setDisable(true);
         userView_staffID.setDisable(true);
@@ -421,7 +468,7 @@ public class UserViewController {
         userView_NIC.setDisable(false);
         userView_address.setDisable(false);
         userView_userName.setDisable(false);
-        userView_userPassword.setDisable(true);
+        userView_userPassword.setDisable(false);
         userView_bloodGroup.setDisable(true);
         userView_allergies.setDisable(true);
         userView_staffID.setDisable(true);
@@ -438,8 +485,8 @@ public class UserViewController {
         userView_phoneNum.setDisable(false);
         userView_NIC.setDisable(false);
         userView_address.setDisable(false);
-        userView_userName.setDisable(true);
-        userView_userPassword.setDisable(true);
+        userView_userName.setDisable(false);
+        userView_userPassword.setDisable(false);
         userView_bloodGroup.setDisable(false);
         userView_allergies.setDisable(false);
         userView_staffID.setDisable(true);
@@ -456,8 +503,8 @@ public class UserViewController {
         userView_phoneNum.setDisable(false);
         userView_NIC.setDisable(false);
         userView_address.setDisable(false);
-        userView_userName.setDisable(true);
-        userView_userPassword.setDisable(true);
+        userView_userName.setDisable(false);
+        userView_userPassword.setDisable(false);
         userView_bloodGroup.setDisable(true);
         userView_allergies.setDisable(true);
         userView_staffID.setDisable(true);

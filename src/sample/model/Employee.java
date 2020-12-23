@@ -42,4 +42,9 @@ public abstract class Employee extends User{
     public void setStaffPhoto(Image staffPhoto) {
         this.staffPhoto = staffPhoto;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"~"+staffID +"~" + staffEmailAddress + "~" + dateOfJoining + "~" + staffPhoto ;
+    }
 }

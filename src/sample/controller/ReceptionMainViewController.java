@@ -14,12 +14,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sample.model.Receptionist;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReceptionMainViewController {
+
+    Receptionist currentreceptionist ;
 
     @FXML
     private ResourceBundle resources;
@@ -200,5 +203,13 @@ public class ReceptionMainViewController {
 
     public void setUserName(String name){
         receptionView_userName.setText(name);
+    }
+
+    public Receptionist getCurrentreceptionist() {
+        return currentreceptionist;
+    }
+
+    public void setCurrentreceptionist(Receptionist currentreceptionist) {
+        this.currentreceptionist = currentreceptionist;
     }
 }

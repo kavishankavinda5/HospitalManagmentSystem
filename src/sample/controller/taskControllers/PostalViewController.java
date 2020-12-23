@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.util.StringConverter;
 import sample.controller.actionTask.PostalAction;
 
+import sample.controller.actionTask.ReferenceAction;
 import sample.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,6 @@ public class PostalViewController {
 
     @FXML
     private URL location;
-
 
     @FXML
     private Label postalView_addressLable;
@@ -98,7 +98,7 @@ public class PostalViewController {
         });
 
         //set the derop down wit the data taken by the reference module
-       postalView_type.getItems().addAll(ReferenceViewController.getPostalTypes());
+       postalView_type.getItems().addAll(ReferenceAction.getPostalTypes());
 
 
         postalView_addPostal.setOnAction(new EventHandler<ActionEvent>() {
