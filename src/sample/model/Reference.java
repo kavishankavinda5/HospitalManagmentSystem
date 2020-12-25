@@ -1,15 +1,25 @@
 package sample.model;
 
 public class Reference {
+    private int refenceID;
     private String referenceType;
     private String referenceValue;
 
     public Reference() {
     }
 
-    public Reference(String referenceType, String referenceValue) {
+    public Reference(int refenceID, String referenceType, String referenceValue) {
+        this.refenceID = refenceID;
         this.referenceType = referenceType;
         this.referenceValue = referenceValue;
+    }
+
+    public int getRefenceID() {
+        return refenceID;
+    }
+
+    public void setRefenceID(int refenceID) {
+        this.refenceID = refenceID;
     }
 
     public String getReferenceType() {
@@ -30,6 +40,6 @@ public class Reference {
 
     @Override
     public String toString() {
-        return referenceType +"~"+  referenceValue ;
+        return refenceID+"~"+referenceType +"~"+  referenceValue ;
     }
 }

@@ -1,4 +1,7 @@
-Complaint Types~complaint 01
-Complaint Types~complaint type 02
-Complaint Types~complaint 03
-Complaint Types~doctor is not good
+16~Doctor Speciality~brain
+17~Doctor Speciality~mussel
+18~Doctor Speciality~eye
+21~Complaint Types~complaint 24
+24~Complaint Types~complaint 78
+25~Doctor Speciality~heart
+26~Complaint Types~complaint 45
