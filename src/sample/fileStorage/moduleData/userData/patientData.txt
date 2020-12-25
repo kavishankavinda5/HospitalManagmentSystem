@@ -1,1 +1,1 @@
-PATIENT~kavishan~MALE~Unmarried~1999-08-18~0767777777~4545~puttalama , sri lanka ,earth~QYZcf6CtJL1sBHemfOmb4w==~QYZcf6CtJL1sBHemfOmb4w==~A_NEGATIVE~vans
+PATIENT~kavindu prabhashitha~MALE~Unmarried~2020-12-15~0756324545~111~colombo sri lanka, sri lanka~4boEaGcfFLw+nDwgOa5Y9w==~4boEaGcfFLw+nDwgOa5Y9w==~A_NEGATIVE~vans

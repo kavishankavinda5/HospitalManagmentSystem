@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import sample.controller.actionTask.ReferenceAction;
+import sample.model.Reference;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,6 @@ public class ComplaintViewController {
 
     @FXML
     void initialize() {
-       //   complaintView_complaintDropDown.getItems().addAll(ReferenceAction.getComp);
+          complaintView_complaintDropDown.getItems().addAll(ReferenceAction.getComplaintStringArray());
     }
 }

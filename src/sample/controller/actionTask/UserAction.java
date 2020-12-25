@@ -177,7 +177,6 @@ public class UserAction {
 
     }
 
-
     public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
             editPatientRecord(patientDataFilePath,patientRecord,searchedID,loginUser);
@@ -186,7 +185,6 @@ public class UserAction {
             System.out.println("acces denied(cannot update)");
         }
     }
-
 
     private static void editPatientRecord(String filePath,Patient patientEdit,String searchPetientid,LoginUser loginUser){
 
@@ -202,22 +200,18 @@ public class UserAction {
                 List<String> tempList = Arrays.asList(line.split("~"));
 
                 if (!tempList.get(6).equals(searchPetientid)) {
-
                     tempPatientList.add(line);
                 } else {
                     found = true;
-                    String newLine = patientEdit.toString();
-
-                    line =newLine;
-
-
+                    line = patientEdit.toString();
+                    tempPatientList.add(line);
                 }
             }
 
             bufferedReader.close();
             fileReader.close();
 
-            if (found == true) {
+            if (found) {
                 try {
 
                     File fileNew = new File(patientDataFilePath);
@@ -229,7 +223,6 @@ public class UserAction {
 
                     FileWriter fileWriter = new FileWriter(fileNew);
                     BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
-                    newbufferedWriter.write("");
                     for (int i = 0; i < tempPatientList.size(); i++) {
                         newbufferedWriter.write(tempPatientList.get(i));
                         newbufferedWriter.newLine();
@@ -253,7 +246,6 @@ public class UserAction {
             e.printStackTrace();
         }
     }
-
 
     public static Patient searchPatient(String seachTerm,String userName,String userpassword){
         Patient foundPatient = searchPatientRecord(seachTerm,userName,userpassword);
@@ -315,7 +307,6 @@ public class UserAction {
 
         return searchedPatient;
     }
-
 
     public static  ArrayList<Patient> getAllPatients(){
         ArrayList<Patient> allPatientRecords = new ArrayList<>();
@@ -526,8 +517,6 @@ public class UserAction {
 
         return searchedReceptionist;
     }
-
-
 
     public static  ArrayList<Receptionist> getAllReceptionist(){
         ArrayList<Receptionist> allReceptionRecords = new ArrayList<>();
@@ -1015,6 +1004,66 @@ public class UserAction {
 
     }
 
+    public static ArrayList<MedicalOfficer> getAllMedicalOfficer(){
+        ArrayList<MedicalOfficer> allMedicalOfficerRecords =new ArrayList<>();
+        File newFile = new File(medicalOfficerFilePath);
+        String adminRecord = null;
+        try (FileReader adminFileReader = new FileReader(newFile)){
+            BufferedReader adminBufferedRedaer = new BufferedReader(adminFileReader);
+
+            while ((adminRecord = adminBufferedRedaer.readLine()) != null) {
+                List<String> tempMedicList = Arrays.asList(adminRecord.split("~"));
+                System.out.println(tempMedicList.toString());
+                MedicalOfficer medicalOfficer = getMedicalOfficer(tempMedicList);
+                allMedicalOfficerRecords.add(medicalOfficer);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return allMedicalOfficerRecords;
+    }
+
+    private static MedicalOfficer getMedicalOfficer(List<String> tempMedicList) {
+        MedicalOfficer returnMedicalOfficer =new MedicalOfficer();
+
+        returnMedicalOfficer.setUserRoll(getUserRoll(tempMedicList.get(0)));
+        returnMedicalOfficer.setName(tempMedicList.get(1));
+        returnMedicalOfficer.setGender(getGender(tempMedicList.get(2)));
+        returnMedicalOfficer.setMaritalStatus(tempMedicList.get(3));
+        returnMedicalOfficer.setDob(getLocalDatefromString(tempMedicList.get(4)));
+        returnMedicalOfficer.setPhoneNumber(tempMedicList.get(5));
+        returnMedicalOfficer.setIdCardNumber(tempMedicList.get(6));
+        returnMedicalOfficer.setAddress(tempMedicList.get(7));
+        returnMedicalOfficer.setUserName(tempMedicList.get(8));
+        returnMedicalOfficer.setUserPassword(tempMedicList.get(9));
+        returnMedicalOfficer.setStaffID(Integer.parseInt(tempMedicList.get(10)));
+        returnMedicalOfficer.setStaffEmailAddress(tempMedicList.get(11));
+        returnMedicalOfficer.setDateOfJoining(getLocalDatefromString(tempMedicList.get(12)));
+        returnMedicalOfficer.setSpeciality(tempMedicList.get(13));
+        return returnMedicalOfficer;
+    }
+
+    public static ArrayList<MedicalOfficer> getMedicalOfficerBySpeciality(String speciality){
+        ArrayList<MedicalOfficer> medicalOfficerBySpec = new ArrayList<>();
+        ArrayList<MedicalOfficer> tempMedicalOfficer = getAllMedicalOfficer();
+        for (int i=0;i<tempMedicalOfficer.size();i++){
+            if (tempMedicalOfficer.get(i).getSpeciality().trim().equals(speciality.trim())){
+                MedicalOfficer medicalOfficer = tempMedicalOfficer.get(i);
+                medicalOfficer.setUserPassword(null);
+                medicalOfficerBySpec.add(medicalOfficer);
+                System.out.println("Medical officer found by speciality");
+            }else {
+                System.out.println("Medical officer not found by speciality");
+            }
+        }
+
+        return medicalOfficerBySpec;
+    }
+
 
 
     /* =============================================================================================================
@@ -1061,12 +1110,11 @@ public class UserAction {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line =null;
             while ((line = bufferedReader.readLine()) != null) {
-                List<String> tempList = Arrays.asList(line.split(","));
+                List<String> tempList = Arrays.asList(line.split("~"));
                 if(!tempList.get(6).equals(serachTerm)){
                     tempPatientList.add(line);
                 }else {
                     found = true;
-
                 }
             }
 
@@ -1092,7 +1140,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
-                    System.out.println("patient deleted success");
+                    System.out.println("User deleted success");
                     System.out.println(tempPatientList.toString());
                     deleteUserLoginData(loginDataPath,loginUser);
 
@@ -1219,13 +1267,10 @@ public class UserAction {
 
     private static void addUserLoginData(String fileName, LoginUser user) {
         File addLoginFile = new File(fileName);
-        String userName = encrypt(user.getUserName(), secretKey);
-        String userPass = encrypt(user.getUserPassword(), secretKey);
 
         try (FileWriter userLoginWriter = new FileWriter(addLoginFile, true)) {
             BufferedWriter userLoginBufferedWriter = new BufferedWriter(userLoginWriter);
-            userLoginBufferedWriter.write(userName + ",");
-            userLoginBufferedWriter.write(userPass);
+            userLoginBufferedWriter.write(user.toString());
             userLoginBufferedWriter.newLine();
             userLoginBufferedWriter.close();
 
@@ -1318,7 +1363,7 @@ public class UserAction {
             bufferedReader.close();
             fileReader.close();
 
-            if (found == true){
+            if (found){
                 try {
 
                     File fileNew = new File(fileName);

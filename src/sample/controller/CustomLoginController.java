@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.controller.actionTask.UserAction;
+import sample.model.Admin;
 import sample.model.Patient;
 import sample.model.Receptionist;
 
@@ -134,6 +135,9 @@ public class CustomLoginController {
                 //Receptionist receptionistDetails =UserAction.searchReceptionRecord()
                 break;
             case "adminMainView":
+                Admin adminDetails = UserAction.searchAdmin(userLogin_userName.getText(),userLogin_userPassword.getText());
+                AdminMainController adminMainController = loader.getController();
+                adminMainController.setCurrentAdmin(adminDetails);
                 break;
             case "medicalOfficerView":
                 break;

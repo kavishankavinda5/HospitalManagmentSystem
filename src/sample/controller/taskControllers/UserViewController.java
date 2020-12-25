@@ -115,7 +115,7 @@ public class UserViewController {
 
 
         userView_userTypeDrop.getItems().addAll(ReferenceAction.getUserRolls());
-        userView_speciality.getItems().addAll(ReferenceAction.getDoctorSpeciality());
+        userView_speciality.getItems().addAll(ReferenceAction.getDocSpecialityStringArray());
         userView_gender.getItems().addAll(ReferenceAction.getGender());
         userView_bloodGroup.getItems().addAll(ReferenceAction.getBloogGroup());
         userView_marital.getItems().addAll(ReferenceAction.getMaritalStatus());
@@ -426,7 +426,7 @@ public class UserViewController {
         userView_dob.setValue(null);
         userView_staffdoj.setValue(null);
         userView_gender.setValue(null);
-        userView_speciality.setValue("");
+        userView_speciality.setValue(null);
         userView_bloodGroup.setValue(null);
         userView_staffEmail.clear();
         userView_searchField.clear();

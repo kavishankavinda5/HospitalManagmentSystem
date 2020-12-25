@@ -1,6 +1,7 @@
 package sample.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class AdminMainController {
 
-    private Admin CurrentAdmin;
+    private Admin currentAdmin;
 
     @FXML
     private ResourceBundle resources;
@@ -67,6 +68,12 @@ public class AdminMainController {
 
     @FXML
     private AnchorPane adminMain_loaderPane;
+
+    @FXML
+    private JFXTextField adminMain_userName;
+
+    @FXML
+    private JFXTextField adminMain_userID;
 
     @FXML
     void initialize() {
@@ -187,10 +194,13 @@ public class AdminMainController {
     }
 
     public Admin getCurrentAdmin() {
-        return CurrentAdmin;
+        return currentAdmin;
     }
 
     public void setCurrentAdmin(Admin currentAdmin) {
-        CurrentAdmin = currentAdmin;
+
+//        this.currentAdmin =currentAdmin;
+//        adminMain_userName.setText(currentAdmin.getUserName());
+//        adminMain_userID.setText(currentAdmin.getIdCardNumber());
     }
 }
