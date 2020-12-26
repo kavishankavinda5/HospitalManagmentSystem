@@ -12,13 +12,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import sample.controller.actionTask.ReferenceAction;
 import sample.controller.actionTask.UserAction;
-import sample.model.Appointment;
-import sample.model.MedicalOfficer;
-import sample.model.Patient;
+import sample.model.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class AppointmentViewController {
 
-    Appointment currentAppointment;
+    Appointment appointment;
     boolean isDocTableSet =false;
     boolean isPatientTableSet =false;
 
@@ -67,7 +66,7 @@ public class AppointmentViewController {
     private JFXTextArea appointmentView_symtoms;
 
     @FXML
-    private JFXComboBox<?> appointmentView_status;
+    private JFXComboBox<AppointmentStatus> appointmentView_status;
 
     @FXML
     private DatePicker appointmentView_APdate;
@@ -135,9 +134,8 @@ public class AppointmentViewController {
     @FXML
     void initialize() {
 
+        appointmentView_status.getItems().addAll(ReferenceAction.apointmentStatus);
         appointmentView_doctorSpecDrop.getItems().addAll(ReferenceAction.getDocSpecialityStringArray());
-
-        currentAppointment =new Appointment();
 
         appointmentView_patientSearch.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -145,11 +143,17 @@ public class AppointmentViewController {
                 String patientID =appointmentView_patientID.getText();
                 Patient patient = UserAction.searchPatient(patientID,null,null);
                 appointmentView_patientShow.setText("Name : "+patient.getName()+"\n ID : "+patient.getIdCardNumber());
-                currentAppointment.setPatient(patient);
+                appointment.setPatient(patient);
 
             }
         });
 
+        appointmentView_selectPatient.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
         appointmentView_doctorselectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -169,7 +173,25 @@ public class AppointmentViewController {
             }
         });
 
+        appointmentView_docTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                MedicalOfficer selectedOfficer = appointmentView_docTable.getSelectionModel().getSelectedItem();
+                appointment.setMedicalOfficer(selectedOfficer);
+            }
+        });
 
+    }
+
+    public Appointment getCurrentAppointment(){
+        Appointment currentAppointment=new Appointment();
+        currentAppointment.setPatient(appointment.getPatient());
+        currentAppointment.setMedicalOfficer(appointment.getMedicalOfficer());
+        currentAppointment.setAppointmentDate(appointmentView_APdate.getValue());
+        currentAppointment.setTime(new AppointmentTime(appointmentView_timeHour.getText(),appointmentView_timeMinute.getText()));
+        currentAppointment.setSymtomes(appointmentView_symtoms.getText());
+
+        return currentAppointment;
     }
 
 }

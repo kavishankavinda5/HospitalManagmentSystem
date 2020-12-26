@@ -19,6 +19,7 @@ public class ReferenceAction {
     public static ArrayList<BloodGroup> bloogGroup = new ArrayList<>();
     public static ArrayList<String> maritalStatus = new ArrayList<>();
     public static ArrayList<PostalType>postalTypes=new ArrayList<>();
+    public static ArrayList<AppointmentStatus> apointmentStatus =new ArrayList<>();
     public static ArrayList<String> complaintRefStringArrayList = new ArrayList<>();
     public static ArrayList<String> doctorSpecialityStringList = new ArrayList<>();
 
@@ -162,6 +163,7 @@ public class ReferenceAction {
         setUserRolls();
         setMaritalStatus();
         setBloogGroup();
+        setApointmentStatus();
         loadSavedReference();
         setReferenceTypes();
 
@@ -266,6 +268,12 @@ public class ReferenceAction {
     public static void setMaritalStatus() {
         maritalStatus.add("Married");
         maritalStatus.add("Unmarried");
+    }
+
+    public static void setApointmentStatus(){
+        apointmentStatus.add(AppointmentStatus.PENDING);
+        apointmentStatus.add(AppointmentStatus.APPROVED);
+        apointmentStatus.add(AppointmentStatus.COMPLETED);
     }
 
     public static ArrayList<String> getMaritalStatus() {

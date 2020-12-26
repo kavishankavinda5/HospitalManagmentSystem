@@ -18,7 +18,9 @@ import sample.controller.actionTask.UserAction;
 import sample.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +29,8 @@ public class Main extends Application {
 
     private static int referenceID ;
     private static int staffID ;
+    private static int appointmentID;
+    private static int complaintID;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -88,6 +92,14 @@ public class Main extends Application {
                     referenceID =Integer.parseInt(temSystemDataList.get(1));
                     System.out.println("reference ID : "+referenceID);
                     break;
+                case "appointmentID":
+                    appointmentID = Integer.parseInt(temSystemDataList.get(1));
+                    System.out.println("staff ID : "+appointmentID);
+                    break;
+                case "complaintID":
+                    complaintID =Integer.parseInt(temSystemDataList.get(1));
+                    System.out.println("reference ID : "+complaintID);
+                    break;
                 default:
                     break;
 
@@ -106,7 +118,11 @@ public class Main extends Application {
             bufferedWriter.write("staffID~"+staffID);
             bufferedWriter.newLine();
             bufferedWriter.write("referenceID~"+referenceID);
-
+            bufferedWriter.newLine();
+            bufferedWriter.write("appointmentID~"+appointmentID);
+            bufferedWriter.newLine();
+            bufferedWriter.write("complaintID~"+complaintID);
+            bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
             System.out.println("system data saved");
@@ -116,14 +132,41 @@ public class Main extends Application {
     }
 
     public static int getStaffID(){
-        staffID ++;
-        return staffID;
+      return   ++staffID;
+    }
+    public static int getComplaintID(){
+        return ++complaintID;
+    }
+
+    public static int getAppointmentID(){
+        return ++appointmentID;
     }
 
     public static int getReferenceID(){
-        referenceID++;
+        ++referenceID;
         return referenceID;
     }
+
+    public static LocalDate getLocalDatefromString (String string){
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (string != null && !string.isEmpty()) {
+            return LocalDate.parse(string, dateFormatter);
+        } else {
+            return null;
+        }
+    }
+
+    public static String getStringfromLocalDate (LocalDate date){
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        if (date != null) {
+            return dateFormatter.format(date);
+        } else {
+            return "";
+        }
+    }
+
 
 
 }

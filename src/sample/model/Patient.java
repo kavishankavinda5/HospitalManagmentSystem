@@ -7,7 +7,6 @@ public class Patient extends User {
     public Patient() {
         setPhoneNumber("null");
         setAllergies("Non");
-
     }
 
     public BloodGroup getBloodGroup() {
