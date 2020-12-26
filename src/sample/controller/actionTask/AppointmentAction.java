@@ -9,4 +9,8 @@ public class AppointmentAction {
 
 
     }
+
+    private static void saveAppointment(Appointment appointment){
+
+    }
 }

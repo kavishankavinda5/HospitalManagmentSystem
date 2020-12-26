@@ -98,6 +98,7 @@
                                                 <Pane fx:id="appointmentView_patientDetails" layoutX="16.0" layoutY="181.0" prefHeight="188.0" prefWidth="316.0" style="-fx-background-color: #efd9d1;">
                                                    <children>
                                                       <JFXButton fx:id="appointmentView_selectPatient" layoutX="16.0" layoutY="143.0" prefHeight="25.0" prefWidth="284.0" style="-fx-background-color: #9f5f80;" text="Select Patient" />
+                                                      <Label fx:id="appointmentView_patientShow" layoutX="22.0" layoutY="14.0" prefHeight="67.0" prefWidth="187.0" />
                                                    </children>
                                                 </Pane>
                                                 <JFXTextField fx:id="appointmentView_patientID" layoutX="79.0" layoutY="21.0" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #bedcfa;" unFocusColor="WHITE" />
@@ -114,14 +115,14 @@
                                        <children>
                                           <AnchorPane layoutY="-2.0" prefHeight="385.0" prefWidth="346.0" style="-fx-background-color: #98acf8;">
                                              <children>
-                                                <Label layoutX="35.0" layoutY="22.0" text="Doctor Specility" />
-                                                <JFXComboBox fx:id="appointmentView_doctorSpecDrop" layoutX="126.0" layoutY="18.0" prefHeight="26.0" prefWidth="184.0" promptText="Select Speciality" style="-fx-background-color: #efd9d1;" />
+                                                <JFXComboBox fx:id="appointmentView_doctorSpecDrop" layoutX="18.0" layoutY="22.0" prefHeight="26.0" prefWidth="184.0" promptText="Select Speciality" style="-fx-background-color: #efd9d1;" />
                                                 <TableView fx:id="appointmentView_docTable" layoutX="18.0" layoutY="61.0" prefHeight="151.0" prefWidth="316.0" />
                                                 <Pane fx:id="appointmentView_DocDetails" layoutX="18.0" layoutY="222.0" prefHeight="153.0" prefWidth="316.0" style="-fx-background-color: #efd9d1;">
                                                    <children>
                                                       <JFXButton fx:id="appointmentView_selectDoc" layoutX="27.0" layoutY="114.0" prefHeight="25.0" prefWidth="262.0" style="-fx-background-color: #9f5f80;" text="Select Doctor" />
                                                    </children>
                                                 </Pane>
+                                                <JFXButton fx:id="appointmentView_doctorselectButton" layoutX="227.0" layoutY="23.0" prefHeight="26.0" prefWidth="95.0" text="search" />
                                              </children>
                                           </AnchorPane>
                                        </children>

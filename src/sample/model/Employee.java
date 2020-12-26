@@ -3,7 +3,6 @@ package sample.model;
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Employee extends User{
     private int staffID;
@@ -45,6 +44,6 @@ public abstract class Employee extends User{
 
     @Override
     public String toString() {
-        return super.toString()+"~"+staffID +"~" + staffEmailAddress + "~" + dateOfJoining + "~" + staffPhoto ;
+        return super.toString()+"~"+staffID +"~" + staffEmailAddress + "~" + dateOfJoining ;
     }
 }

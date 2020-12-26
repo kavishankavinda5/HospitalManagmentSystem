@@ -1,17 +1,34 @@
 package sample.controller.taskControllers;
 
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
+import sample.controller.actionTask.ReferenceAction;
+import sample.controller.actionTask.UserAction;
+import sample.model.Appointment;
+import sample.model.MedicalOfficer;
+import sample.model.Patient;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AppointmentViewController {
+
+    Appointment currentAppointment;
+    boolean isDocTableSet =false;
+    boolean isPatientTableSet =false;
 
     @FXML
     private ResourceBundle resources;
@@ -92,10 +109,10 @@ public class AppointmentViewController {
     private Tab appointmentView_doctorTab;
 
     @FXML
-    private JFXComboBox<?> appointmentView_doctorSpecDrop;
+    private JFXComboBox<String> appointmentView_doctorSpecDrop;
 
     @FXML
-    private TableView<?> appointmentView_docTable;
+    private TableView<MedicalOfficer> appointmentView_docTable;
 
     @FXML
     private Pane appointmentView_DocDetails;
@@ -110,9 +127,49 @@ public class AppointmentViewController {
     private JFXButton appointmentView_addDoctorBy;
 
     @FXML
+    private Label appointmentView_patientShow;
+
+    @FXML
+    private JFXButton appointmentView_doctorselectButton;
+
+    @FXML
     void initialize() {
 
-        appointmentView_mainTabPane.setVisible(false);
+        appointmentView_doctorSpecDrop.getItems().addAll(ReferenceAction.getDocSpecialityStringArray());
+
+        currentAppointment =new Appointment();
+
+        appointmentView_patientSearch.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String patientID =appointmentView_patientID.getText();
+                Patient patient = UserAction.searchPatient(patientID,null,null);
+                appointmentView_patientShow.setText("Name : "+patient.getName()+"\n ID : "+patient.getIdCardNumber());
+                currentAppointment.setPatient(patient);
+
+            }
+        });
+
+        appointmentView_doctorselectButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String docSpectArea = appointmentView_doctorSpecDrop.getValue();
+                ArrayList<MedicalOfficer> medicBySpec = UserAction.getMedicalOfficerBySpeciality(docSpectArea);
+
+                ObservableList<MedicalOfficer> medicalOfficerBySpec = FXCollections.observableArrayList(medicBySpec);
+
+                if (!isDocTableSet){
+                    isDocTableSet =true;
+                    TableColumn id =new TableColumn("Doctor Name");
+                    appointmentView_docTable.getColumns().addAll(id);
+                    id.setCellValueFactory(new PropertyValueFactory<MedicalOfficer,String>("name"));
+                }
+                appointmentView_docTable.setItems(medicalOfficerBySpec);
+
+            }
+        });
+
+
     }
 
 }

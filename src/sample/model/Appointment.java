@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Appointment {
     private Patient patient;
     private LocalDate appointmentDate;
-    private Time time;
+    private Time timeModel;
     private  MedicalOfficer medicalOfficer;
     private  AppointmentStatus  appointmentStatus;
 
@@ -30,11 +30,11 @@ public class Appointment {
     }
 
     public Time getTime() {
-        return time;
+        return timeModel;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTime(Time timeModel) {
+        this.timeModel = timeModel;
     }
 
     public MedicalOfficer getMedicalOfficer() {
@@ -51,5 +51,10 @@ public class Appointment {
 
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
+    }
+
+    @Override
+    public String toString() {
+        return patient.getName()+"~"+patient.getIdCardNumber() + "~" + appointmentDate + "~" + timeModel + "~" + medicalOfficer.getName()+ "~" + medicalOfficer.getIdCardNumber()  + "~" + appointmentStatus;
     }
 }
