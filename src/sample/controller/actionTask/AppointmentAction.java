@@ -19,17 +19,23 @@ public class AppointmentAction {
     }
 
     public static void updateAppointment(Appointment appointment){
-        updateDeleteAppointment(appointment,10);
+        updateDeleteAppointment(appointment,1);
         System.out.println("Appointment updated success");
     }
 
     public static void deleteAppointment(Appointment appointment){
-        updateDeleteAppointment(appointment,1);
+        updateDeleteAppointment(appointment,10);
         System.out.println("Appointment delete success");
     }
 
+    /*
+     * to get pending appointments statusType=1
+     * approved appointments statusType=2
+     * completed appointments statusType=3
+     * */
     public static ArrayList<Appointment> getAppointmentByStatus(int statusType){
         ArrayList<Appointment> passAppointment = getAppByStatus(statusType);
+        ArrayList<String> appPending = getAppointmentStringArray(passAppointment);
         System.out.println("appointments by status passed");
         return passAppointment;
     }
@@ -73,7 +79,6 @@ public class AppointmentAction {
         patient.setIdCardNumber(tempLine.get(1));
         patient.setPhoneNumber(tempLine.get(2));
         newTemp.setPatient(patient);
-        tempLine.clear();
 
         newTemp.setAppointmentDate(Main.getLocalDatefromString(tempItems.get(2)));
         //set Appointment time as AppointmentTimeClass
@@ -82,15 +87,13 @@ public class AppointmentAction {
         appointmentTime.setHours(tempLine.get(0));
         appointmentTime.setMinutes(tempLine.get(1));
         newTemp.setTime(appointmentTime);
-        tempLine.clear();
 
-        tempLine =Arrays.asList(tempItems.get(4));
+        tempLine =Arrays.asList(tempItems.get(4).split("%%"));
         MedicalOfficer medicalOfficer =new MedicalOfficer();
         medicalOfficer.setName(tempLine.get(0));
         medicalOfficer.setIdCardNumber(tempLine.get(1));
         medicalOfficer.setSpeciality(tempLine.get(2));
         newTemp.setMedicalOfficer(medicalOfficer);
-        tempLine.clear();
 
         newTemp.setAppointmentStatus(getAppStatus(tempItems.get(5)));
         newTemp.setSymtomes(tempItems.get(6));
@@ -121,7 +124,7 @@ public class AppointmentAction {
         Appointment foundAppointment = new Appointment();
         ArrayList<Appointment> allRecords = getAppointmentArrayList();
         for (int i=0;i<allRecords.size();i++){
-            if (allRecords.get(1).getAppointmentID() == id){
+            if (allRecords.get(i).getAppointmentID() == id){
                 foundAppointment = allRecords.get(i);
                 break;
             }
@@ -129,7 +132,7 @@ public class AppointmentAction {
         return foundAppointment;
     }
 
-    //operation=1 to delete appointmentrecord any other integer will update
+    //operation=1 to update appointmentrecord any other integer will update
     private static void updateDeleteAppointment(Appointment updatedAppointment,int operation){
 
         ArrayList<Appointment> newAppointmentArray =new ArrayList<>();
@@ -149,10 +152,10 @@ public class AppointmentAction {
         }
 
         SystemDataWriter systemDataWriter = new SystemDataWriter();
-        systemDataWriter.writeDataToFile(getAppointmentStrinArray(newAppointmentArray),appointmentDataFile,10);
+        systemDataWriter.writeDataToFile(getAppointmentStringArray(newAppointmentArray),appointmentDataFile,10);
     }
 
-    private static ArrayList<String> getAppointmentStrinArray(ArrayList<Appointment> appointmentArrayList){
+    private static ArrayList<String> getAppointmentStringArray(ArrayList<Appointment> appointmentArrayList){
         ArrayList<String> stringArrayList = new ArrayList<>();
         for (int i=0;i<appointmentArrayList.size();i++){
             stringArrayList.add(appointmentArrayList.get(i).toString());
