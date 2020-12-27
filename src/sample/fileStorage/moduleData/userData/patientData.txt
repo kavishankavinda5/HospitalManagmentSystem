@@ -1,1 +1,2 @@
-PATIENT~kavindu prabhashitha~MALE~Unmarried~2020-12-15~0756324545~111~colombo sri lanka, sri lanka~4boEaGcfFLw+nDwgOa5Y9w==~4boEaGcfFLw+nDwgOa5Y9w==~A_NEGATIVE~vans
+PATIENT~kavindu prabhashitha~MALE~Unmarried~2020-12-15~0756324545~1112~colombo sri lanka, sri lanka~4boEaGcfFLw+nDwgOa5Y9w==~4boEaGcfFLw+nDwgOa5Y9w==~A_NEGATIVE~vans
+PATIENT~kavishan~MALE~Unmarried~2015-12-16~07563232~9999~sri lanka , earth~LaV99tA3m/V5qfkOncxUlg==~LaV99tA3m/V5qfkOncxUlg==~AB_NEGATIVE~non

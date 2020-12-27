@@ -1,27 +1,28 @@
 package sample.controller.taskControllers;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-
 import com.jfoenix.controls.JFXTextField;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import javafx.util.StringConverter;
 import sample.controller.actionTask.PostalAction;
-
 import sample.controller.actionTask.ReferenceAction;
-import sample.model.*;
+import sample.model.DispatchPostal;
+import sample.model.PostalType;
+import sample.model.ReceivedPostal;
+import sample.model.UserRoll;
+
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
 
-import static sample.model.PostalType.*;
+import static sample.model.PostalType.RECEIVED;
 
 public class PostalViewController {
 

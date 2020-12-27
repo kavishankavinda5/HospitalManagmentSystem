@@ -1,16 +1,41 @@
 package sample.model;
 
-import java.sql.Time;
 import java.time.LocalDate;
 
 public class Appointment {
+    private int appointmentID;
     private Patient patient;
     private LocalDate appointmentDate;
-    private Time time;
-    private  MedicalOfficer medicalOfficer;
-    private  AppointmentStatus  appointmentStatus;
+    private AppointmentTime appointmentTime;
+    private MedicalOfficer medicalOfficer;
+    private AppointmentStatus  appointmentStatus;
+    private String symtomes;
 
     public Appointment() {
+        appointmentID = 0;
+        patient =null;
+        appointmentDate =null;
+        appointmentTime=null;
+        medicalOfficer =null;
+        appointmentStatus =AppointmentStatus.PENDING;
+        symtomes=null;
+    }
+
+
+    public String getSymtomes() {
+        return symtomes;
+    }
+
+    public void setSymtomes(String symtomes) {
+        this.symtomes = symtomes;
+    }
+
+    public int getAppointmentID() {
+        return appointmentID;
+    }
+
+    public void setAppointmentID(int appointmentID) {
+        this.appointmentID = appointmentID;
     }
 
     public Patient getPatient() {
@@ -29,12 +54,12 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-    public Time getTime() {
-        return time;
+    public AppointmentTime getTime() {
+        return appointmentTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTime(AppointmentTime timeModel) {
+        this.appointmentTime = timeModel;
     }
 
     public MedicalOfficer getMedicalOfficer() {
@@ -52,4 +77,20 @@ public class Appointment {
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
     }
+
+    @Override
+    public String toString() {
+        return appointmentID+"~"+
+                patient.getName()+"%%"+
+                patient.getIdCardNumber() + "%%" +
+                patient.getPhoneNumber()+"~"+
+                appointmentDate + "~" +
+                appointmentTime + "~" +
+                medicalOfficer.getName()+ "%%"+
+                medicalOfficer.getIdCardNumber()  + "%%" +
+                medicalOfficer.getSpeciality()+ "~" +
+                appointmentStatus +"~"+
+                symtomes;
+    }
+
 }
