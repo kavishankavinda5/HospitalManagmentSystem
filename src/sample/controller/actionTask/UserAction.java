@@ -789,7 +789,7 @@ public class UserAction {
                 }
                 else {
                     if(pass==null){
-                        JOptionPane.showMessageDialog(null,"Record Not Found******************");
+                        JOptionPane.showMessageDialog(null,"Record Not Found");
                     }
 
                 }

@@ -120,33 +120,8 @@ public class UserViewController implements Initializable {
 //
 //        userView_userTable.setItems(adminData);
 
-
-        //Check Input Field Of Name is text
-        RegexValidator regexValidator = new RegexValidator();
-        regexValidator.setRegexPattern("[A-Za-z\\s]+");
-        regexValidator.setMessage("Only Text");
-        userView_name.getValidators().add(regexValidator);
-        userView_name.focusedProperty().addListener((o, oldValue, newValue) -> {
-            if(!newValue) userView_name.validate();
-        });
-
-        //Check Input Field Of Phone Number is number
-        NumberValidator numbValid = new NumberValidator();
-        numbValid.setMessage("Only Number");
-        userView_phoneNum.getValidators().add(numbValid);
-        userView_phoneNum.focusedProperty().addListener((o, oldVal,newVal)->{
-            if(!newVal) userView_phoneNum.validate();
-        });
-
-        //Check Length Of Phone Number
-        StringLengthValidator lengthValidatorNumb= new StringLengthValidator(10);
-        userView_phoneNum.getValidators().add(lengthValidatorNumb);
-        userView_phoneNum.focusedProperty().addListener((o, oldValue, newValue) -> {
-            if(!newValue) userView_phoneNum.validate();
-
-        });
-
-
+        //Validate User Inputs
+        validateInitialize();
 
         //set the drop down wit the data taken by the reference module
         userView_userTypeDrop.getItems().addAll(ReferenceAction.getUserRolls());
@@ -207,46 +182,7 @@ public class UserViewController implements Initializable {
                     }
                 });
 
-                if (userView_userTypeDrop.getSelectionModel().getSelectedIndex() < 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "User Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_name.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Name is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_gender.getSelectionModel().getSelectedIndex() < 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Gender is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_marital.getSelectionModel().getSelectedIndex() < 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Marital is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                //if (userView_dob.getValue().getMonthValue() < 0){
-                //    JOptionPane.showMessageDialog(null,"Date Of Birth is Empty");}
-                else if (userView_phoneNum.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Phone Number is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_NIC.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "NIC is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_address.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Address is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_userName.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "User Name is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (userView_userPassword.getText().length() <= 0) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Password is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-
-                else {
+                if(checkInputs()) {
 
                     switch (userView_userTypeDrop.getValue()) {
 
@@ -261,7 +197,7 @@ public class UserViewController implements Initializable {
                                 JOptionPane.showMessageDialog(null, "Allergies is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                             }
                             else {
-                                if (userView_name.validate() == true && userView_phoneNum.validate() == true) {
+                                if (validateInputs()) {
                                     UserAction.addPatient(getPatient(), UserRoll.ADMIN);
                                 }
                                 else {
@@ -279,10 +215,12 @@ public class UserViewController implements Initializable {
                                 Toolkit.getDefaultToolkit().beep();
                                 JOptionPane.showMessageDialog(null, "Staff Email is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                             }
-                            // else  if (userView_staffdoj.getTypeSelector().isBlank()==false){
-                            //     JOptionPane.showMessageDialog(null, "Join Date is Empty");}
+                            else if (userView_staffdoj.getValue()==null){
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Join Date is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
                             else {
-                                if (userView_name.validate() == true && userView_phoneNum.validate() == true) {
+                                if (validateInputs()) {
                                     UserAction.addReceptionist(getReceptionist(), UserRoll.ADMIN);
                                 }
                                 else {
@@ -295,13 +233,13 @@ public class UserViewController implements Initializable {
 
                         case ADMIN:
 
-                            if (userView_name.validate() == true && userView_phoneNum.validate() == true) {
-                                    UserAction.addAdmin(getAdmin(), UserRoll.ADMIN);
-                                }
+                            if (validateInputs()) {
+                                UserAction.addAdmin(getAdmin(), UserRoll.ADMIN);
+                            }
                             else {
-                                    Toolkit.getDefaultToolkit().beep();
-                                    JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                }
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
 
                             break;
 
@@ -311,14 +249,16 @@ public class UserViewController implements Initializable {
                                 Toolkit.getDefaultToolkit().beep();
                                 JOptionPane.showMessageDialog(null, "Staff Email is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                             }
-                            // else  if (userView_staffdoj.getTypeSelector().isBlank()==false){
-                            //     JOptionPane.showMessageDialog(null, "Join Date is Empty");}
+                            else if (userView_staffdoj.getValue()==null){
+                                    Toolkit.getDefaultToolkit().beep();
+                                    JOptionPane.showMessageDialog(null, "Join Date is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                }
                             else if (userView_speciality.getSelectionModel().getSelectedIndex() < 0) {
                                 Toolkit.getDefaultToolkit().beep();
                                 JOptionPane.showMessageDialog(null, "Speciality is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                             }
                             else {
-                                if (userView_name.validate() == true && userView_phoneNum.validate() == true) {
+                                if (validateInputs()) {
                                     UserAction.addMedicalOfficer(getMedicalOfficer(), UserRoll.ADMIN);
                                 }
                                 else {
@@ -330,7 +270,10 @@ public class UserViewController implements Initializable {
                             break;
 
                     }
+
+
                 }
+
             }
         });
 
@@ -410,25 +353,93 @@ public class UserViewController implements Initializable {
                     Toolkit.getDefaultToolkit().beep();
                     JOptionPane.showMessageDialog(null, "Search ID is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                else {
+                else if(checkInputs()) {
 
                     switch (userView_userTypeDrop.getValue()) {
-                        case ADMIN:
-                            UserAction.updateAdmin(UserRoll.ADMIN, getAdmin(), userView_searchField.getText(), getLoginUser());
-                            break;
+
                         case PATIENT:
-                            UserAction.updatePatientRecord(UserRoll.ADMIN, getPatient(), userView_searchField.getText(), getLoginUser());
+
+                            if (userView_bloodGroup.getSelectionModel().getSelectedIndex() < 0) {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Blood Group is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else if (userView_allergies.getText().length() <= 0) {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Allergies is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                if (validateInputs()) {
+                                    UserAction.updatePatientRecord(UserRoll.ADMIN, getPatient(), userView_searchField.getText(), getLoginUser());
+                                }
+                                else {
+                                    Toolkit.getDefaultToolkit().beep();
+                                    JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+
                             break;
-                        case MEDICALOFFICER:
-                            UserAction.updateMedicalOfficerRecord(UserRoll.ADMIN, getMedicalOfficer(), userView_searchField.getText(), getLoginUser());
-                            break;
+
+
                         case RECEPTIONIST:
-                            UserAction.updateReceptionRecord(UserRoll.ADMIN, getReceptionist(), userView_searchField.getText(), getLoginUser());
+
+                            if (userView_staffEmail.getText().length() <= 0) {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Staff Email is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else if (userView_staffdoj.getValue()==null){
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Join Date is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                if (validateInputs()) {
+                                    UserAction.updateReceptionRecord(UserRoll.ADMIN, getReceptionist(), userView_searchField.getText(), getLoginUser());
+                                }
+                                else {
+                                    Toolkit.getDefaultToolkit().beep();
+                                    JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+
                             break;
-                        default:
+
+                        case ADMIN:
+
+                            if (validateInputs()) {
+                                UserAction.updateAdmin(UserRoll.ADMIN, getAdmin(), userView_searchField.getText(), getLoginUser());
+                            }
+                            else {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                            break;
+
+                        case MEDICALOFFICER:
+
+                            if (userView_staffEmail.getText().length() <= 0) {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Staff Email is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else if (userView_staffdoj.getValue()==null){
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Join Date is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else if (userView_speciality.getSelectionModel().getSelectedIndex() < 0) {
+                                Toolkit.getDefaultToolkit().beep();
+                                JOptionPane.showMessageDialog(null, "Speciality is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                if (validateInputs()) {
+                                    UserAction.updateMedicalOfficerRecord(UserRoll.ADMIN, getMedicalOfficer(), userView_searchField.getText(), getLoginUser());
+                                }
+                                else {
+                                    Toolkit.getDefaultToolkit().beep();
+                                    JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+
                             break;
                     }
-
                 }
             }
         });
@@ -687,4 +698,118 @@ public class UserViewController implements Initializable {
         userView_staffdoj.setDisable(false);
         userView_speciality.setDisable(false);
     }
+
+
+    public void validateInitialize(){
+
+        //Check Input Field Of Name is text
+        RegexValidator regexValidator = new RegexValidator();
+        regexValidator.setRegexPattern("[A-Za-z\\s]+");
+        regexValidator.setMessage("Only Text");
+        userView_name.getValidators().add(regexValidator);
+        userView_name.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue)  userView_name.validate();
+        });
+
+        //Check Input Field Of Phone Number is number
+        NumberValidator numbValid = new NumberValidator();
+        numbValid.setMessage("Only Number");
+        userView_phoneNum.getValidators().add(numbValid);
+        userView_phoneNum.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) userView_phoneNum.validate();
+        });
+
+        //Check Length Of Phone Number
+        StringLengthValidator lengthValidatorNumb= new StringLengthValidator(10);
+        userView_phoneNum.getValidators().add(lengthValidatorNumb);
+        userView_phoneNum.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) userView_phoneNum.validate();
+        });
+
+    }
+
+    public Boolean validateInputs(){
+
+        Boolean dataInputs = false;
+
+        //Check Input Field Of Name is text
+        RegexValidator regexValidator = new RegexValidator();
+        regexValidator.setRegexPattern("[A-Za-z\\s]+");
+        regexValidator.setMessage("Only Text");
+        userView_name.getValidators().add(regexValidator);
+        userView_name.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue)  userView_name.validate();
+        });
+
+        //Check Input Field Of Phone Number is number
+        NumberValidator numbValid = new NumberValidator();
+        numbValid.setMessage("Only Number");
+        userView_phoneNum.getValidators().add(numbValid);
+        userView_phoneNum.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) userView_phoneNum.validate();
+        });
+
+        //Check Length Of Phone Number
+        StringLengthValidator lengthValidatorNumb= new StringLengthValidator(10);
+        userView_phoneNum.getValidators().add(lengthValidatorNumb);
+        userView_phoneNum.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) userView_phoneNum.validate();
+        });
+
+        if ((userView_name.validate() && userView_phoneNum.validate())){
+            dataInputs = true;
+        }
+            return dataInputs;
+    }
+
+    public Boolean checkInputs(){
+
+        Boolean allCheck =false;
+
+        if (userView_userTypeDrop.getSelectionModel().getSelectedIndex() < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "User Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_name.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Name is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_gender.getSelectionModel().getSelectedIndex() < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Gender is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_marital.getSelectionModel().getSelectedIndex() < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Marital is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_dob.getValue()==null){
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Date of Birth is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_phoneNum.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Phone Number is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_NIC.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "NIC is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_address.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Address is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_userName.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "User Name is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (userView_userPassword.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Password is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            allCheck = true;
+        }
+        return allCheck;
+    }
+
 }
