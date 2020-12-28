@@ -28,6 +28,7 @@ public class AppointmentAction {
         System.out.println("Appointment delete success");
     }
 
+
     /*
      * to get pending appointments statusType=1
      * approved appointments statusType=2
