@@ -16,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.model.Receptionist;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,6 +72,7 @@ public class ReceptionMainViewController {
 
     @FXML
     void initialize() {
+
         receptionView_patient.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -158,30 +161,43 @@ public class ReceptionMainViewController {
         });
 
 
-
-
         receptionMain_logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                receptionMain_logoutButton.getScene().getWindow().hide();
-                Stage detailsStage = new Stage();
-                FXMLLoader loader = new FXMLLoader();
 
-                loader.setLocation(getClass().getResource("/sample/view/mainLoginWindow.fxml"));
-                try {
-                    loader.load();
+                Object[] options = { "OK", "CANCEL" };
+                Toolkit.getDefaultToolkit().beep();
+                int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure LogOut"+"\nClick OK to continue", "Warning",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                        null, options, options[0]);
 
-                }catch (IOException e){
-                    e.printStackTrace();
+                if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+
+                    receptionMain_logoutButton.getScene().getWindow().hide();
+                    Stage detailsStage = new Stage();
+                    FXMLLoader loader = new FXMLLoader();
+
+                    loader.setLocation(getClass().getResource("/sample/view/mainLoginWindow.fxml"));
+                    try {
+                        loader.load();
+
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+                    Parent root = loader.getRoot();
+                    detailsStage.setScene(new Scene(root));
+                    detailsStage.show();
+
                 }
 
-                Parent root = loader.getRoot();
-                detailsStage.setScene(new Scene(root));
-                detailsStage.show();
             }
 
         });
+
+
     }
+
     public Pane getView(String fileName){
         //receptionView_task.setVisible(false);
         System.out.println("you clicked receptionView//patient");
@@ -190,7 +206,6 @@ public class ReceptionMainViewController {
 
         return view;
     }
-
 
     public void setReceptionViewCenter(Pane view){
         mainReceptionView.setCenter(view);
@@ -212,4 +227,6 @@ public class ReceptionMainViewController {
     public void setCurrentreceptionist(Receptionist currentreceptionist) {
         this.currentreceptionist = currentreceptionist;
     }
+
+
 }

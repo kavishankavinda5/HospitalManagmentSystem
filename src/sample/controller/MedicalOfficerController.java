@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.model.MedicalOfficer;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,30 +80,42 @@ public class MedicalOfficerController {
         medicalMain_logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                medicalMain_logoutButton.getScene().getWindow().hide();
-                Stage detailsStage = new Stage();
-                FXMLLoader loader = new FXMLLoader();
 
-                loader.setLocation(getClass().getResource("/sample/view/mainLoginWindow.fxml"));
-                try {
-                    loader.load();
+                Object[] options = { "OK", "CANCEL" };
+                Toolkit.getDefaultToolkit().beep();
+                int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure LogOut"+"\nClick OK to continue", "Warning",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                        null, options, options[0]);
 
-                }catch (IOException e){
-                    e.printStackTrace();
+                if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+
+                    medicalMain_logoutButton.getScene().getWindow().hide();
+                    Stage detailsStage = new Stage();
+                    FXMLLoader loader = new FXMLLoader();
+
+                    loader.setLocation(getClass().getResource("/sample/view/mainLoginWindow.fxml"));
+                    try {
+                        loader.load();
+
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+                    Parent root = loader.getRoot();
+                    detailsStage.setScene(new Scene(root));
+                    detailsStage.show();
                 }
 
-                Parent root = loader.getRoot();
-                detailsStage.setScene(new Scene(root));
-                detailsStage.show();
             }
 
         });
+
     }
+
     public void setMedicalViewCenter(Pane view){
         medicalMain_boarderPane.setCenter(view);
 
     }
-
 
     public MedicalOfficer getCurrentmedicalofficer() {
         return currentmedicalofficer;

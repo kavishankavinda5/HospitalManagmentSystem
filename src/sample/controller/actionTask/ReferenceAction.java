@@ -2,6 +2,8 @@ package sample.controller.actionTask;
 
 import sample.model.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +51,7 @@ public class ReferenceAction {
         bufferedWriter.newLine();
         bufferedWriter.close();
         fileWriter.close();
+        JOptionPane.showMessageDialog(null,"Record Add Successfully");
         System.out.println("Ref Added "+reference.toString());
 
 
@@ -61,9 +64,33 @@ public class ReferenceAction {
     setRefDataToStringList();
 }
 
-    //update or delete ref record input 1 for edid and for any other integer detele
-    //to delete reference only the seletected reference should be pass
-    public static void updateOrDeleteReference(Reference newReference,int operation){
+
+    public static void updateReference(Reference reference){
+        Object[] options = { "OK", "CANCEL" };
+        Toolkit.getDefaultToolkit().beep();
+        int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
+
+        if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+            updateOrDeleteReference(reference,1);
+        }
+    }
+    public static void deleteReference(Reference reference){
+        Object[] options = { "OK", "CANCEL" };
+        Toolkit.getDefaultToolkit().beep();
+        int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Delete This Record"+"\nClick OK to continue", "Warning",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
+
+        if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+            updateOrDeleteReference(reference,10);
+        }
+    }
+
+    //update or delete ref record input 1 for edit and for any other integer delete
+    //to delete reference only the selected reference should be pass
+    private static void updateOrDeleteReference(Reference newReference,int operation){
 
         File file = new File(referenceFile);
         ArrayList<String> tempRefeArrya = new ArrayList<>();
@@ -87,9 +114,9 @@ public class ReferenceAction {
 
                         line=newReference.toString();
                         tempRefeArrya.add(line);
-                        System.out.println("Reference updated succes , Line = "+line);
+                        System.out.println("Reference updated success , Line = "+line);
                     }else {
-                        System.out.println("Reference deleted succes, LinrDeleted = "+line);
+                        System.out.println("Reference deleted success , LinerDeleted = "+line);
 
                     }
                 }
@@ -119,7 +146,7 @@ public class ReferenceAction {
                 }
 
 
-            System.out.println("Record effected succesfully");
+            System.out.println("Record effected successfully");
             setRefDataToStringList();
 
     }
@@ -181,6 +208,7 @@ public class ReferenceAction {
     }
 
     private static void loadSavedReference(){
+
         ArrayList<Reference> allSavedReference =new ArrayList<>();
 
         File refFile = new File(referenceFile);

@@ -9,11 +9,14 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.security.spec.KeySpec;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 
 public class UserAction {
 
@@ -35,8 +38,7 @@ public class UserAction {
 
     /* =============================================================================================================
        LOGIN_USER Action tasks
-      =============================================================================================================
-    */
+      ============================================================================================================= */
 
     // verify user login credentials
     // parameters UserName , User Password , UserType (reception,admin.doctor,patient)
@@ -149,17 +151,19 @@ public class UserAction {
 
     /* =============================================================================================================
        PATIENT Action tasks
-      =============================================================================================================
-    */
+      =============================================================================================================*/
 
+    //write a method for add patient data
     public static void  addPatient(Patient user, UserRoll roll) {
 
         if (roll.equals(UserRoll.ADMIN) || roll.equals(UserRoll.RECEPTIONIST)) {
             savePatient(user);
+            JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
 
     }
 
+    //write a method for save patient data
     private static void savePatient(Patient user) {
         File file = new File(patientDataFilePath);
 
@@ -178,15 +182,27 @@ public class UserAction {
 
     }
 
+    //write a method for update patient data
     public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
-            editPatientRecord(patientDataFilePath,patientRecord,searchedID,loginUser);
+
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                editPatientRecord(patientDataFilePath,patientRecord,searchedID,loginUser);
+            }
+
         }else {
 
             System.out.println("acces denied(cannot update)");
         }
     }
 
+    //write a method for edit patient data
     private static void editPatientRecord(String filePath,Patient patientEdit,String searchPetientid,LoginUser loginUser){
 
         ArrayList<String> tempPatientList =new ArrayList<>();
@@ -230,6 +246,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
+                    JOptionPane.showMessageDialog(null,"Update Successfully");
                     System.out.println("patient edited  success");
                     System.out.println(tempPatientList.toString());
                     updateUserLoginData(patientloginData,loginUser);
@@ -240,6 +257,11 @@ public class UserAction {
                 }
 
             }
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null,"Record Not Found"+"\nPlease Check ID Number in Search Box", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -248,14 +270,15 @@ public class UserAction {
         }
     }
 
+    //write a method for search patient
     public static Patient searchPatient(String seachTerm,String userName,String userpassword){
         Patient foundPatient = searchPatientRecord(seachTerm,userName,userpassword);
         System.out.println("return Patient : "+foundPatient.toString());
         return foundPatient;
     }
 
+    //write a method for search patient data
     private static Patient searchPatientRecord(String searchTerm, String userName,String password){
-
 
         boolean found = false;
         Patient searchedPatient = new Patient();
@@ -294,9 +317,12 @@ public class UserAction {
                         searchedPatient.setBloodGroup(getBloodGroup(temp.get(10)));
                         searchedPatient.setAllergies(temp.get(11));
 
+                        JOptionPane.showMessageDialog(null,"Record Found");
                         System.out.println("search found :"+searchedPatient);
                     }
-
+                    else {
+                        JOptionPane.showMessageDialog(null,"Record Not Found");
+                    }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -358,13 +384,16 @@ public class UserAction {
       =============================================================================================================
     */
 
+    //write a method for add receptionist data
     public static void addReceptionist(Receptionist receptionist,UserRoll roll){
 
         if (roll.equals(UserRoll.ADMIN)){
             saveReceptionist(receptionist);
+            JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
     }
 
+    //write a method for save receptionist data
     private static  void  saveReceptionist(Receptionist receptionist){
         File receptionFile = new File(receptionistFilePath);
 
@@ -383,14 +412,26 @@ public class UserAction {
         }
     }
 
+    //write a method for update receptionist data
     public static void updateReceptionRecord(UserRoll userRoll,Receptionist receptionist,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
-            editReceptionRecord(receptionistFilePath,receptionist,searchedID,loginUser);
+
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                editReceptionRecord(receptionistFilePath,receptionist,searchedID,loginUser);
+            }
+
         }else {
             System.out.println("acces denied(cannot update)");
         }
     }
 
+    //write a method for edit receptionist data
     private static void editReceptionRecord(String filePath,Receptionist receptionist,String searchPetientid,LoginUser loginUser){
 
         ArrayList<String> tempPatientList =new ArrayList<>();
@@ -435,6 +476,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
+                    JOptionPane.showMessageDialog(null,"Update Successfully");
                     System.out.println("Receptionist edited  success");
                     System.out.println(tempPatientList.toString());
                     updateUserLoginData(receptionLoginData,loginUser);
@@ -446,6 +488,12 @@ public class UserAction {
 
             }
 
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null,"Record Not Found"+"\nPlease Check ID Number in Search Box", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -453,6 +501,7 @@ public class UserAction {
         }
     }
 
+    //write a method for search receptionist data
     public static Receptionist searchReceptionRecord(String seachTerm,String userName,String userPass){
 
         Receptionist foundReception = searchReceptionist(seachTerm,userName,userPass);
@@ -460,9 +509,8 @@ public class UserAction {
         return foundReception;
     }
 
+    //write a method for search receptionist
     private static Receptionist searchReceptionist(String searchTerm, String userName,String userPassword){
-
-
 
         boolean found = false;
         Receptionist searchedReceptionist = new Receptionist();
@@ -503,10 +551,12 @@ public class UserAction {
                     searchedReceptionist.setStaffEmailAddress(temp.get(11));
                     searchedReceptionist.setDateOfJoining(getLocalDatefromString(temp.get(12)));
 
-
+                    JOptionPane.showMessageDialog(null,"Record Found");
                     System.out.println("search found :"+searchedReceptionist);
                 }
-
+                else {
+                    JOptionPane.showMessageDialog(null,"Record Not Found");
+                }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -563,18 +613,16 @@ public class UserAction {
     }
 
 
-
-
     /* =============================================================================================================
        ADMIN Action tasks
-      =============================================================================================================
-    */
+      =============================================================================================================*/
 
     //write a method for add admin data
     public static void addAdmin (Admin admin,UserRoll userRoll){
 
         if (userRoll.equals(UserRoll.ADMIN)) {
             saveAdmin(admin);
+            JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
         else {
             System.out.println("cannot save");}
@@ -600,14 +648,26 @@ public class UserAction {
         }
     }
 
+    //write a method for update admin data
     public static void updateAdmin(UserRoll userRoll,Admin adminRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.ADMIN)){
-            editAdminRecord(adminFilePath,adminRecord,searchedID,loginUser);
+
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                editAdminRecord(adminFilePath,adminRecord,searchedID,loginUser);
+            }
+
         }else {
             System.out.println("acces denied(cannot update)");
         }
     }
 
+    //write a method for edit admin data
     private static void editAdminRecord(String filePath,Admin adminEdit,String searchAdminRec,LoginUser loginUser){
 
         ArrayList<String> tempAdminList =new ArrayList<>();
@@ -652,6 +712,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
+                    JOptionPane.showMessageDialog(null,"Update Successfully");
                     System.out.println("Admin edited  success");
                     System.out.println(tempAdminList.toString());
 
@@ -662,6 +723,11 @@ public class UserAction {
                 }
 
             }
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null,"Record Not Found"+"\nPlease Check ID Number in Search Box", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -670,6 +736,7 @@ public class UserAction {
         }
     }
 
+    //write a method for search admin
     public static Admin searchAdmin(String seachTerm,String userPassword){
 
         Admin foundAdmin = searchAdminRecord(seachTerm,userPassword);
@@ -677,6 +744,7 @@ public class UserAction {
         return foundAdmin;
     }
 
+    //write a method for search admin data
     private static Admin searchAdminRecord(String searchTerm, String pass){
 
         boolean found = false;
@@ -713,8 +781,17 @@ public class UserAction {
                     searchedAdmin.setUserName(temp.get(8));
                     searchedAdmin.setUserPassword(temp.get(9));
 
+                    if(pass==null){
+                        JOptionPane.showMessageDialog(null,"Record Found");
+                    }
 
                     System.out.println("search found :"+searchedAdmin);
+                }
+                else {
+                    if(pass==null){
+                        JOptionPane.showMessageDialog(null,"Record Not Found******************");
+                    }
+
                 }
 
             } catch (FileNotFoundException e) {
@@ -769,14 +846,14 @@ public class UserAction {
 
     /* =============================================================================================================
        MEDICALOFFICER Action tasks
-      =============================================================================================================
-    */
+      =============================================================================================================*/
 
     //write a method for add medicalofficer data
     public static void addMedicalOfficer(MedicalOfficer medicalOfficer,UserRoll userRoll){
 
         if (userRoll.equals(UserRoll.ADMIN)) {
             saveMedicalOfficer(medicalOfficer);
+            JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
 
     }
@@ -800,84 +877,28 @@ public class UserAction {
 
     }
 
-    //Write a method for delete medicalofficer data record
-    public static void deleteMedicalOfficerRcord(UserRoll userRoll,String searchTerm){
-        if (userRoll.equals(UserRoll.ADMIN)){
-            removeMedicalOfficerRecord(medicalOfficerFilePath,searchTerm);
-        }else {
-            System.out.println("Access denied");
-        }
-    }
-
     //Write a method for update medicalofficer data record
     public static void updateMedicalOfficerRecord(UserRoll userRoll,MedicalOfficer medicalOfficerRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.ADMIN)){
-            editMedicalOfficerRecord(medicalOfficerFilePath,medicalOfficerRecord,searchedID,loginUser);
-        }else {
+
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                editMedicalOfficerRecord(medicalOfficerFilePath,medicalOfficerRecord,searchedID,loginUser);
+            }
+
+        }
+        else{
             System.out.println("Access denied(Cannot update)");
         }
     }
 
-    //Write a method for remove medicalofficer data record
-    private static void removeMedicalOfficerRecord(String filePath,String serachTerm){
-        ArrayList<String> tempMedicalOfficertList =new ArrayList<>();
-        File file = new File(filePath);
-        boolean found =false;
-        try{
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line =null;
-            while ((line = bufferedReader.readLine()) != null) {
-                List<String> tempList = Arrays.asList(line.split("~"));
-                if(!tempList.get(6).equals(serachTerm)){
-                    tempMedicalOfficertList.add(line);
-                }else {
-                    found = true;
-
-                }
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-
-            if (found == true){
-                try {
-
-                    File fileNew = new File(medicalOfficerFilePath);
-                    if(file.exists()){
-                        file.delete();
-                    }
-                    file.createNewFile();
-
-                    FileWriter fileWriter = new FileWriter(fileNew);
-                    BufferedWriter newbufferedWriter = new BufferedWriter(fileWriter);
-                    newbufferedWriter.write("");
-                    for (int i=0;i<tempMedicalOfficertList.size();i++){
-                        newbufferedWriter.write(tempMedicalOfficertList.get(i));
-                        newbufferedWriter.newLine();
-
-                    }
-                    newbufferedWriter.close();
-                    fileWriter.close();
-                    System.out.println("Medical Officer deleted success");
-                    System.out.println(tempMedicalOfficertList.toString());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     //Write a method foe edit medicalofficer data record
-    private static void editMedicalOfficerRecord(String filePath,MedicalOfficer medicalOfficer,
-                                                 String searchMedicalOfficerId,LoginUser loginUser){
+    private static void editMedicalOfficerRecord(String filePath,MedicalOfficer medicalOfficer,String searchMedicalOfficerId,LoginUser loginUser){
 
         ArrayList<String> tempMedicalOfficerList =new ArrayList<>();
         File file = new File(filePath);
@@ -921,6 +942,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
+                    JOptionPane.showMessageDialog(null,"Update Successfully");
                     System.out.println("Medical Officer Edited Success");
                     System.out.println(tempMedicalOfficerList.toString());
 
@@ -929,6 +951,11 @@ public class UserAction {
                     e.printStackTrace();
                 }
 
+            }
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null,"Record Not Found"+"\nPlease Check ID Number in Search Box", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (FileNotFoundException e) {
@@ -992,9 +1019,11 @@ public class UserAction {
 
                 System.out.println(searchedMedicalOfficer.toString());
 
+                JOptionPane.showMessageDialog(null,"Record Found");
 
-            }else {
-                System.out.println("record not found");
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Record Not Found");
             }
 
         } catch (FileNotFoundException e) {
@@ -1069,39 +1098,57 @@ public class UserAction {
 
     /* =============================================================================================================
        Common User  Action tasks
-      =============================================================================================================
-    */
+      =============================================================================================================*/
 
+    //write a method for delete user data
     public static void deleteUserRecord(UserRoll taskUserRoll, String searchTerm, UserRoll currentUserRoll,LoginUser loginUser){
         if (taskUserRoll.equals(UserRoll.RECEPTIONIST)){
-            removeUserRecord(patientDataFilePath,searchTerm,loginUser,patientloginData);
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Delete This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
 
-        }else if (taskUserRoll.equals(UserRoll.ADMIN)){
-            switch (currentUserRoll){
-                case ADMIN:
-                    removeUserRecord(adminFilePath,searchTerm,loginUser,adminloginData);
-
-                    break;
-                case RECEPTIONIST:
-                    removeUserRecord(receptionistFilePath,searchTerm,loginUser,receptionLoginData);
-
-                    break;
-                case PATIENT:
-                    removeUserRecord(patientDataFilePath,searchTerm,loginUser,patientloginData);
-
-                    break;
-                case MEDICALOFFICER:
-                    removeUserRecord(medicalOfficerFilePath,searchTerm,loginUser,medicalLoginData);
-
-                    break;
-                default:
-                    break;
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                removeUserRecord(patientDataFilePath,searchTerm,loginUser,patientloginData);
             }
-        }else {
+
+        }
+        else if (taskUserRoll.equals(UserRoll.ADMIN)){
+
+            Object[] options = { "OK", "CANCEL" };
+            Toolkit.getDefaultToolkit().beep();
+            int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Delete This Record"+"\nClick OK to continue", "Warning",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+
+            if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+                switch (currentUserRoll){
+                    case ADMIN:
+                        removeUserRecord(adminFilePath,searchTerm,loginUser,adminloginData);
+
+                        break;
+                    case RECEPTIONIST:
+                        removeUserRecord(receptionistFilePath,searchTerm,loginUser,receptionLoginData);
+
+                        break;
+                    case PATIENT:
+                        removeUserRecord(patientDataFilePath,searchTerm,loginUser,patientloginData);
+
+                        break;
+                    case MEDICALOFFICER:
+                        removeUserRecord(medicalOfficerFilePath,searchTerm,loginUser,medicalLoginData);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
 
         }
     }
 
+    //write a method for remove user data
     private static void removeUserRecord(String filePath, String serachTerm,LoginUser loginUser,String loginDataPath){
         ArrayList<String> tempPatientList =new ArrayList<>();
         File file = new File(filePath);
@@ -1141,6 +1188,7 @@ public class UserAction {
                     }
                     newbufferedWriter.close();
                     fileWriter.close();
+                    JOptionPane.showMessageDialog(null,"Delete Successfully");
                     System.out.println("User deleted success");
                     System.out.println(tempPatientList.toString());
                     deleteUserLoginData(loginDataPath,loginUser);
@@ -1150,6 +1198,11 @@ public class UserAction {
                     e.printStackTrace();
                 }
 
+            }
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null,"Record Not Found"+"\nPlease Check ID Number in Search Box", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (FileNotFoundException e) {
@@ -1195,7 +1248,6 @@ public class UserAction {
 
         return blooGroup;
     }
-
 
     public static Gender getGender(String gender){
                 Gender userGender=null;
@@ -1263,8 +1315,7 @@ public class UserAction {
 
     /* =============================================================================================================
        User Login Action  tasks
-      =============================================================================================================
-    */
+      =============================================================================================================*/
 
     private static void addUserLoginData(String fileName, LoginUser user) {
         File addLoginFile = new File(fileName);
@@ -1398,8 +1449,6 @@ public class UserAction {
             e.printStackTrace();
         }
     }
-
-
 
 
 }

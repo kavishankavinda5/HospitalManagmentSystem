@@ -15,6 +15,8 @@ import sample.Main;
 import sample.controller.actionTask.ReferenceAction;
 import sample.model.Reference;
 
+import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -80,29 +82,69 @@ public class ReferenceViewController {
         referenceView_add.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-            Reference reference =new Reference(Main.getReferenceID(),referenceView_dropDown.getValue(), referenceView_AVEDreference.getText());
-            ReferenceAction.addReference(reference);
-            loadReferenceViewData();
+
+                if (referenceView_dropDown.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (referenceView_AVEDreference.getText().length() <= 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Value is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    Reference reference =new Reference(Main.getReferenceID(),referenceView_dropDown.getValue(), referenceView_AVEDreference.getText());
+                    ReferenceAction.addReference(reference);
+                    loadReferenceViewData();
+                }
+
             }
         });
 
         referenceView_delete.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-               Reference reference =new Reference(selectedRef.getRefenceID(), referenceView_dropDown.getValue(),referenceView_AVEDreference.getText());
-               ReferenceAction.updateOrDeleteReference(reference,3);
-               loadReferenceViewData();
+
+                if (referenceView_dropDown.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (referenceView_table.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    Reference reference =new Reference(selectedRef.getRefenceID(), referenceView_dropDown.getValue(),referenceView_AVEDreference.getText());
+                    ReferenceAction.deleteReference(reference);
+                    loadReferenceViewData();
+                }
+
             }
         });
 
         referenceView_update.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String referenceValue =referenceView_AVEDreference.getText();
-                Reference updateReference =new Reference(selectedRef.getRefenceID(), referenceView_dropDown.getValue(),referenceValue);
-                System.out.println("reference in update : "+ updateReference);
-                ReferenceAction.updateOrDeleteReference(updateReference,1);
-                loadReferenceViewData();
+
+                if (referenceView_dropDown.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }else if (referenceView_table.getSelectionModel().getSelectedIndex() < 0){
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (referenceView_AVEDreference.getText().length() <= 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Value is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    String referenceValue =referenceView_AVEDreference.getText();
+                    Reference updateReference =new Reference(selectedRef.getRefenceID(), referenceView_dropDown.getValue(),referenceValue);
+                    System.out.println("reference in update : "+ updateReference);
+                    ReferenceAction.updateReference(updateReference);
+                    loadReferenceViewData();
+
+                }
+
 
             }
         });
@@ -110,12 +152,28 @@ public class ReferenceViewController {
         referenceView_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                selectedRef = referenceView_table.getSelectionModel().getSelectedItem();
-                System.out.println(selectedRef);
-                System.out.println("selected ref :"+selectedRef);
-                referenceView_AVEDreference.setText(selectedRef.getReferenceValue());
+
+                if (referenceView_dropDown.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Reference Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+               }
+               else{
+                    selectedRef = referenceView_table.getSelectionModel().getSelectedItem();
+                    System.out.println(selectedRef);
+                    System.out.println("selected ref :"+selectedRef);
+                    referenceView_AVEDreference.setText(selectedRef.getReferenceValue());
+                }
+
             }
         });
+
+        referenceView_reset.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                reset();
+            }
+        });
+
 
 
 
@@ -127,6 +185,8 @@ public class ReferenceViewController {
         if (!isTableSet){
             TableColumn id =new TableColumn("refID");
             TableColumn refValue =new TableColumn("Reference value");
+            id.setMinWidth(100);
+            refValue.setMinWidth(580);
             referenceView_table.getColumns().addAll(id,refValue);
             id.setCellValueFactory(new PropertyValueFactory<Reference,String>("refenceID"));
             refValue.setCellValueFactory(new PropertyValueFactory<Reference,String>("referenceValue"));
@@ -144,6 +204,14 @@ public class ReferenceViewController {
         }else {
             referenceView_table.setItems(refDoctorSpecility);
         }
+    }
+
+    public void reset() {
+
+        referenceView_dropDown.setValue(null);
+        referenceView_AVEDreference.setText(null);
+        referenceView_table.setItems(null);
+
     }
 
 }
