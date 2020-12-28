@@ -13,12 +13,8 @@ public class Appointment {
 
     public Appointment() {
         appointmentID = 0;
-        patient =null;
-        appointmentDate =null;
-        appointmentTime=null;
-        medicalOfficer =null;
         appointmentStatus =AppointmentStatus.PENDING;
-        symtomes=null;
+
     }
 
 
