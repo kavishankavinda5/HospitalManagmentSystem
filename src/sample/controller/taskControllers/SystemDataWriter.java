@@ -18,12 +18,13 @@ public class SystemDataWriter {
         }
 
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file,true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(dataLine);
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
+            System.out.println("Data written to appointment File single data");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,16 +35,19 @@ public class SystemDataWriter {
         File file = new File(filePath);
 
         if (deleteItems ==10){
-            file.delete();
+            boolean isDeletd = file.delete();
             try {
-                file.createNewFile();
+               boolean isFileCreted=  file.createNewFile();
+                System.out.println("file created : "+isFileCreted);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println("file deleted : "+isDeletd);
+
         }
 
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file,true);
             BufferedWriter bufferedWriter =new BufferedWriter(fileWriter);
             for (int i=0;i<dataList.size();i++){
                 bufferedWriter.write(dataList.get(i));
@@ -51,6 +55,7 @@ public class SystemDataWriter {
             }
             bufferedWriter.close();
             fileWriter.close();
+            System.out.println("Data written to appointment File Arrray Data data");
         } catch (IOException e) {
             e.printStackTrace();
         }
