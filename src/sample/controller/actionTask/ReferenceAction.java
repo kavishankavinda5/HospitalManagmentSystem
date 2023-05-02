@@ -36,6 +36,7 @@ public class ReferenceAction {
 =======================================================================================================================
  */
 
+    //write a method for add Reference
     public static void addReference(Reference reference){
     File newRef = new File(referenceFile);
 
@@ -64,7 +65,7 @@ public class ReferenceAction {
     setRefDataToStringList();
 }
 
-
+    //write a method for update Reference
     public static void updateReference(Reference reference){
         Object[] options = { "OK", "CANCEL" };
         Toolkit.getDefaultToolkit().beep();
@@ -74,8 +75,12 @@ public class ReferenceAction {
 
         if (selectedValue == JOptionPane.WHEN_FOCUSED) {
             updateOrDeleteReference(reference,1);
+            JOptionPane.showMessageDialog(null,"Update Successfully");
+            System.out.println("Reference updated success");
         }
     }
+
+    //write a method for delete Reference
     public static void deleteReference(Reference reference){
         Object[] options = { "OK", "CANCEL" };
         Toolkit.getDefaultToolkit().beep();
@@ -85,6 +90,8 @@ public class ReferenceAction {
 
         if (selectedValue == JOptionPane.WHEN_FOCUSED) {
             updateOrDeleteReference(reference,10);
+            JOptionPane.showMessageDialog(null,"Delete Successfully");
+            System.out.println("Reference deleted success");
         }
     }
 
@@ -151,7 +158,6 @@ public class ReferenceAction {
 
     }
 
-
     private static void writeListToRefFile(String fileName,ArrayList<String> RefArray) {
         File fileNew = new File(fileName);
 
@@ -174,12 +180,10 @@ public class ReferenceAction {
 
     }
 
+    /*=======================================================================================================================
+    =============  ********************************************************************************************************
+    =======================================================================================================================*/
 
-    /*
-=======================================================================================================================
-=============  ********************************************************************************************************
-=======================================================================================================================
- */
     public static ArrayList<BloodGroup> getBloogGroup() {
         return bloogGroup;
     }
@@ -320,4 +324,5 @@ public class ReferenceAction {
         referenceTypes.add("Complaint Types");
         referenceTypes.add("Doctor Speciality");
     }
+
 }

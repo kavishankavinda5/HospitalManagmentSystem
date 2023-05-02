@@ -15,6 +15,7 @@ public abstract class User extends SystemUser{
     private String address;
     private String maritalStatus;
     private String userPassword;
+    private String photoPath;
 
     public UserRoll getUserRoll() {
         return userRoll;
@@ -95,6 +96,16 @@ public abstract class User extends SystemUser{
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
+
+    public String getStaffPhoto() {
+        return photoPath;
+    }
+
+    public void setStaffPhoto(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+
 
     @Override
     public String toString() {

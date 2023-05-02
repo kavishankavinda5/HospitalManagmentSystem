@@ -110,7 +110,7 @@ public class ReferenceViewController {
                 }
                 else if (referenceView_table.getSelectionModel().getSelectedIndex() < 0) {
                     Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value from the Table", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     Reference reference =new Reference(selectedRef.getRefenceID(), referenceView_dropDown.getValue(),referenceView_AVEDreference.getText());
@@ -130,7 +130,7 @@ public class ReferenceViewController {
                     JOptionPane.showMessageDialog(null, "Reference Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }else if (referenceView_table.getSelectionModel().getSelectedIndex() < 0){
                     Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please Select a Reference Value from the Table", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
                 else if (referenceView_AVEDreference.getText().length() <= 0) {
                     Toolkit.getDefaultToolkit().beep();

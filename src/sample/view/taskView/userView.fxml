@@ -18,102 +18,130 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.taskControllers.UserViewController">
    <children>
-      <TableView fx:id="userView_userTable" layoutX="1.0" layoutY="496.0" prefHeight="206.0" prefWidth="850.0" style="-fx-background-color: e8e8e8;">
-         <columns>
-
-         </columns>
-      </TableView>
-      <AnchorPane layoutX="-2.0" layoutY="456.0" prefHeight="44.0" prefWidth="850.0" style="-fx-background-color: f3f2da;">
+      <AnchorPane layoutX="2.0" prefHeight="454.0" prefWidth="850.0">
          <children>
-            <JFXButton fx:id="userView_addUser" layoutX="92.0" layoutY="9.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #1e90ff;" text="Add" textFill="WHITE" />
-            <JFXButton fx:id="userView_updateUser" layoutX="238.0" layoutY="9.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #009933;" text="Update" textFill="WHITE" />
-            <JFXButton fx:id="userView_deleteUser" layoutX="384.0" layoutY="9.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #cc0000;" text="Delete" textFill="WHITE" />
-            <JFXButton fx:id="userView_viewAll" layoutX="530.0" layoutY="9.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: gray;" text="View All" textFill="WHITE" />
-            <JFXButton fx:id="userView_reset" layoutX="676.0" layoutY="9.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ff8080;" text="Reset" textFill="WHITE" />
-         </children>
-      </AnchorPane>
-      <Line endX="185.0" endY="-104.0" layoutX="643.0" layoutY="560.0" startX="-623.0" startY="-104.0" stroke="#d9d9d9" />
-      <AnchorPane prefHeight="454.0" prefWidth="850.0" style="-fx-background-color: white;">
-         <children>
-            <Label alignment="CENTER" layoutY="16.0" prefHeight="35.0" prefWidth="174.0" text="USER DETAILS" textFill="#4f5b62">
+            <Label alignment="CENTER" layoutX="6.0" layoutY="12.0" prefHeight="52.0" prefWidth="175.0" text="USER DETAILS" textFill="#4f5b62">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="120.0" text="Name" />
-            <JFXTextField fx:id="userView_name" focusColor="DODGERBLUE" layoutX="96.0" layoutY="115.0" prefHeight="26.0" prefWidth="307.0" promptText="Name" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="16.0" layoutY="160.0" text="Gender" />
-            <JFXTextField fx:id="userView_phoneNum" focusColor="DODGERBLUE" layoutX="96.0" layoutY="235.0" prefHeight="26.0" prefWidth="307.0" promptText="Phone No" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="17.0" layoutY="248.0" text="Phone No" />
-            <Label layoutX="17.0" layoutY="282.0" text="NIC No" />
-            <JFXTextField fx:id="userView_NIC" focusColor="DODGERBLUE" layoutX="96.0" layoutY="273.0" prefHeight="26.0" prefWidth="307.0" promptText="NIC No" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="17.0" layoutY="211.0" text="Date Of Birth" />
-            <DatePicker fx:id="userView_dob" layoutX="95.0" layoutY="204.0" prefHeight="25.0" prefWidth="187.0" promptText="MM/DD/YYYY" />
-            <Label layoutX="15.0" layoutY="323.0" text="Address" />
+            <Label layoutX="17.0" layoutY="108.0" prefHeight="30.0" prefWidth="80.0" text="Name" />
+            <JFXTextField fx:id="userView_name" focusColor="DODGERBLUE" layoutX="105.0" layoutY="106.0" prefHeight="26.0" prefWidth="307.0" promptText="Name" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="17.0" layoutY="157.0" prefHeight="30.0" prefWidth="80.0" text="Gender" />
+            <JFXTextField fx:id="userView_phoneNum" focusColor="DODGERBLUE" layoutX="105.0" layoutY="230.0" prefHeight="26.0" prefWidth="307.0" promptText="Phone No" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="17.0" layoutY="232.0" prefHeight="30.0" prefWidth="80.0" text="Phone No" />
+            <Label layoutX="17.0" layoutY="283.0" prefHeight="30.0" prefWidth="80.0" text="NIC No" />
+            <JFXTextField fx:id="userView_NIC" focusColor="DODGERBLUE" layoutX="105.0" layoutY="282.0" prefHeight="26.0" prefWidth="307.0" promptText="NIC No" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="17.0" layoutY="196.0" prefHeight="30.0" prefWidth="80.0" text="Date Of Birth" />
+            <DatePicker fx:id="userView_dob" layoutX="105.0" layoutY="196.0" prefHeight="25.0" prefWidth="190.0" promptText="MM/DD/YYYY" />
+            <Label layoutX="17.0" layoutY="321.0" prefHeight="30.0" prefWidth="80.0" text="Address" />
             <Label layoutX="121.0" layoutY="81.0" prefHeight="21.0" prefWidth="106.0" text="Person Details">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="userView_marital" layoutX="276.0" layoutY="156.0" prefHeight="25.0" prefWidth="126.0" promptText="Marital" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="223.0" layoutY="160.0" text="Marital" />
-            <Label fx:id="userView_userNameLable" layoutX="14.0" layoutY="390.0" text="User Name" />
-            <JFXTextField fx:id="userView_userName" focusColor="DODGERBLUE" layoutX="98.0" layoutY="385.0" prefHeight="26.0" prefWidth="307.0" promptText="username" style="-fx-background-color: e8e8e8;" />
-            <Line endX="-499.0" endY="-471.0" layoutX="1114.0" layoutY="843.0" startX="-529.0" startY="-471.0" stroke="#d9d9d9" />
-            <Label layoutX="553.0" layoutY="81.0" text="Patient Details">
+            <JFXComboBox fx:id="userView_marital" layoutX="301.0" layoutY="156.0" prefHeight="25.0" prefWidth="110.0" promptText="Marital" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="224.0" layoutY="157.0" prefHeight="30.0" prefWidth="70.0" text="Marital" />
+            <Label fx:id="userView_userNameLable" layoutX="17.0" layoutY="381.0" prefHeight="30.0" prefWidth="80.0" text="User Name" />
+            <JFXTextField fx:id="userView_userName" focusColor="DODGERBLUE" layoutX="105.0" layoutY="380.0" prefHeight="26.0" prefWidth="307.0" promptText="username" style="-fx-background-color: e8e8e8;" />
+            <Line endX="-423.0" endY="-471.0" layoutX="1255.0" layoutY="778.0" startX="-529.0" startY="-471.0" stroke="#d9d9d9" />
+            <Label layoutX="611.0" layoutY="81.0" text="Patient Details">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="userView_allergies" focusColor="DODGERBLUE" layoutX="558.0" layoutY="147.0" prefHeight="26.0" prefWidth="164.0" promptText="Allergies" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="449.0" layoutY="151.0" text="Allergies" />
-            <JFXComboBox fx:id="userView_bloodGroup" layoutX="558.0" layoutY="107.0" prefHeight="25.0" prefWidth="164.0" promptText="Blood Group" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="448.0" layoutY="111.0" text="Blood Group" />
-            <JFXComboBox fx:id="userView_gender" layoutX="96.0" layoutY="156.0" prefHeight="25.0" prefWidth="117.0" promptText="Gender" style="-fx-background-color: e8e8e8;" />
-            <Line endX="-31.0" endY="-468.0" layoutX="631.0" layoutY="674.0" startX="-193.0" startY="-468.0" stroke="#d9d9d9" />
-            <Label layoutX="611.0" layoutY="195.0" text="Staff Details">
+            <JFXTextField fx:id="userView_allergies" focusColor="DODGERBLUE" layoutX="600.0" layoutY="147.0" prefHeight="26.0" prefWidth="198.0" promptText="Allergies" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="510.0" layoutY="148.0" prefHeight="30.0" prefWidth="80.0" text="Allergies" />
+            <JFXComboBox fx:id="userView_bloodGroup" layoutX="600.0" layoutY="107.0" prefHeight="26.0" prefWidth="198.0" promptText="Blood Group" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="510.0" layoutY="108.0" prefHeight="30.0" prefWidth="80.0" text="Blood Group" />
+            <JFXComboBox fx:id="userView_gender" layoutX="105.0" layoutY="156.0" prefHeight="25.0" prefWidth="110.0" promptText="Gender" style="-fx-background-color: e8e8e8;" />
+            <Line endX="-16.60003662109375" endY="-468.0" layoutX="631.0" layoutY="666.0" startX="-193.0" startY="-468.0" stroke="#d9d9d9" />
+            <Label layoutX="624.0" layoutY="188.0" text="Staff Details">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Line endX="-91.20001220703125" endY="-468.0" layoutX="638.0" layoutY="560.0" startX="-209.0" startY="-468.0" stroke="#d9d9d9" />
-            <Line endX="262.0" endY="-322.0" layoutX="544.0" layoutY="527.0" startX="159.0" startY="-322.0" stroke="#d9d9d9" />
-            <JFXTextField fx:id="userView_staffID" focusColor="DODGERBLUE" layoutX="552.0" layoutY="228.0" prefHeight="26.0" prefWidth="198.0" promptText="Staff ID" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="449.0" layoutY="240.0" text="Staff ID" />
-            <Label layoutX="447.0" layoutY="269.0" text="Staff Email" />
-            <JFXTextField fx:id="userView_staffEmail" focusColor="DODGERBLUE" layoutX="552.0" layoutY="260.0" prefHeight="26.0" prefWidth="198.0" promptText="Staff Email" style="-fx-background-color: e8e8e8;" />
-            <Label layoutX="447.0" layoutY="295.0" text="Date Of Joining" />
-            <DatePicker fx:id="userView_staffdoj" layoutX="446.0" layoutY="324.0" prefHeight="26.0" prefWidth="164.0" promptText="MM/DD/YYYY" />
-            <Label layoutX="451.0" layoutY="390.0" text="Specialty Area" />
-            <Label layoutX="648.0" layoutY="328.0" text="Photograph" />
-            <JFXButton layoutX="738.0" layoutY="324.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: silver;" text="Upload  " />
-            <Label layoutX="652.0" layoutY="389.0" text="Document" />
-            <JFXButton layoutX="738.0" layoutY="385.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: silver;" text="Upload  File" />
-            <Line endX="-282.0" endY="-458.0" layoutX="750.0" layoutY="830.0" startX="-304.0" startY="-458.0" stroke="#d9d9d9" />
-            <Label layoutX="476.0" layoutY="361.0" text=" Medical Officer">
+            <Line endX="-91.20001220703125" endY="-468.0" layoutX="689.0" layoutY="560.0" startX="-252.99996948242188" startY="-468.0" stroke="#d9d9d9" />
+            <Line endX="286.4000244140625" endY="-322.0" layoutX="544.0" layoutY="521.0" startX="166.4000244140625" startY="-322.0" stroke="#d9d9d9" />
+            <JFXTextField fx:id="userView_staffID" focusColor="DODGERBLUE" layoutX="600.0" layoutY="215.0" prefHeight="26.0" prefWidth="198.0" promptText="Staff ID" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="510.0" layoutY="218.0" prefHeight="30.0" prefWidth="80.0" text="Staff ID" />
+            <Label layoutX="510.0" layoutY="257.0" prefHeight="30.0" prefWidth="80.0" text="Staff Email" />
+            <JFXTextField fx:id="userView_staffEmail" focusColor="DODGERBLUE" layoutX="600.0" layoutY="255.0" prefHeight="26.0" prefWidth="198.0" promptText="Staff Email" style="-fx-background-color: e8e8e8;" />
+            <Label layoutX="510.0" layoutY="366.0" prefHeight="30.0" prefWidth="80.0" text="Date Of Join" />
+            <DatePicker fx:id="userView_staffdoj" layoutX="600.0" layoutY="366.0" prefHeight="25.0" prefWidth="198.0" promptText="MM/DD/YYYY" />
+            <Label layoutX="510.0" layoutY="326.0" prefHeight="30.0" prefWidth="80.0" text="Specialty Area" />
+            <Label layoutX="451.0" layoutY="401.0" prefHeight="30.0" prefWidth="70.0" text="Photograph" />
+            <JFXButton fx:id="userView_UploadPhoto" layoutX="536.0" layoutY="401.0" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: silver;" text="Upload  " />
+            <Label layoutX="653.0" layoutY="401.0" prefHeight="30.0" prefWidth="70.0" text="Document" />
+            <JFXButton fx:id="userView_UploadFile" layoutX="739.0" layoutY="401.0" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: silver;" text="Upload  File" />
+            <Line endX="-282.0" endY="-458.0" layoutX="878.0" layoutY="766.0" startX="-436.3999938964844" startY="-458.0" stroke="#d9d9d9" />
+            <Label layoutX="611.0" layoutY="297.0" text=" Medical Officer">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <JFXButton fx:id="userView_searchButton" layoutX="737.0" layoutY="21.0" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: #1e90ff;" text="search" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="14.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/icons8-search-512.png" />
                      </image>
                   </ImageView>
-               </graphic></JFXButton>
+               </graphic>
+            </JFXButton>
             <Line endX="-108.0" endY="-467.5" layoutX="509.0" layoutY="559.0" startX="-281.0" startY="-467.5" stroke="#d9d9d9" />
-            <JFXComboBox fx:id="userView_speciality" layoutX="448.0" layoutY="415.0" prefHeight="17.0" prefWidth="164.0" promptText="Specialty Area" style="-fx-background-color: e8e8e8;" />
-            <Line endX="259.0" endY="-467.0" layoutX="545.0" layoutY="559.0" startX="126.0" startY="-467.0" stroke="#d9d9d9" />
+            <JFXComboBox fx:id="userView_speciality" layoutX="600.0" layoutY="325.0" prefHeight="25.0" prefWidth="198.0" promptText="Specialty Area" style="-fx-background-color: e8e8e8;" />
+            <Line endX="259.0" endY="-467.0" layoutX="580.0" layoutY="559.0" startX="137.5999755859375" startY="-467.0" stroke="#d9d9d9" />
             <Line endX="157.0" endY="-561.0" layoutX="648.0" layoutY="568.0" startX="-648.0" startY="-561.0" stroke="#d9d9d9" />
-            <Label layoutX="14.0" layoutY="427.0" text="Password" />
+            <Label layoutX="17.0" layoutY="421.0" prefHeight="30.0" prefWidth="80.0" text="Password" />
             <Line endX="-458.0" endY="-478.0" layoutX="575.0" layoutY="569.0" startX="-577.0" startY="-478.0" stroke="#d9d9d9" />
-            <Label layoutX="200.0" layoutY="23.0" prefHeight="22.0" prefWidth="54.0" text="User Type" />
+            <Label layoutX="191.0" layoutY="22.0" prefHeight="30.0" prefWidth="65.0" text="User Type" />
             <JFXComboBox fx:id="userView_userTypeDrop" layoutX="261.0" layoutY="21.0" prefHeight="26.0" prefWidth="215.0" promptText="usertype" style="-fx-background-color: e8e8e8;" />
-            <JFXPasswordField fx:id="userView_userPassword" layoutX="96.0" layoutY="415.0" prefHeight="26.0" prefWidth="307.0" promptText="password" style="-fx-background-color: e8e8e8;" />
-            <JFXTextArea fx:id="userView_address" layoutX="96.0" layoutY="315.0" prefHeight="52.0" prefWidth="307.0" style="-fx-background-color: e8e8e8;" />
-            <TextField fx:id="userView_searchField" layoutX="552.0" layoutY="22.0" prefHeight="26.0" prefWidth="164.0" promptText="ID Number" />
+            <JFXPasswordField fx:id="userView_userPassword" layoutX="105.0" layoutY="420.0" prefHeight="26.0" prefWidth="307.0" promptText="password" style="-fx-background-color: e8e8e8;" />
+            <JFXTextArea fx:id="userView_address" layoutX="105.0" layoutY="319.0" prefHeight="52.0" prefWidth="307.0" style="-fx-background-color: e8e8e8;" />
+            <TextField fx:id="userView_searchField" layoutX="552.0" layoutY="22.0" prefHeight="26.0" prefWidth="174.0" promptText="ID Number" />
+            <Label fx:id="userView_UploadPhoto_Path" layoutX="449.0" layoutY="436.0" prefHeight="15.0" prefWidth="190.0" textFill="#3300ff">
+               <font>
+                  <Font size="7.0" />
+               </font>
+            </Label>
+            <Label fx:id="userView_UploadFile_Path" layoutX="651.0" layoutY="436.0" prefHeight="15.0" prefWidth="190.0" textFill="#3300ff">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="456.0" prefHeight="44.0" prefWidth="850.0" style="-fx-background-color: f3f2da;">
+         <children>
+            <JFXButton fx:id="userView_addUser" layoutX="92.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #1e90ff;" text="Add" textFill="WHITE" />
+            <JFXButton fx:id="userView_updateUser" layoutX="238.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #009933;" text="Update" textFill="WHITE" />
+            <JFXButton fx:id="userView_deleteUser" layoutX="385.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #cc0000;" text="Delete" textFill="WHITE" />
+            <JFXButton fx:id="userView_viewAll" layoutX="530.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: gray;" text="View All" textFill="WHITE" />
+            <JFXButton fx:id="userView_reset" layoutX="676.0" layoutY="7.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ff8080;" text="Reset" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <Line endX="185.0" endY="-104.0" layoutX="643.0" layoutY="560.0" startX="-623.0" startY="-104.0" stroke="#d9d9d9" />
+      <AnchorPane layoutY="500.0" prefHeight="206.0" prefWidth="850.0">
+         <children>
+            <TableView fx:id="userView_userTable" prefHeight="206.0" prefWidth="850.0" style="-fx-background-color: e8e8e8;">
+               <columns>
+                  <TableColumn prefWidth="51.0" text="NIC No" />
+                  <TableColumn prefWidth="50.0" text="Staff ID" />
+                  <TableColumn prefWidth="46.0" text="Gender" />
+                  <TableColumn minWidth="8.0" prefWidth="82.0" text="Date Of Birth" />
+                  <TableColumn minWidth="0.0" prefWidth="54.0" text="Marital" />
+                  <TableColumn prefWidth="51.0" text="Address" />
+                  <TableColumn minWidth="0.0" prefWidth="60.0" text="Phone No" />
+                  <TableColumn prefWidth="68.79998779296875" text="User Name" />
+                  <TableColumn prefWidth="78.40005493164062" text="Blood Group" />
+                  <TableColumn prefWidth="55.99993896484375" text="Allergies" />
+                  <TableColumn prefWidth="95.2000732421875" text="Date Of Joining" />
+                  <TableColumn prefWidth="66.39990234375" text="Staff Email" />
+                  <TableColumn prefWidth="87.199951171875" text="Specialty Area" />
+                  <TableColumn prefWidth="137.5999755859375" text="Password" />
+               </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

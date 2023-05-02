@@ -5,6 +5,8 @@ import sample.controller.SystemDataReader;
 import sample.controller.taskControllers.SystemDataWriter;
 import sample.model.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,17 +17,40 @@ public class AppointmentAction {
 
     public static void addAppointment(Appointment appointment){
         saveAppointment(appointment);
+        JOptionPane.showMessageDialog(null,"Appointment Add Successfully");
         System.out.println("Appointment saved success");
     }
 
     public static void updateAppointment(Appointment appointment){
-        updateDeleteAppointment(appointment,1);
-        System.out.println("Appointment updated success");
+
+        Object[] options = { "OK", "CANCEL" };
+        Toolkit.getDefaultToolkit().beep();
+        int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Update This Record"+"\nClick OK to continue", "Warning",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
+
+        if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+            updateDeleteAppointment(appointment,1);
+            JOptionPane.showMessageDialog(null,"Appointment Update Successfully");
+            System.out.println("Appointment updated success");
+        }
+
     }
 
     public static void deleteAppointment(Appointment appointment){
-        updateDeleteAppointment(appointment,10);
-        System.out.println("Appointment delete success");
+
+        Object[] options = { "OK", "CANCEL" };
+        Toolkit.getDefaultToolkit().beep();
+        int selectedValue = JOptionPane.showOptionDialog(null, "Are You Sure Delete This Record"+"\nClick OK to continue", "Warning",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
+
+        if (selectedValue == JOptionPane.WHEN_FOCUSED) {
+            updateDeleteAppointment(appointment,10);
+            JOptionPane.showMessageDialog(null,"Appointment Delete Successfully");
+            System.out.println("Appointment delete success");
+        }
+
     }
 
 
@@ -42,6 +67,7 @@ public class AppointmentAction {
     }
 
     public static Appointment searchAppointmentByID(int appID){
+
         Appointment foundAppointment = searchAppointment(appID);
         System.out.println("found appointment record passed");
         return foundAppointment;
@@ -122,6 +148,7 @@ public class AppointmentAction {
     }
 
     private static Appointment searchAppointment(int id){
+
         Appointment foundAppointment = new Appointment();
         ArrayList<Appointment> allRecords = getAppointmentArrayList();
         for (int i=0;i<allRecords.size();i++){
@@ -129,7 +156,9 @@ public class AppointmentAction {
                 foundAppointment = allRecords.get(i);
                 break;
             }
+
         }
+
         return foundAppointment;
     }
 

@@ -9,8 +9,10 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.spec.KeySpec;
 import java.time.LocalDate;
@@ -34,6 +36,9 @@ public class UserAction {
     public static String receptionistFilePath = "src/sample/fileStorage/moduleData/userData/receptionistData.txt";
     public static String medicalOfficerFilePath = "src/sample/fileStorage/moduleData/userData/medicalOfficerData.txt";
     public static String adminFilePath = "src/sample/fileStorage/moduleData/userData/adminData.txt";
+
+    public static String medicaiOfficerPhotoPath= "src/sample/fileStorage/moduleData/userData/userPhoto/medicalOfficer";
+   // public static String patientPhotoPath = "src/sample/fileStorage/moduleData/userData/userPhoto/patient";
 
 
     /* =============================================================================================================
@@ -158,6 +163,7 @@ public class UserAction {
 
         if (roll.equals(UserRoll.ADMIN) || roll.equals(UserRoll.RECEPTIONIST)) {
             savePatient(user);
+            savePatientPhoto(user);
             JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
 
@@ -182,6 +188,23 @@ public class UserAction {
 
     }
 
+    //write a method for save Patient photo
+    private static void savePatientPhoto(Patient user){
+
+        try {
+
+            String patientId = user.getIdCardNumber();
+            String pFolderPath = "src/sample/fileStorage/moduleData/userData/userPhoto/patient";
+            String savePath = pFolderPath + "\\" + patientId +".jpg" ;
+            File imagefile = new File(user.getStaffPhoto());
+            BufferedImage image = ImageIO.read(imagefile);
+            ImageIO.write(image, "jpg", new File(savePath));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //write a method for update patient data
     public static void updatePatientRecord(UserRoll userRoll,Patient patientRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.RECEPTIONIST) || userRoll.equals(UserRoll.ADMIN)){
@@ -194,6 +217,7 @@ public class UserAction {
 
             if (selectedValue == JOptionPane.WHEN_FOCUSED) {
                 editPatientRecord(patientDataFilePath,patientRecord,searchedID,loginUser);
+                savePatientPhoto(patientRecord);
             }
 
         }else {
@@ -853,6 +877,7 @@ public class UserAction {
 
         if (userRoll.equals(UserRoll.ADMIN)) {
             saveMedicalOfficer(medicalOfficer);
+            saveMedicalOfficerPhoto(medicalOfficer);
             JOptionPane.showMessageDialog(null,"Record Add Successfully");
         }
 
@@ -877,6 +902,23 @@ public class UserAction {
 
     }
 
+    //write a method for save medicalofficer photo
+    private static void saveMedicalOfficerPhoto(MedicalOfficer medicalOfficer){
+
+        try{
+
+            String staffId = medicalOfficer.getIdCardNumber();
+            String moFolderPath ="src/sample/fileStorage/moduleData/userData/userPhoto/medicalOfficer";
+            String savePath =moFolderPath + "\\" + staffId +".jpg";
+            File imagefile = new File(medicalOfficer.getStaffPhoto());
+            BufferedImage image = ImageIO.read(imagefile);
+            ImageIO.write(image, "jpg",new File(savePath));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Write a method for update medicalofficer data record
     public static void updateMedicalOfficerRecord(UserRoll userRoll,MedicalOfficer medicalOfficerRecord,String searchedID,LoginUser loginUser){
         if (userRoll.equals(UserRoll.ADMIN)){
@@ -889,6 +931,7 @@ public class UserAction {
 
             if (selectedValue == JOptionPane.WHEN_FOCUSED) {
                 editMedicalOfficerRecord(medicalOfficerFilePath,medicalOfficerRecord,searchedID,loginUser);
+                saveMedicalOfficerPhoto(medicalOfficerRecord);
             }
 
         }

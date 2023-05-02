@@ -5,12 +5,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RegexValidator;
+import com.jfoenix.validation.StringLengthValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +27,8 @@ import sample.controller.actionTask.ReferenceAction;
 import sample.controller.actionTask.UserAction;
 import sample.model.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,7 +51,6 @@ public class AppointmentViewController {
 
     @FXML
     private TableView<Appointment> appointmentView_mainTable;
-
 
     @FXML
     private JFXButton appointmentView_addAppointment;
@@ -161,22 +168,34 @@ public class AppointmentViewController {
     @FXML
     void initialize() {
 
+
+        validateInitialize();
+
         currentAppointment =new Appointment();
 
         appointmentView_status.getItems().addAll(ReferenceAction.apointmentStatus);
 
-        appointmentView_doctorSpecDrop.getItems().addAll(ReferenceAction.getDocSpecialityStringArray());
 
+
+        //Patient
         appointmentView_patientSearch.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String patientID =appointmentView_patientID.getText();
-                Patient patient = UserAction.searchPatient(patientID,null,null);
-                appointmentView_patientShow.setText(
-                        "Name : "+patient.getName()+
-                         "\nID : " +patient.getIdCardNumber()
-                        +"\nContact Number : "+patient.getPhoneNumber());
-                selectedPatient =patient;
+
+                if (appointmentView_patientID.getText().length() <= 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Patient ID is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    String patientID =appointmentView_patientID.getText();
+                    Patient patient = UserAction.searchPatient(patientID,null,null);
+                    appointmentView_patientShow.setText(
+                            "Name : "+patient.getName()+
+                                    "\nID : " +patient.getIdCardNumber()
+                                    +"\nContact Number : "+patient.getPhoneNumber());
+                    selectedPatient =patient;
+                }
+
 
             }
         });
@@ -184,29 +203,72 @@ public class AppointmentViewController {
         appointmentView_selectPatient.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                appointmentView_patient.setText(selectedPatient.getName());
-                currentAppointment.setPatient(selectedPatient);
-                System.out.println("selected patient : "+selectedPatient.toString());
+
+                if (appointmentView_patientID.getText().length() <= 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Patient ID is Empty"+"\nPlease Enter and Search", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+
+                    appointmentView_patient.setText(selectedPatient.getName());
+                    currentAppointment.setPatient(selectedPatient);
+                    System.out.println("selected patient : "+selectedPatient.toString());
+
+                }
             }
         });
+
+
+        //Doctor
+        appointmentView_doctorSpecDrop.getItems().addAll(ReferenceAction.getDocSpecialityStringArray());
 
         appointmentView_doctorselectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String docSpectArea = appointmentView_doctorSpecDrop.getValue();
-                ArrayList<MedicalOfficer> medicBySpec = UserAction.getMedicalOfficerBySpeciality(docSpectArea);
 
-                ObservableList<MedicalOfficer> medicalOfficerBySpec = FXCollections.observableArrayList(medicBySpec);
-
-                if (!isDocTableSet){
-                    isDocTableSet =true;
-                    TableColumn id =new TableColumn("Doctor Name");
-                    appointmentView_docTable.getColumns().addAll(id);
-                    id.setCellValueFactory(new PropertyValueFactory<MedicalOfficer,String>("name"));
+                if (appointmentView_doctorSpecDrop.getSelectionModel().getSelectedIndex() < 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Speciality is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                appointmentView_docTable.setItems(medicalOfficerBySpec);
+                else {
+
+                    String docSpectArea = appointmentView_doctorSpecDrop.getValue();
+                    ArrayList<MedicalOfficer> medicBySpec = UserAction.getMedicalOfficerBySpeciality(docSpectArea);
+
+                    ObservableList<MedicalOfficer> medicalOfficerBySpec = FXCollections.observableArrayList(medicBySpec);
+
+                    if (!isDocTableSet){
+                        isDocTableSet =true;
+                        TableColumn id =new TableColumn("Doctor Name");
+                        appointmentView_docTable.getColumns().addAll(id);
+                        id.setCellValueFactory(new PropertyValueFactory<MedicalOfficer,String>("name"));
+                    }
+                    appointmentView_docTable.setItems(medicalOfficerBySpec);
+                }
 
 
+
+
+            }
+        });
+
+        appointmentView_selectDoc.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            if (appointmentView_doctorSpecDrop.getSelectionModel().getSelectedIndex() < 0) {
+                 Toolkit.getDefaultToolkit().beep();
+                 JOptionPane.showMessageDialog(null, "Speciality is Empty"+"\nPlease Select and Search", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (appointmentView_docTable.getSelectionModel().getSelectedIndex() < 0){
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Please Select a Doctor", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+
+                currentAppointment.setMedicalOfficer(seletedDoctor);
+                appointmentView_doctor.setText(seletedDoctor.getName());
+            }
 
             }
         });
@@ -216,26 +278,105 @@ public class AppointmentViewController {
             public void handle(MouseEvent mouseEvent) {
                 MedicalOfficer selectedOfficer = appointmentView_docTable.getSelectionModel().getSelectedItem();
                 appointmentView_doctorShow.setText("Name : "+selectedOfficer.getName()+"\n"+
-                       "Spectiality :"+ selectedOfficer.getSpeciality());
+                        "Spectiality :"+ selectedOfficer.getSpeciality());
                 seletedDoctor =selectedOfficer;
                 System.out.println("selected medicalOfficer"+selectedOfficer.toString());
             }
         });
 
-        appointmentView_selectDoc.setOnAction(new EventHandler<ActionEvent>() {
+
+
+        appointmentView_searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
-                currentAppointment.setMedicalOfficer(seletedDoctor);
-                appointmentView_doctor.setText(seletedDoctor.getName());
+            public void handle(MouseEvent mouseEvent) {
+
+                if (appointmentView_searchID.getText().length() <= 0) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Appointment Number is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+
+                    int apID =Integer.parseInt(appointmentView_searchID.getText());
+                    Appointment foundAppointment =AppointmentAction.searchAppointmentByID(apID);
+                    displayAppointmentDetailTab(foundAppointment);
+                    setCurrentAppointment(foundAppointment);
+                    displayAppointment(foundAppointment);
+
+                }
             }
         });
 
         appointmentView_addAppointment.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println(getInitialAppointment().toString());
-                currentAppointment.setAppointmentStatus(AppointmentStatus.PENDING);
-                AppointmentAction.addAppointment(getInitialAppointment());
+
+                if(checkInputs()) {
+
+                    if(validateInputs()){
+                        System.out.println(getInitialAppointment().toString());
+                        currentAppointment.setAppointmentStatus(AppointmentStatus.PENDING);
+                        AppointmentAction.addAppointment(getInitialAppointment());
+                    }
+                    else {
+                        Toolkit.getDefaultToolkit().beep();
+                        JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+
+            }
+        });
+
+        appointmentView_updateAppoin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                if ((appointmentView_searchID.getText().length() <= 0) && (appointmentView_mainTable.getSelectionModel().getSelectedIndex() < 0)){
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Please Enter Appointment Number and Search"+"\nor\n"+"Please Select a appointment from the Table", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(checkInputs()){
+
+                    if(validateInputs()){
+                        AppointmentAction.updateAppointment(getCurrentAppointment());
+                    }
+                    else {
+                        Toolkit.getDefaultToolkit().beep();
+                        JOptionPane.showMessageDialog(null, "Invalid Data", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+
+
+
+            }
+        });
+
+        appointmentView_deleteAppoin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                if ((appointmentView_searchID.getText().length() <= 0) && (appointmentView_mainTable.getSelectionModel().getSelectedIndex() < 0)){
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Please Enter Appointment Number and Search"+"\nor\n"+"Please Select a appointment from the Table", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+
+                    AppointmentAction.deleteAppointment(getCurrentAppointment());
+                }
+
+
+            }
+        });
+
+        appointmentView_viewAllAppoin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ArrayList<Appointment> allAp = AppointmentAction.getAppointmentArrayList();
+                ObservableList<Appointment> allAppointments = FXCollections.observableArrayList(allAp);
+                setMainTable();
+                appointmentView_mainTable.setItems(allAppointments);
+
             }
         });
 
@@ -246,16 +387,6 @@ public class AppointmentViewController {
             }
         });
 
-        appointmentView_searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int apID =Integer.parseInt(appointmentView_searchID.getText());
-                Appointment foundAppointment =AppointmentAction.searchAppointmentByID(apID);
-                displayAppointmentDetailTab(foundAppointment);
-                setCurrentAppointment(foundAppointment);
-                displayAppointment(foundAppointment);
-            }
-        });
 
         appointmentView_viewPending.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -287,40 +418,6 @@ public class AppointmentViewController {
             }
         });
 
-        appointmentView_mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Appointment selectedOppintment = appointmentView_mainTable.getSelectionModel().getSelectedItem();
-                displayAppointment(selectedOppintment);
-                displayAppointmentDetailTab(selectedOppintment);
-
-            }
-        });
-
-        appointmentView_updateAppoin.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AppointmentAction.updateAppointment(getCurrentAppointment());
-            }
-        });
-
-        appointmentView_deleteAppoin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                AppointmentAction.deleteAppointment(getCurrentAppointment());
-            }
-        });
-
-        appointmentView_viewAllAppoin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ArrayList<Appointment> allAp = AppointmentAction.getAppointmentArrayList();
-                ObservableList<Appointment> allAppointments = FXCollections.observableArrayList(allAp);
-                setMainTable();
-                appointmentView_mainTable.setItems(allAppointments);
-
-            }
-        });
 
         appointmentView_addPatientBy.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -336,6 +433,18 @@ public class AppointmentViewController {
             }
         });
 
+
+        appointmentView_mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                Appointment selectedOppintment = appointmentView_mainTable.getSelectionModel().getSelectedItem();
+                displayAppointment(selectedOppintment);
+                displayAppointmentDetailTab(selectedOppintment);
+
+
+            }
+        });
 
 
     }
@@ -434,5 +543,103 @@ public class AppointmentViewController {
 
         }
     }
+
+
+    public Boolean checkInputs(){
+
+        Boolean allCheck =false;
+
+
+        if (appointmentView_APdate.getValue() == null) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Date is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (appointmentView_timeHour.getText().length() <= 0 || appointmentView_timeMinute.getText().length() <=0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Time is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (appointmentView_status.getSelectionModel().getSelectedIndex() < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Status is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (appointmentView_patient.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Patient is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (appointmentView_doctor.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Doctor is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (appointmentView_symtoms.getText().length() <= 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Symtoms is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            allCheck = true;
+        }
+        return allCheck;
+    }
+
+    public void validateInitialize(){
+
+        //Check Input Field Of Time is number
+        NumberValidator numbValid = new NumberValidator();
+        numbValid.setMessage("Only Number");
+        appointmentView_timeHour.getValidators().add(numbValid);
+        appointmentView_timeHour.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) appointmentView_timeHour.validate();
+        });
+        appointmentView_timeMinute.getValidators().add(numbValid);
+        appointmentView_timeMinute.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) appointmentView_timeMinute.validate();
+        });
+
+        //Check Length Of Time
+        StringLengthValidator lengthValidatorNumb= new StringLengthValidator(2);
+        appointmentView_timeHour.getValidators().add(lengthValidatorNumb);
+        appointmentView_timeHour.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) appointmentView_timeHour.validate();
+        });
+        appointmentView_timeMinute.getValidators().add(lengthValidatorNumb);
+        appointmentView_timeMinute.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) appointmentView_timeMinute.validate();
+        });
+
+    }
+
+    public Boolean validateInputs(){
+
+        Boolean dataInputs = false;
+
+        //Check Input Field Of Time is number
+        NumberValidator numbValid = new NumberValidator();
+        numbValid.setMessage("Only Number");
+        appointmentView_timeHour.getValidators().add(numbValid);
+        appointmentView_timeHour.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) appointmentView_timeHour.validate();
+        });
+        appointmentView_timeMinute.getValidators().add(numbValid);
+        appointmentView_timeMinute.focusedProperty().addListener((o, oldVal,newVal)->{
+            if(!newVal) appointmentView_timeMinute.validate();
+        });
+
+        //Check Length Of Time
+        StringLengthValidator lengthValidatorNumb= new StringLengthValidator(2);
+        appointmentView_timeHour.getValidators().add(lengthValidatorNumb);
+        appointmentView_timeHour.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) appointmentView_timeHour.validate();
+        });
+        appointmentView_timeMinute.getValidators().add(lengthValidatorNumb);
+        appointmentView_timeMinute.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(!newValue) appointmentView_timeMinute.validate();
+        });
+
+        if ((appointmentView_timeHour.validate() && appointmentView_timeMinute.validate())){
+            dataInputs = true;
+        }
+        return dataInputs;
+    }
+
+
 
 }

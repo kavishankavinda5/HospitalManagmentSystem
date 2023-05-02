@@ -1,14 +1,12 @@
 package sample.model;
 
-import javafx.scene.image.Image;
-
 import java.time.LocalDate;
 
 public abstract class Employee extends User{
     private int staffID;
     private String staffEmailAddress;
     private LocalDate dateOfJoining;
-    private Image staffPhoto;
+    private String photoPath;
 
     public int getStaffID() {
         return staffID;
@@ -22,8 +20,8 @@ public abstract class Employee extends User{
         return dateOfJoining;
     }
 
-    public Image getStaffPhoto() {
-        return staffPhoto;
+    public String getStaffPhoto() {
+        return photoPath;
     }
 
     public void setStaffID(int staffID) {
@@ -38,11 +36,14 @@ public abstract class Employee extends User{
         this.dateOfJoining = dateOfJoining;
     }
 
-    public void setStaffPhoto(Image staffPhoto) {
-        this.staffPhoto = staffPhoto;
+    public void setStaffPhoto(String photoPath) {
+        this.photoPath = photoPath;
     }
 
+
     @Override
+
+
     public String toString() {
         return super.toString()+"~"+staffID +"~" + staffEmailAddress + "~" + dateOfJoining ;
     }

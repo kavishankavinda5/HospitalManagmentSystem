@@ -12,6 +12,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
 import sample.controller.actionTask.ReferenceAction;
 import sample.controller.actionTask.UserAction;
@@ -19,6 +22,7 @@ import sample.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -107,6 +111,25 @@ public class UserViewController implements Initializable {
 
     @FXML
     private JFXPasswordField userView_userPassword;
+
+    @FXML
+    private JFXButton userView_UploadPhoto;
+
+    @FXML
+    private Label userView_UploadPhoto_Path;
+
+    @FXML
+    private JFXButton userView_UploadFile;
+
+    @FXML
+    private Label userView_UploadFile_Path;
+
+    @FXML
+    private Window primaryStage;
+
+
+    public UserViewController() {
+    }
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -451,7 +474,76 @@ public class UserViewController implements Initializable {
             }
         });
 
+        userView_UploadPhoto.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                fileChoose();
+            }
+        });
+
+        userView_UploadFile.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                fileChoose();
+
+            }
+        });
+
+
+
     }
+
+
+//******************************************     UPLOAD     ***********************************************************
+
+    public void configuringFileChooser (FileChooser fileChooser){
+        // Set title for FileChooser
+        fileChooser.setTitle("Select Your Picture");
+
+        // Add Extension Filters
+        fileChooser.getExtensionFilters().addAll(
+
+             new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+             new FileChooser.ExtensionFilter("JPEG", "*.jpeg"));
+             //new FileChooser.ExtensionFilter("PNG", "*.png"));
+    }
+
+    private void photoPath(File file){
+
+        userView_UploadPhoto_Path.setText(file.getAbsolutePath());
+    }
+
+    private void fileChoose(){
+
+        FileChooser fileChooser = new FileChooser();
+        configuringFileChooser(fileChooser);
+
+        if (userView_userTypeDrop.getSelectionModel().getSelectedIndex() < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "User Type is Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+        else{
+
+            switch (userView_userTypeDrop.getValue()) {
+
+                case PATIENT:
+
+                case MEDICALOFFICER:
+
+                    File file = fileChooser.showOpenDialog(primaryStage);
+                    photoPath(file);
+                    break;
+            }
+        }
+
+    }
+
+//*********************************************************************************************************************
+
+
 
     private LoginUser getLoginUser() {
         LoginUser loginUser = new LoginUser();
@@ -537,6 +629,7 @@ public class UserViewController implements Initializable {
         patient.setUserPassword(UserAction.encryptUserData(userView_userPassword.getText()));
         patient.setBloodGroup(userView_bloodGroup.getValue());
         patient.setAllergies(userView_allergies.getText());
+        patient.setStaffPhoto(userView_UploadPhoto_Path.getText());
 
         return patient;
     }
@@ -544,10 +637,10 @@ public class UserViewController implements Initializable {
     public Receptionist getReceptionist(){
         Receptionist receptionist = new Receptionist();
         receptionist.setUserRoll(userView_userTypeDrop.getValue());
-        receptionist.setName(userView_name.getText()); ;
+        receptionist.setName(userView_name.getText());
         receptionist.setGender(userView_gender.getValue());
         receptionist.setMaritalStatus(userView_marital.getValue());
-        receptionist.setDob(userView_dob.getValue()); ;
+        receptionist.setDob(userView_dob.getValue());
         receptionist.setPhoneNumber(userView_phoneNum.getText());
         receptionist.setIdCardNumber(userView_NIC.getText());
         receptionist.setAddress(userView_address.getText());
@@ -562,10 +655,10 @@ public class UserViewController implements Initializable {
     public Admin getAdmin(){
         Admin admin = new Admin();
         admin.setUserRoll(userView_userTypeDrop.getValue());
-        admin.setName(userView_name.getText()); ;
+        admin.setName(userView_name.getText());
         admin.setGender(userView_gender.getValue());
         admin.setMaritalStatus(userView_marital.getValue());
-        admin.setDob(userView_dob.getValue()); ;
+        admin.setDob(userView_dob.getValue());
         admin.setPhoneNumber(userView_phoneNum.getText());
         admin.setAddress(userView_address.getText());
         admin.setIdCardNumber(userView_NIC.getText());
@@ -581,10 +674,10 @@ public class UserViewController implements Initializable {
         MedicalOfficer medicalOfficer = new MedicalOfficer();
 
         medicalOfficer.setUserRoll(userView_userTypeDrop.getValue());
-        medicalOfficer.setName(userView_name.getText()); ;
+        medicalOfficer.setName(userView_name.getText());
         medicalOfficer.setGender(userView_gender.getValue());
         medicalOfficer.setMaritalStatus(userView_marital.getValue());
-        medicalOfficer.setDob(userView_dob.getValue()); ;
+        medicalOfficer.setDob(userView_dob.getValue());
         medicalOfficer.setPhoneNumber(userView_phoneNum.getText());
         medicalOfficer.setIdCardNumber(userView_NIC.getText());
         medicalOfficer.setAddress(userView_address.getText());
@@ -594,6 +687,7 @@ public class UserViewController implements Initializable {
         medicalOfficer.setStaffEmailAddress(userView_staffEmail.getText());
         medicalOfficer.setSpeciality(userView_speciality.getValue());
         medicalOfficer.setDateOfJoining(userView_staffdoj.getValue());
+        medicalOfficer.setStaffPhoto(userView_UploadPhoto_Path.getText());
 
        return medicalOfficer;
 
@@ -618,6 +712,8 @@ public class UserViewController implements Initializable {
         userView_searchField.clear();
         userView_staffID.clear();
         userView_userTypeDrop.getItems();
+        userView_UploadPhoto_Path.setText(null);
+        userView_UploadFile_Path.setText(null);
 
 
     }
@@ -643,6 +739,8 @@ public class UserViewController implements Initializable {
         userView_staffEmail.setDisable(true);
         userView_staffdoj.setDisable(true);
         userView_speciality.setDisable(true);
+        userView_UploadPhoto.setDisable(true);
+        userView_UploadFile.setDisable(true);
     }
 
     public void setViewForReception(){
@@ -661,6 +759,8 @@ public class UserViewController implements Initializable {
         userView_staffEmail.setDisable(false);
         userView_staffdoj.setDisable(false);
         userView_speciality.setDisable(true);
+        userView_UploadPhoto.setDisable(true);
+        userView_UploadFile.setDisable(true);
     }
 
     public void setViewForPatient(){
@@ -679,6 +779,8 @@ public class UserViewController implements Initializable {
         userView_staffEmail.setDisable(true);
         userView_staffdoj.setDisable(true);
         userView_speciality.setDisable(true);
+        userView_UploadPhoto.setDisable(false);
+        userView_UploadFile.setDisable(false);
     }
 
     public void setViewForMedicalOfficer(){
@@ -697,6 +799,8 @@ public class UserViewController implements Initializable {
         userView_staffEmail.setDisable(false);
         userView_staffdoj.setDisable(false);
         userView_speciality.setDisable(false);
+        userView_UploadPhoto.setDisable(false);
+        userView_UploadFile.setDisable(false);
     }
 
 
@@ -730,7 +834,7 @@ public class UserViewController implements Initializable {
 
     public Boolean validateInputs(){
 
-        Boolean dataInputs = false;
+        boolean dataInputs = false;
 
         //Check Input Field Of Name is text
         RegexValidator regexValidator = new RegexValidator();
@@ -764,7 +868,7 @@ public class UserViewController implements Initializable {
 
     public Boolean checkInputs(){
 
-        Boolean allCheck =false;
+        boolean allCheck =false;
 
         if (userView_userTypeDrop.getSelectionModel().getSelectedIndex() < 0) {
             Toolkit.getDefaultToolkit().beep();

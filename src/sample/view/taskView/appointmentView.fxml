@@ -70,9 +70,9 @@
                   <AnchorPane fx:id="appointmentView_mainPane" layoutX="-7.0" layoutY="2.0" prefHeight="446.0" prefWidth="850.0" style="-fx-background-color: white;">
                      <children>
                         <Label layoutX="29.0" layoutY="225.0" prefHeight="26.0" prefWidth="46.0" text="Paitient" />
-                        <JFXTextField fx:id="appointmentView_patient" layoutX="133.0" layoutY="225.0" prefHeight="26.0" prefWidth="262.0" style="-fx-background-color: e8e8e8;" />
+                        <JFXTextField fx:id="appointmentView_patient" editable="false" layoutX="133.0" layoutY="225.0" prefHeight="26.0" prefWidth="262.0" style="-fx-background-color: e8e8e8;" />
                         <Label layoutX="30.0" layoutY="267.0" prefHeight="26.0" prefWidth="90.0" text="Medical Officer" />
-                        <JFXTextField fx:id="appointmentView_doctor" layoutX="133.0" layoutY="267.0" prefHeight="26.0" prefWidth="262.0" style="-fx-background-color: e8e8e8;" />
+                        <JFXTextField fx:id="appointmentView_doctor" editable="false" layoutX="133.0" layoutY="267.0" prefHeight="26.0" prefWidth="262.0" style="-fx-background-color: e8e8e8;" />
                         <Label layoutX="29.0" layoutY="330.0" prefHeight="26.0" prefWidth="62.0" text="Symtoms" />
                         <JFXTextArea fx:id="appointmentView_symtoms" layoutX="133.0" layoutY="320.0" prefHeight="110.0" prefWidth="346.0" style="-fx-background-color: e8e8e8;" />
                         <Label layoutX="29.0" layoutY="87.0" prefHeight="26.0" prefWidth="45.0" text="Date" />
